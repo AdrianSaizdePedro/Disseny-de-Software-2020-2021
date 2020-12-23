@@ -4,6 +4,7 @@ package ub.edu.view;
 
 import ub.edu.controller.ControladorGUI;
 import ub.edu.controller.IController;
+import ub.edu.model.Episodi;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -16,6 +17,7 @@ import java.awt.event.ActionListener;
 import java.lang.reflect.Array;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Vector;
 
 /**
  * GUI bàsica de l'app UBFLIX on es mostraran les diferents llistes corresponent a cada client que hagi realitzat el Log In.
@@ -261,8 +263,9 @@ public class UBFLIXParty extends JFrame{
      * Mètode que actualitza les sèries del catàleg
      */
     private void refreshListAll() {
-        String[] series = {"serie 1","serie 2", "serie 3"};
-        listAll.setListData(series);
+        //String[] series = {"serie 1","serie 2", "serie 3"};
+        List<String> series = controller.llistarCatalegSeries();
+        listAll.setListData(new Vector<>(series));
         refreshTemporades(series);
     }
 
@@ -270,11 +273,11 @@ public class UBFLIXParty extends JFrame{
      * Mètode que serveix per actualitzar les temporades de les sèries passades per paràmetres
      * @param series sèries de les quals s'han d'actualitzar les temporades
      */
-    private void refreshTemporades(String[] series) {
+    private void refreshTemporades(List<String> series) {
         popupMenuTemporades.clear();
         for (String serie: series) {
             JPopupMenu s = new JPopupMenu();
-            String[] temporades = {"temporada 1","temporada 2", "temporada 3"};
+            List<String> temporades = controller.getTemporades(serie);
             for (String temporada: temporades) {
                 JMenu temp = new JMenu(temporada);
                 refreshEpisodis(serie, temporada, temp);
@@ -291,18 +294,22 @@ public class UBFLIXParty extends JFrame{
      * @param jm JMenu de l'episodi
      */
     private void refreshEpisodis(String serie, String temporada, JMenu jm) {
-        String[] episodis = {"episodi 1","episodi 2", "episodi 3"};
-        for (String episodi: episodis) {
-            String idSerie = "Id Serie";
-            int numTemporada = Integer.parseInt(temporada.substring(10));
-            int duracio = 30;
+
+        List<Episodi> episodis = controller.getEpisodis(serie, Integer.parseInt(temporada.split(" ")[1]));
+
+        for (Episodi episodi: episodis) {
+
+            String idSerie = episodi.getIdSerie();
+            int numTemporada = Integer.parseInt(temporada.split(" ")[1]);
+            int duracio = episodi.getDuracio();
             int duracioVisualitzada = 0;
-            String descripcio = "Descripcio de l'episodi";
-            JMenuItem ep = new JMenuItem(episodi);
+            String descripcio = episodi.getDescripcio();
+
+            JMenuItem ep = new JMenuItem(episodi.getTitol());
             ep.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    onEpisodi(idSerie, numTemporada, episodi, duracio, duracioVisualitzada, descripcio);
+                    onEpisodi(idSerie, numTemporada, episodi.getTitol(), duracio, duracioVisualitzada, descripcio);
                 }
             });
             jm.add(ep);

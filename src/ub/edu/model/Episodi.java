@@ -6,7 +6,7 @@ public class Episodi {
     private int idTemporada;
     private int numEpisodi;
     private String titol;
-    private String duracio;
+    private int duracio;
     private String idioma;
     private String descripcio;
     private String data;
@@ -27,10 +27,24 @@ public class Episodi {
         this.idTemporada = idTemporada;
         this.numEpisodi = numEpisodi;
         this.titol = titol;
-        this.duracio = duracio;
+        this.duracio = calcularDuracio(duracio);
         this.idioma = idioma;
         this.descripcio = descripcio;
         this.data = data;
+    }
+
+    private int calcularDuracio(String duracio) {
+
+        try{
+            String[] tiempo = duracio.split(":");
+            String horas = tiempo[0];
+            String minutos = tiempo[1];
+            String segundos = tiempo[2];
+            int resultado = Integer.parseInt(horas)*3600 + Integer.parseInt(minutos)*60 + Integer.parseInt(segundos);
+            return resultado;
+        } catch (NumberFormatException excepcion) {
+            return 0;
+        }
     }
 
 
@@ -106,7 +120,7 @@ public class Episodi {
      *  Método para coger la duración del Episodio
      * @return duración del episodio
      */
-    public String getDuracio() {
+    public int getDuracio() {
         return duracio;
     }
 
@@ -114,7 +128,7 @@ public class Episodi {
      * Método para establecer la duración Episodio
      * @param duracio duración del Episodio
      */
-    public void setDuracio(String duracio) {
+    public void setDuracio(int duracio) {
         this.duracio = duracio;
     }
 

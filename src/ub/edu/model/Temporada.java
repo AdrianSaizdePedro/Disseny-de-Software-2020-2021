@@ -1,6 +1,7 @@
 package ub.edu.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class Temporada {
@@ -58,7 +59,9 @@ public class Temporada {
      * Metodo para devolver la Lista de Episodios de uan Temporada
      * @return Lista de Episodios
      */
-    public List<Episodi> getLlistaEpisodis() {return llistaEpisodis; }
+    public List<Episodi> getLlistaEpisodis() {
+        return llistaEpisodis;
+    }
     /**
      * Metodo para establecer la Lista de Episodios de uan Temporada
      * @param llistaEpisodis Lista de Episodios

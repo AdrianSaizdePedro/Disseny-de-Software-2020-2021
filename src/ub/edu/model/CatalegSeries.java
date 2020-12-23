@@ -1,9 +1,6 @@
 package ub.edu.model;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.*;
 
 public class CatalegSeries {
     // Atributos
@@ -46,13 +43,28 @@ public class CatalegSeries {
      * @return listado de las Series del Catalogo
      * @throws Exception si no hay Series
      * */
-    public Iterable<String> llistarCatalegSeries() throws Exception {
+    public List<String> llistarCatalegSeries() throws Exception {
         if (llistaSeries.isEmpty()) throw new Exception("Series not available");
-        SortedSet<String> titols = new TreeSet<>();
+        List<String> titols = new ArrayList<>();
         for (Serie s : llistaSeries) {
             titols.add(s.getTitol());
         }
+        Collections.sort(titols);
         return titols;
+    }
+
+    /**
+     * Método para pedir el listado de temporadas de una serie
+     * @param nomSerie Nombre de la Serie
+     * @return catalogo de temporadas de una serie
+     * */
+    public List<String> getTemporades(String nomSerie){
+        List<Temporada> temporadas = this.findByTitle(nomSerie).getTemporades();
+        List<String> listaNomTemp = new ArrayList<>();
+        for(Temporada t: temporadas){
+            listaNomTemp.add("Temporada " + t.getIdTemporada());
+        }
+        return listaNomTemp;
     }
 
     /**
@@ -121,4 +133,15 @@ public class CatalegSeries {
         return null;
     }
 
+
+    public List<Episodi> getEpisodis(String nomSerie, int temporada) {
+        List<Temporada> temporadas= this.findByTitle(nomSerie).getTemporades();
+        List<Episodi> llistaEpisodis = new ArrayList<>();
+        for(Temporada t: temporadas){
+            if(temporada == t.getIdTemporada()) {
+                llistaEpisodis.addAll(t.getLlistaEpisodis());
+            }
+        }
+        return llistaEpisodis;
+    }
 }

@@ -37,7 +37,26 @@ public class FacadeSeries {
      * @return listado de las series del Catálogo de Series
      * @throws Exception si no hay Series
      */
-    public Iterable<String> llistarCatalegSeries() throws Exception { return catalegSeries.llistarCatalegSeries(); }
+    public List<String> llistarCatalegSeries() throws Exception { return catalegSeries.llistarCatalegSeries(); }
+
+    /**
+     * Método para pedir el listado de temporadas de una serie
+     * @param nomSerie Nombre de la Serie
+     * @return catalogo de temporadas de una serie
+     * */
+    public List<String> getTemporades(String nomSerie){
+        return catalegSeries.getTemporades(nomSerie);
+    }
+
+    /**
+     * Método para pedir el listado de episodios de una temporada de una serie
+     * @param nomSerie Nombre de la Serie
+     * @param temporada numero de la temporada
+     * @return listado de episodios
+     * */
+    public List<Episodi> getEpisodis(String nomSerie, int temporada) {
+        return catalegSeries.getEpisodis(nomSerie,temporada);
+    }
 
     /**
      * Método para mostrar los detalles de uns Serie

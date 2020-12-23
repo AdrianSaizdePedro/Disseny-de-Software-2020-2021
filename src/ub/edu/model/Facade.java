@@ -3,6 +3,8 @@ package ub.edu.model;
 import ub.edu.controller.ControladorGUI;
 import ub.edu.resources.service.DataService;
 
+import java.util.List;
+
 public class Facade{
     // Atributos
     private volatile static Facade uniqueInstance;
@@ -253,7 +255,26 @@ public class Facade{
      * @return listado de las series del Catálogo de Series
      * @throws Exception si no hay Series
      */
-    public Iterable<String> llistarCatalegSeries() throws Exception { return facadeSeries.llistarCatalegSeries(); }
+    public List<String> llistarCatalegSeries() throws Exception { return facadeSeries.llistarCatalegSeries(); }
+
+    /**
+     * Método para pedir el listado de temporadas de una serie
+     * @param nomSerie Nombre de la Serie
+     * @return catalogo de temporadas de una serie
+     * */
+    public List<String> getTemporades(String nomSerie){
+        return facadeSeries.getTemporades(nomSerie);
+    }
+
+    /**
+     * Método para pedir el listado de episodios de una temporada de una serie
+     * @param nomSerie Nombre de la Serie
+     * @param temporada numero de la temporada
+     * @return listado de episodios
+     * */
+    public List<Episodi> getEpisodis(String nomSerie, int temporada) {
+        return facadeSeries.getEpisodis(nomSerie,temporada);
+    }
 
     /**
      * Método para listar las series de la lista Watching List de un Usuario.
@@ -412,6 +433,7 @@ public class Facade{
         String idUser = dataService.getUsuariByIdClientAndUsername(idClient, nomUsuari).getIdUser();
         return facadeRegistre.valorarEpisodiCor(id, idClient, idUser, idSerie, idEpisodi, idTemporada, data);
     }
+
 
 
 }

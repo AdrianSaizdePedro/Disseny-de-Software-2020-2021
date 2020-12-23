@@ -1,13 +1,11 @@
 package ub.edu.controller;
 
-import ub.edu.model.Facade;
+import ub.edu.model.*;
 import ub.edu.resources.service.DataService;
 import ub.edu.resources.service.FactoryMOCK;
-import ub.edu.model.FacadeClients;
-import ub.edu.model.FacadeRegistre;
-import ub.edu.model.FacadeSeries;
 import ub.edu.view.UBFLIXParty;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ControladorGUI implements IController{
@@ -169,5 +167,38 @@ public class ControladorGUI implements IController{
         } catch (Exception exp){ return exp.getMessage(); }
     }
 
+    ///////////////////////////////////////
+    /*      Métodos Test llistaSeries    */
+    ///////////////////////////////////////
+    /**
+     * Método para pedir el listado de Series del Catalogo de Series
+     * @return catalogo de series listado
+     * */
+    public List<String> llistarCatalegSeries() {
+        try { return facana.llistarCatalegSeries(); }
+        catch (Exception exp) {
+            ArrayList<String> exception = new ArrayList<>();
+            exception.add(exp.getMessage());
+            return exception;
+        }
+    }
 
+    /**
+     * Método para pedir el listado de temporadas de una serie
+     * @param nomSerie Nombre de la Serie
+     * @return catalogo de temporadas de una serie
+     * */
+    public List<String> getTemporades(String nomSerie){
+        return facana.getTemporades(nomSerie);
+    }
+
+    /**
+     * Método para pedir el listado de episodios de una temporada de una serie
+     * @param nomSerie Nombre de la Serie
+     * @param temporada numero de la temporada
+     * @return listado de episodios
+     * */
+    public List<Episodi> getEpisodis(String nomSerie, int temporada) {
+        return facana.getEpisodis(nomSerie,temporada);
+    }
 }
