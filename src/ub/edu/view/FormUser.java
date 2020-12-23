@@ -1,6 +1,9 @@
 package ub.edu.view;
 
+import ub.edu.controller.ControladorGUI;
+
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 
 public class FormUser extends JDialog{
@@ -11,7 +14,8 @@ public class FormUser extends JDialog{
     private JLabel usernameLabel;
 
 
-    public FormUser() {
+    public FormUser(Frame owner) {
+        super(owner);
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
@@ -53,8 +57,14 @@ public class FormUser extends JDialog{
     }
 
     private void onRegister() {
-        JOptionPane.showMessageDialog(this, "Usuari registrat correctament");
-        dispose();
+        UBFLIXParty owner = (UBFLIXParty)getOwner();
+        ControladorGUI controlador = ControladorGUI.getInstance();
+        String info = controlador.addUser(owner.getCurrentClient(), textFieldUsername.getText());
+        JOptionPane.showMessageDialog(this, info, "INFO REGISTER USER", JOptionPane.INFORMATION_MESSAGE);
+        if (info.equals("User created")) {
+            owner.refreshUsersList();
+            dispose();
+        }
     }
 
     private void onCancel() {

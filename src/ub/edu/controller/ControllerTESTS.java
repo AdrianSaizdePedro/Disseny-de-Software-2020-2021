@@ -95,7 +95,9 @@ public class ControllerTESTS implements IController{
      * @param password contraseña del Cliente
      * @return True si existe el Cliente con esa contraseña, False si no
      * */
-    public boolean validateClient(String username, String password) { return facana.validateLoginClient(username, password);}
+    public boolean validateClient(String username, String password) {
+        return facana.validateLoginClient(username, password);
+    }
 
     /**
      * Método para validar la existencia del nombre de un Cliente en CarteraClients

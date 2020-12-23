@@ -1,5 +1,7 @@
 package ub.edu.view;
 
+import ub.edu.controller.ControladorGUI;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -16,19 +18,24 @@ class FrmRegistre extends JDialog {
     private JLabel labelAdreca;
     private JLabel labelDNI;
     private JLabel labelUsername;
+    private JLabel labelUsuari;
     private JLabel labelPassword1;
     private JLabel labelPassword2;
     private JTextField textNomReal;
     private JTextField textDNI;
     private JTextField textAdreca;
     private JTextField textUsername;
+    private JTextField textUsuari;
     private JPasswordField textPassword1;
     private JPasswordField textPassword2;
+
+
 
     /**
      * Constructor de la finestra del Registre on es fixa l'aspecte d'aquesta i s'inicialitzen els components
      */
-    protected FrmRegistre() {
+    protected FrmRegistre(JDialog owner) {
+        super(owner);
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
@@ -86,12 +93,18 @@ class FrmRegistre extends JDialog {
                 textPassword2.setText("");
             }
             else{
-                String info = "Usuari afegit correctament";
-                JOptionPane.showMessageDialog(this, info, "INFORMACIÓ REGISTRE", JOptionPane.INFORMATION_MESSAGE);
-                if (info.equals("Usuari afegit correctament"))
+                ControladorGUI controller = ControladorGUI.getInstance();
+                String info = controller.addClient(textUsername.getText(), String.valueOf(textPassword1.getPassword()), textDNI.getText(), textAdreca.getText(), true);
+                JOptionPane.showMessageDialog(this, info, "INFORMACIÓ REGISTRE CLIENT", JOptionPane.INFORMATION_MESSAGE);
+                if (info.equals("Client created")) {
+                    String info2 = controller.addUser(textUsername.getText(), textUsuari.getText());
+                    if(!info2.equals("User created")) JOptionPane.showMessageDialog(this, info2, "INFORMACIÓ REGISTRE USUARI", JOptionPane.INFORMATION_MESSAGE);
                     this.dispose();
+                }
                 else {
+                    textNomReal.setText("");
                     textUsername.setText("");
+                    textUsuari.setText("");
                     textPassword1.setText("");
                     textPassword2.setText("");
                 }
@@ -108,5 +121,9 @@ class FrmRegistre extends JDialog {
         // add your code here if necessary
         if (JOptionPane.showConfirmDialog(this, "VOLS CANCELAR EL REGISTRE? ", "SORTIR REGISTRE", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0)
             this.dispose();
+    }
+
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
     }
 }

@@ -1,6 +1,8 @@
 package ub.edu.view;
 
 
+import ub.edu.controller.ControladorGUI;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -18,10 +20,12 @@ class FrmLogIn extends JDialog {
     private JLabel labelPassword;
     private JButton btnRegistrar;
 
+
     /**
      * Constructor de la finestra del LogIn on es fixa l'aspecte d'aquesta i s'inicialitzen els components
      */
-    protected FrmLogIn() {
+    protected FrmLogIn(Frame owner) {
+        super(owner);
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(btnLogIn);
@@ -76,9 +80,18 @@ class FrmLogIn extends JDialog {
      */
     private void onOK() {
         try {
-            String info = "Log-in correcte";
-            JOptionPane.showMessageDialog(this, info, "INFORMACIÓ LOG-IN", JOptionPane.INFORMATION_MESSAGE);
-            this.dispose();
+            UBFLIXParty owner = (UBFLIXParty) getOwner();
+            ControladorGUI controlador = ControladorGUI.getInstance();
+            boolean valid = controlador.validateClient(textUsername.getText(), String.valueOf(textPassword.getPassword()));
+            if (valid) {
+                JOptionPane.showMessageDialog(this, "Log-in correcte", "INFO LOG-IN", JOptionPane.INFORMATION_MESSAGE);
+                owner.setCurrentClient(textUsername.getText());
+                owner.refreshUsersList();
+                //owner.updateSeriesLists();
+                this.dispose();
+            } else{
+                JOptionPane.showMessageDialog(this, "Invalid username or password", "INFO LOG-IN", JOptionPane.INFORMATION_MESSAGE);
+            }
 
         } catch (HeadlessException e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "FINESTRA ERROR", JOptionPane.YES_NO_OPTION);
@@ -98,8 +111,9 @@ class FrmLogIn extends JDialog {
      * Acció que es realitza quan es prem sobre el botó 'Registrar' per obrir la finestra de registre d'usuari.
      */
     private void onRegistrar() {
-        FrmRegistre dialog = new FrmRegistre();
+        FrmRegistre dialog = new FrmRegistre(this);
         dialog.pack();
+        dialog.setLocationRelativeTo(this);
         dialog.setVisible(true);
     }
 }

@@ -82,8 +82,9 @@ public class FormPerfilUsuari extends JFrame {
 
 
     private void userActionPerformed() {
-        FormUser dialog = new FormUser();
+        FormUser dialog = new FormUser(this);
         dialog.pack();
+        dialog.setLocationRelativeTo(this);
         dialog.setVisible(true);
     }
 

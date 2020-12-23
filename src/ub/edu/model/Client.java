@@ -231,4 +231,15 @@ public class Client {
         return findUserByName(nomUsuari).listFollowings();
     }
 
+    /**
+     * Metodo para obtener la lista de Usuarios de un CLiente
+     * @return Iterable de nombres de Usuario
+     */
+    public Iterable<String> listUsuaris() {
+        List<String> usuaris = new ArrayList<>();
+        for (Usuari u : this.usuaris) {
+            usuaris.add(u.getName());
+        }
+        return usuaris;
+    }
 }

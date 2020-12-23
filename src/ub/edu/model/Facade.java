@@ -148,6 +148,15 @@ public class Facade{
         return 0;
     }
 
+    /**
+     * Metodo para obtener la lista de Usuarios de un CLiente
+     * @param nomClient id del Cliente
+     * @return Iterable de nombres de Usuario
+     */
+    public Iterable<String> listUsuaris(String nomClient) {
+        return facadeClients.listUsuaris(nomClient);
+    }
+
     //        SOBRE FOLLOWERS/FOLLOWINGS       //
 
     /**
@@ -403,6 +412,7 @@ public class Facade{
         String idUser = dataService.getUsuariByIdClientAndUsername(idClient, nomUsuari).getIdUser();
         return facadeRegistre.valorarEpisodiCor(id, idClient, idUser, idSerie, idEpisodi, idTemporada, data);
     }
+
 
 }
 

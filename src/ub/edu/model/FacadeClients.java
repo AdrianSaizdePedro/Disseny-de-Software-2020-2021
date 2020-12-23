@@ -198,4 +198,12 @@ public class FacadeClients {
      */
     public boolean ferUnfollow(String userUnfollowed, String userUnfollower) throws Exception { return carteraClients.ferUnfollow(userUnfollowed, userUnfollower); }
 
+    /**
+     * Metodo para obtener la lista de Usuarios de un CLiente
+     * @param nomClient id del Cliente
+     * @return Iterable de nombres de Usuario
+     */
+    public Iterable<String> listUsuaris(String nomClient) {
+        return carteraClients.listUsuaris(nomClient);
+    }
 }

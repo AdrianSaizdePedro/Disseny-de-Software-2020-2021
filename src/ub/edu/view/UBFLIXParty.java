@@ -2,6 +2,9 @@ package ub.edu.view;
 
 /* Interfície Gràfica desenvolupada per: Nils Ballús, Joan Cano, David Rial i Miquel Guiot */
 
+import ub.edu.controller.ControladorGUI;
+import ub.edu.controller.IController;
+
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -10,7 +13,9 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.Array;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * GUI bàsica de l'app UBFLIX on es mostraran les diferents llistes corresponent a cada client que hagi realitzat el Log In.
@@ -37,10 +42,15 @@ public class UBFLIXParty extends JFrame{
     private JButton btnAfegirMyList;
     private JComboBox comboBoxUsuaris;
     private JButton perfilButton;
+
     //Afegits manualment
     private HashMap<String, JPopupMenu> popupMenuTemporades;
     private DefaultTableModel tableModelVis;
     private DefaultTableModel tableModelVal;
+
+    private ControladorGUI controller;
+    private String currentClient;
+    private String currentUser;
 
 
     /**
@@ -51,6 +61,15 @@ public class UBFLIXParty extends JFrame{
         this.setLocation(30, 30);
         this.setVisible(true);
         initComponents();
+    }
+
+    /**
+     * Inicializa la instancia controlador de la Vista.
+     * @param controller Controlador de la App
+     */
+    public void init(ControladorGUI controller){
+        this.controller = controller;
+        setVisible(true);
     }
 
     /**
@@ -118,10 +137,17 @@ public class UBFLIXParty extends JFrame{
                 mostrarPopupMenuTemporades(listContinueWatching, fieldNotStarted);
             }
         });
+        comboBoxUsuaris.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (comboBoxUsuaris.getItemCount() > 0) {
+                    setCurrentUser((String)comboBoxUsuaris.getSelectedItem());
+                    //updateSeriesLists();
+                }
+            }
+        });
         popupMenuTemporades = new HashMap<>();
-        comboBoxUsuaris.addItem("Usuari 1");
-        comboBoxUsuaris.addItem("Usuari 2");
-        comboBoxUsuaris.addItem("Usuari 3");
+
         inicialitzarLlistaTopVisualitzacions();
         inicialitzarLlistaTopValoracions();
     }
@@ -152,8 +178,9 @@ public class UBFLIXParty extends JFrame{
     }
 
     private void userActionPerformed() {
-        FormUser dialog = new FormUser();
+        FormUser dialog = new FormUser(this);
         dialog.pack();
+        dialog.setLocationRelativeTo(this);
         dialog.setVisible(true);
     }
 
@@ -205,7 +232,7 @@ public class UBFLIXParty extends JFrame{
      */
     private void ferLogIn() {
         jPanel.setVisible(false);
-        FrmLogIn dialog = new FrmLogIn();
+        FrmLogIn dialog = new FrmLogIn(this);
         dialog.pack();
         dialog.setVisible(true);
         jPanel.setVisible(true);
@@ -347,6 +374,20 @@ public class UBFLIXParty extends JFrame{
     }
 
     /**
+     *
+     * @param
+     */
+    public void refreshUsersList() {
+        comboBoxUsuaris.removeAllItems();
+        List<String> l = (List<String>) controller.listUsuaris(currentClient);
+        for (String userName : l) {
+            comboBoxUsuaris.addItem(userName);
+        }
+        comboBoxUsuaris.setSelectedIndex(0);
+        setCurrentUser((String)comboBoxUsuaris.getSelectedItem());
+    }
+
+    /**
      * Mètode que serveix per obrir la finestra amb tota la informació i opcions disponibles d'un episodi seleccionat
      * @param idSerie identificador de la sèrie de l'episodi
      * @param temporada número de temporada de l'episodi
@@ -362,4 +403,24 @@ public class UBFLIXParty extends JFrame{
     }
 
 
+
+    public IController getController() {
+        return controller;
+    }
+
+    public String getCurrentClient() {
+        return currentClient;
+    }
+
+    public void setCurrentClient(String currentClient) {
+        this.currentClient = currentClient;
+    }
+
+    public String getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(String currentUser) {
+        this.currentUser = currentUser;
+    }
 }

@@ -216,4 +216,12 @@ public class CarteraClients{
     }
 
 
+    /**
+     * Metodo para obtener la lista de Usuarios de un CLiente
+     * @param nomClient id del Cliente
+     * @return Iterable de nombres de Usuario
+     */
+    public Iterable<String> listUsuaris(String nomClient) {
+        return find(nomClient).listUsuaris();
+    }
 }
