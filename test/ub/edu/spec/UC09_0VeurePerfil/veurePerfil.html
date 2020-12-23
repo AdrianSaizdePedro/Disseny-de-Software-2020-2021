@@ -1,0 +1,138 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <title>US23 VeurePerfil</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+
+<body>
+<h2> Test Acceptació 23.1: Visualització Exitosa</h2>
+<p>
+    En cas que l'Usuari tingui nom d'usuari i Id, quan l'usuari demani veure el seu
+    Perfil el Sistema mostrarà les dades de l'usuari.
+
+    The system shall show the elements of Usuer
+</p>
+<div concordion:example="veurePerfil">
+    <table concordion:execute="#valid=veurePerfil(#nomClient, #nomUsuari)">
+        <tr>
+            <th concordion:set="#nomClient">Nom Client</th>
+            <th concordion:set="#nomUsuari">Nom Usuari</th>
+            <th concordion:assertEquals="#valid">Sucess</th>
+        </tr>
+        <tr>
+            <td>ajaleo</td>
+            <td>Manuel</td>
+            <td>Nom Client: ajaleo
+                Nom Usuari: Manuel
+                Id Usuari: id2</td>
+        </tr>
+        <tr>
+            <td>dtomacal</td>
+            <td>Marco</td>
+            <td>Nom Client: dtomacal
+                Nom Usuari: Marco
+                Id Usuari: id5</td>
+        </tr>
+        <tr>
+            <td>chachipistachi</td>
+            <td>Ignasi</td>
+            <td>Nom Client: chachipistachi
+                Nom Usuari: Ignasi
+                Id Usuari: id10</td>
+        </tr>
+        <tr>
+            <td>ajaleo</td>
+            <td>Pol</td>
+            <td>Nom Client: ajaleo
+                Nom Usuari: Pol
+                Id Usuari: id1</td>
+        </tr>
+    </table>
+</div>
+
+<h2> Test Acceptació 23.2: Client no existeix </h2>
+<p>
+    En cas que l'Usuari no hagi posat be el nom del client quan es
+    mostrin els detalls del perfil, el Sistema mostrarà el siguient
+    missatge: "No existe este cliente"
+
+</p>
+<div concordion:example="Client does not exist">
+    <table concordion:execute="#valid=veurePerfil(#nomClient, #nomUsuari)">
+        <tr>
+            <th concordion:set="#nomClient">Nom Client</th>
+            <th concordion:set="#nomUsuari">Nom Usuari</th>
+            <th concordion:assertEquals="#valid">Sucess</th>
+        </tr>
+        <tr>
+            <td>ajaleoa</td>
+            <td>Manuel</td>
+            <td>No existe este cliente</td>
+        </tr>
+        <tr>
+            <td>dtomacales</td>
+            <td>Marco</td>
+            <td>No existe este cliente</td>
+        </tr>
+        <tr>
+            <td>chachipistachis</td>
+            <td>Ignasi</td>
+            <td>No existe este cliente</td>
+        </tr>
+        <tr>
+            <td>ajaleot</td>
+            <td>Pol</td>
+            <td>No existe este cliente</td>
+        </tr>
+        <tr>
+            <td>pero</td>
+            <td>Paula</td>
+            <td>No existe este cliente</td>
+        </tr>
+    </table>
+</div>
+
+<h2> Test Acceptació 23.3: Usuari no existeix</h2>
+<p>
+    En cas que l'Usuari no posi be el nom de l'usuari, quan es mostri els
+    detalls del Perfil, el Sistema mostrarà el siguient missatge:
+    "No existe este Usuario en el Cliente: " + nameClient
+
+</p>
+<div concordion:example="User does not exist">
+    <table concordion:execute="#valid=veurePerfil(#nomClient, #nomUsuari)">
+        <tr>
+            <th concordion:set="#nomClient">Nom Client</th>
+            <th concordion:set="#nomUsuari">Nom Usuari</th>
+            <th concordion:assertEquals="#valid">Sucess</th>
+        </tr>
+        <tr>
+            <td>ajaleo</td>
+            <td>Manueles</td>
+            <td>No existe este Usuario en el Cliente: ajaleo</td>
+        </tr>
+        <tr>
+            <td>dtomacal</td>
+            <td>Marcotes</td>
+            <td>No existe este Usuario en el Cliente: dtomacal</td>
+        </tr>
+        <tr>
+            <td>chachipistachi</td>
+            <td>Ignasios</td>
+            <td>No existe este Usuario en el Cliente: chachipistachi</td>
+        </tr>
+        <tr>
+            <td>ajaleo</td>
+            <td>Polestes</td>
+            <td>No existe este Usuario en el Cliente: ajaleo</td>
+        </tr>
+        <tr>
+            <td>ajaleo</td>
+            <td>Paulationes</td>
+            <td>No existe este Usuario en el Cliente: ajaleo</td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>

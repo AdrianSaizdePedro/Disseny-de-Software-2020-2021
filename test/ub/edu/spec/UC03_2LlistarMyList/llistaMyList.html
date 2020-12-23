@@ -1,0 +1,74 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <title>UC3.2 (Llistar MyList), US6</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<h1> US6. Llistar MyList </h1>
+<p>
+    Com a Usuari registrat, vull llistar el subcàtelg de sèries preferides, per veure les sèries que he guardat.
+</p>
+
+<h2>Criteri Acceptació 6.1: MyList buida</h2>
+<p> En el cas que el subcatàleg de sèries preferides estigui buit, quan l'Usuari llisti el subcatàleg de sèries
+    preferides, el Sistema mostrarà el missatge: "No hi ha sèries preferides".
+</p>
+
+<h2>Criteri Acceptació 6.2: MyList no buida</h2>
+<p> En el cas que el subcatàleg de sèries preferides contingui com a mínim una sèrie, quan l'Usuari llisti el subcatàleg
+    de sèries preferides, el Sistema mostrarà el subcatàleg amb totes les sèries preferides, segons l'ordre d'addició.
+</p>
+
+<div concordion:example="llistarMyList">
+
+    <p>1. Per a l'usuari <span concordion:set="#user">Pol</span> del client <span concordion:set="#client">ajaleo</span>,
+        que mira moltes sèries, <b>MyList</b> serà:</p>
+    <table concordion:verify-rows="#serie : listMyList(#client, #user)">
+        <tr><th concordion:assertEquals="#serie">MyList</th></tr>
+        <tr><td>Breaking Bad</td></tr>
+        <tr><td>Game of Thrones</td></tr>
+        <tr><td>Mr Robot</td></tr>
+        <tr><td>Stranger Things</td></tr>
+    </table>
+
+    <p>2. Per a l'usuari <span concordion:set="#user">Manuel</span> del client <span concordion:set="#client">ajaleo</span>,
+        que li encanten les sèries de ciència ficció, <b>MyList</b> serà:</p>
+    <table concordion:verify-rows="#serie : listMyList(#client, #user)">
+        <tr><th concordion:assertEquals="#serie">MyList</th></tr>
+        <tr><td>Mr Robot</td></tr>
+        <tr><td>The Mandalorian</td></tr>
+    </table>
+
+    <p>4. Per a l'usuari <span concordion:set="#user">Marc</span> del client <span concordion:set="#client">dtomacal</span>,
+        que no té sèries preferides, <b>MyList</b> serà:</p>
+    <table concordion:verify-rows="#serie : listMyList(#client, #user)">
+        <tr><th concordion:assertEquals="#serie">MyList</th></tr>
+        <tr><td>No hi ha sèries preferides.</td></tr>
+    </table>
+
+    <p>5. Per a l'usuari <span concordion:set="#user">Laura</span> del client <span concordion:set="#client">dtomacal</span>,
+        , <b>MyList</b> serà:</p>
+    <table concordion:verify-rows="#serie : listMyList(#client, #user)">
+        <tr><th concordion:assertEquals="#serie">MyList</th></tr>
+        <tr><td>Stranger Things</td></tr>
+        <tr><td>Game of Thrones</td></tr>
+        <tr><td>Breaking Bad</td></tr>
+    </table>
+
+    <p>6. Per un client inventat <span concordion:set="#client">client_indef</span>, el mètode retornarà:</p>
+    <table concordion:verify-rows="#serie : listMyList(#client, #user)">
+        <tr><th concordion:assertEquals="#serie">MyList</th></tr>
+        <tr><td>El client 'client_indef' no existeix.</td></tr>
+    </table>
+
+    <p>7. Per un usuari inventat <span concordion:set="#user">usuari_indef</span> del client
+        <span concordion:set="#client">dtomacal</span>, el mètode retornarà:</p>
+    <table concordion:verify-rows="#serie : listMyList(#client, #user)">
+        <tr><th concordion:assertEquals="#serie">MyList</th></tr>
+        <tr><td>L'usuari 'usuari_indef' del client 'dtomacal' no existeix.</td></tr>
+    </table>
+
+</div>
+
+</body>
+</html>

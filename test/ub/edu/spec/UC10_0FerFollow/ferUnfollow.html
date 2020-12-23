@@ -1,0 +1,90 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <title>FerUnfollow</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>US29. FerUnfollow</h1>
+<p>
+    Treu un usuari de les llistes de Followers y Following . S'utilitzen 2 tests d'acceptació.
+    Com a Usuari registrat, vull deixar de seguir a un altre Usuari, perquè així no podrà
+    enviar-me cap post.
+
+</p>
+
+<h1> Test Acceptació 29.1: L'Usuari és correcte</h1>
+<p>
+    En cas que ja seguixi a un Usuari concret, quan faci Unfollow,
+    el Sistema esborrarà aquest Usuari de la llista de Followings de l'Usuari.
+
+</p>
+<div concordion:example="idCorrecta" >
+    <table concordion:execute="#valid=ferUnfollow(#idUsuariUnfollower, #idUsuariUnfollowed)">
+        <tr>
+            <th concordion:set="#idUsuariUnfollower">Nom Usuari qui vol fer unfollow</th>
+            <th concordion:set="#idUsuariUnfollowed">Nom Usuari a qui vol deixar de seguir</th>
+            <th concordion:assertEquals="#valid">Sucess</th>
+        </tr>
+        <tr>
+            <td>id1</td>
+            <td>id3</td>
+            <td>L'usuari 'id3' correctament eliminat de la llista de Followers de 'id1'.</td>
+        </tr>
+        <tr>
+            <td>id4</td>
+            <td>id1</td>
+            <td>L'usuari 'id1' correctament eliminat de la llista de Followers de 'id4'.</td>
+        </tr>
+        <tr>
+            <td>id8</td>
+            <td>id7</td>
+            <td>L'usuari 'id7' correctament eliminat de la llista de Followers de 'id8'.</td>
+        </tr>
+        <tr>
+            <td>id12</td>
+            <td>id9</td>
+            <td>L'usuari 'id9' correctament eliminat de la llista de Followers de 'id12'.</td>
+        </tr>
+    </table>
+</div>
+
+
+<h1> Test Acceptació 29.2: L'Usuari és incorrecte</h1>
+<p>
+    En cas que l'ID de l'Usuari al que vull deixar de seguir no sigui correcte i/o no existeixi,
+    quan intente fer Unfollow, el Sistema mostrarà un missatge d'error.
+
+</p>
+<div concordion:example="idIncorrecte" >
+    <table concordion:execute="#valid=ferUnfollow(#idUsuariUnfollower, #idUsuariUnfollowed)">
+        <tr>
+            <th concordion:set="#idUsuariUnfollower">Nom Usuari qui vol fer unfollow</th>
+            <th concordion:set="#idUsuariUnfollowed">Nom Usuari a qui vol deixar de seguir</th>
+            <th concordion:assertEquals="#valid">Sucess</th>
+        </tr>
+        <tr>
+            <td>id1</td>
+            <td>id44</td>
+            <td>Usuari 'id44' no existeix</td>
+        </tr>
+        <tr>
+            <td>id30</td>
+            <td>id2</td>
+            <td>Usuari 'id30' no existeix</td>
+        </tr>
+        <tr>
+            <td>id7</td>
+            <td>id8</td>
+            <td>L'usuari 'id8' no hi es a la llista de Followers de 'id7'.</td>
+        </tr>
+        <tr>
+            <td>id40</td>
+            <td>id20</td>
+            <td>Usuari 'id40' no existeix</td>
+        </tr>
+    </table>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,138 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion"><head>
+    <title>FerValoracióCor</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <h1>US16. FrValoracióCor</h1>
+    <p>
+        Permet a l''usuari fer la valoracióo de tipus cor. S'utilitzen 3 tests d'acceptació.
+        Com a Usuari registrat, vull valorar amb un Cor un episodi, perquè així la IA sàpiga
+        quins són els meus gustos.
+
+    </p>
+
+<h1> Test Acceptació 16.1: Valoració exitosa amb cor</h1>
+    <p>
+        En cas que l'Usuari hagi vist l'episodi i hagi seleccionat l'opció de valorar amb cor,
+        quan premi el botó de "like", el Sistema guardará amb cor aquest tipus de valoració
+
+    </p>
+    <div concordion:example="Valoracion Exitosa Cor">
+        <table concordion:execute="#valid=valorarEpisodiCor(#id, #idClient, #nomUsuari, #idSerie, #idTemporada, #idEpisodi, #data)">
+            <tr>
+                <th concordion:set="#id">Id de la Valoracion</th>
+                <th concordion:set="#idClient">Id del Cliente</th>
+                <th concordion:set="#nomUsuari">Nom del Usuari</th>
+                <th concordion:set="#idSerie">Id de la serie</th>
+                <th concordion:set="#idTemporada">Id de la Temporada</th>
+                <th concordion:set="#idEpisodi">Id del Episodio</th>
+                <th concordion:set="#data">Data</th>
+                <th concordion:assertEquals="#valid">Sucess</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>ana</td>
+                <td>Liza</td>
+                <td>gofthrones</td>
+                <td>3</td>
+                <td>3</td>
+                <td>01.12.2020</td>
+                <td>Valoracion añadida Correctamente</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>ana</td>
+                <td>Liza</td>
+                <td>mrobot</td>
+                <td>1</td>
+                <td>1</td>
+                <td>01.12.2020</td>
+                <td>Valoracion añadida Correctamente</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>ajaleo</td>
+                <td>Pol</td>
+                <td>bbad</td>
+                <td>1</td>
+                <td>4</td>
+                <td>01.12.2020</td>
+                <td>Valoracion añadida Correctamente</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>chachipistachi</td>
+                <td>Marc</td>
+                <td>gofthrones</td>
+                <td>3</td>
+                <td>2</td>
+                <td>01.12.2020</td>
+                <td>Valoracion añadida Correctamente</td>
+            </tr>
+        </table>
+    </div>
+
+    <h1> Test Acceptació 16.2: Eliminar darrera valoració</h1>
+    <p>
+        En cas que l'usuari ja hagi valorat anteriorment, quan premi el botó de "like", el Sistema
+        guardará sense Cor si abans ja tenia una valoració amb Cor o guardará amb Cor si abans no
+        tenía una valoració amb Cor
+
+    </p>
+    <div concordion:example="Eliminar Valoracio Cor" >
+        <table concordion:execute="#valid=valorarEpisodiCor(#id, #idClient, #nomUsuari, #idSerie, #idTemporada, #idEpisodi, #data)">
+            <tr>
+                <th concordion:set="#id">Id de la Valoracion</th>
+                <th concordion:set="#idClient">Id del Cliente</th>
+                <th concordion:set="#nomUsuari">Nom del Usuari</th>
+                <th concordion:set="#idSerie">Id de la serie</th>
+                <th concordion:set="#idTemporada">Id de la Temporada</th>
+                <th concordion:set="#idEpisodi">Id del Episodio</th>
+                <th concordion:set="#data">Data</th>
+                <th concordion:assertEquals="#valid">Sucess</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>ajaleo</td>
+                <td>Manuel</td>
+                <td>gofthrones</td>
+                <td>1</td>
+                <td>1</td>
+                <td>01.12.2020</td>
+                <td>Valoracion Eliminada</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>dtomacal</td>
+                <td>Laura</td>
+                <td>bbad</td>
+                <td>1</td>
+                <td>1</td>
+                <td>01.12.2020</td>
+                <td>Valoracion Eliminada</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>ajaleo</td>
+                <td>Pol</td>
+                <td>bbad</td>
+                <td>1</td>
+                <td>1</td>
+                <td>01.12.2020</td>
+                <td>Valoracion Eliminada</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>chachipistachi</td>
+                <td>Marc</td>
+                <td>gofthrones</td>
+                <td>1</td>
+                <td>1</td>
+                <td>01.12.2020</td>
+                <td>Valoracion Eliminada</td>
+            </tr>
+        </table>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,126 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <title>ModificarNom</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <h1>US25. ModificarNom</h1>
+    <p>
+        Modificar el nom del Perfil de l'usuari. S'utilitzen 3 tests d'acceptació.
+        Com a Usuari registrat, vull modificar el nom del meu perfil, perquè aixì
+        puc actualitzar les dades del meu Perfil.
+    </p>
+
+<h1> Test Acceptació 25.1: Modificació nom correct</h1>
+    <p>
+        En cas que l'Usuari vulgui modificar el seu nom de perfil, quan introdueixi
+        el nou nom,	el Sistema substituirà amb el nom nou l'antic nom.
+
+    </p>
+    <div concordion:example="modificarNombreUsuario">
+        <table concordion:execute="#valid=modificarNomPerfil(#nomClient, #nomUsuariAntic, #nomUsuariNou)">
+            <tr>
+                <th concordion:set="#nomClient">Nom Client</th>
+                <th concordion:set="#nomUsuariAntic">Nom Usuari Antic</th>
+                <th concordion:set="#nomUsuariNou">Nom Usuari Nou</th>
+                <th concordion:assertEquals="#valid">Sucess</th>
+            </tr>
+            <tr>
+                <td>ajaleo</td>
+                <td>Manuel</td>
+                <td>Alberto</td>
+                <td>Se ha cambiado el nombre correctamente a: Alberto</td>
+            </tr>
+            <tr>
+                <td>dtomacal</td>
+                <td>Marco</td>
+                <td>Julian</td>
+                <td>Se ha cambiado el nombre correctamente a: Julian</td>
+            </tr>
+            <tr>
+                <td>chachipistachi</td>
+                <td>Ignasi</td>
+                <td>Carlos</td>
+                <td>Se ha cambiado el nombre correctamente a: Carlos</td>
+            </tr>
+            <tr>
+                <td>ajaleo</td>
+                <td>Pol</td>
+                <td>Ruben</td>
+                <td>Se ha cambiado el nombre correctamente a: Ruben</td>
+            </tr>
+        </table>
+    </div>
+<h1> Test Acceptació 25.2: Error modificació nom</h1>
+    <p>
+        En cas que l'Usuari vulgui modificar el seu nom de perfil, però aquest nom
+        ja existeixi dins del client, quan introdueixi el nou nom, el Sistema mostrará
+        un missatge d'error indicant que aquest nom ja existeix i no modificará res.
+
+    </p>
+    <div concordion:example="nombreYaExiste">
+        <table concordion:execute="#valid=modificarNomPerfil(#nomClient, #nomUsuariAntic, #nomUsuariNou)">
+            <tr>
+                <th concordion:set="#nomClient">Nom Client</th>
+                <th concordion:set="#nomUsuariAntic">Nom Usuari Antic</th>
+                <th concordion:set="#nomUsuariNou">Nom Usuari Nou</th>
+                <th concordion:assertEquals="#valid">Sucess</th>
+            </tr>
+            <tr>
+                <td>ajaleo</td>
+                <td>Manuel</td>
+                <td>Pol</td>
+                <td>User alredy has this name</td>
+            </tr>
+            <tr>
+                <td>dtomacal</td>
+                <td>Marco</td>
+                <td>Ignasi</td>
+                <td>User alredy has this name</td>
+            </tr>
+            <tr>
+                <td>chachipistachi</td>
+                <td>Ignasi</td>
+                <td>Ignasi</td>
+                <td>User alredy has this name</td>
+            </tr>
+        </table>
+    </div>
+
+<h1> Test Acceptació 25.3: Usuari no introdueix nom</h1>
+    <p>
+        En cas que l'Usuari no vulgui modificar cap nom, quan no introdueixi un nou nom,
+        el Sistema no fará res i el nom no es modificarà.
+
+    </p>
+    <div concordion:example="nombreNoVacio">
+        <table concordion:execute="#valid=modificarNomPerfil(#nomClient, #nomUsuariAntic, #nomUsuariNou)">
+            <tr>
+                <th concordion:set="#nomClient">Nom Client</th>
+                <th concordion:set="#nomUsuariAntic">Nom Usuari Antic</th>
+                <th concordion:set="#nomUsuariNou">Nom Usuari Nou</th>
+                <th concordion:assertEquals="#valid">Sucess</th>
+            </tr>
+            <tr>
+                <td>ajaleo</td>
+                <td>Manuel</td>
+                <td></td>
+                <td>El nombre del usuario nuevo no debe ser vacío</td>
+            </tr>
+            <tr>
+                <td>dtomacal</td>
+                <td>Marco</td>
+                <td></td>
+                <td>El nombre del usuario nuevo no debe ser vacío</td>
+            </tr>
+            <tr>
+                <td>chachipistachi</td>
+                <td>Ignasi</td>
+                <td></td>
+                <td>El nombre del usuario nuevo no debe ser vacío</td>
+            </tr>
+        </table>
+    </div>
+
+</body>
+</html>

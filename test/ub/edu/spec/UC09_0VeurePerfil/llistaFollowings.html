@@ -1,0 +1,127 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <title>LlistaFollowings</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <h1>US27. LlistaFollowings</h1>
+    <p>
+        Mostra la llista de Followings de l'usuari. S'utilitzen 2 test d'acceptació.
+        Com a Usuari registrat,	vull llistar la llista de Followings, perquè així puc
+        veure a qui segueixo.
+
+    </p>
+
+
+<h1> Test Acceptació 27.1: L'Usuari no té Followings</h1>
+    <p>
+        En cas que l'Usuari no segueix a ningú,	quan demani llistar el seus Followings,	el
+        Sistema mostrará el següent missatge: "Llista de Followings buida".
+
+    </p>
+    <div concordion:example="lListaBuida " >
+
+        <p>1. Per a l'usuari <span concordion:set="#nomUser">Marco</span> del client <span concordion:set="#nomClient">dtomacal</span>,
+            <b>Followings</b> serà:</p>
+        <table concordion:verify-rows="#followings : llistarFollowings(#nomClient, #nomUser)">
+            <tr><th concordion:assertEquals="#followings">Followings</th></tr>
+            <tr><td>Llista de Followings buida</td></tr>
+        </table>
+
+        <p>2. Per a l'usuari <span concordion:set="#nomUser">Laura</span> del client <span concordion:set="#nomClient">chachipistachi</span>,
+            <b>Followings</b> serà:</p>
+        <table concordion:verify-rows="#followings : llistarFollowings(#nomClient, #nomUser)">
+            <tr><th concordion:assertEquals="#followings">Followings</th></tr>
+            <tr><td>Llista de Followings buida</td></tr>
+        </table>
+    </div>
+
+
+<h1> Test Acceptació 27.2: Llistat correcte Followings</h1>
+    <p>
+        En cas que l'Usuari segueixi com a minim a un altre Usuari,	quan demani llistar
+        el seus Followings,	el Sistema mostrarà en ordre alfabètic els usuaris que segueix.
+
+    </p>
+    <div concordion:example="lListaNoBuida ">
+
+        <p>1. Per a l'usuari <span concordion:set="#nomUser">Pol</span> del client <span concordion:set="#nomClient">ajaleo</span>,
+            <b>Followings</b> serà:</p>
+        <table concordion:verify-rows="#followings : llistarFollowings(#nomClient, #nomUser)">
+            <tr><th concordion:assertEquals="#followings">Followings</th></tr>
+            <tr><td>Laura</td></tr>
+        </table>
+
+        <p>2. Per a l'usuari <span concordion:set="#nomUser">Manuel</span> del client <span concordion:set="#nomClient">ajaleo</span>,
+            <b>Followings</b> serà:</p>
+        <table concordion:verify-rows="#followings : llistarFollowings(#nomClient, #nomUser)">
+            <tr><th concordion:assertEquals="#followings">Followings</th></tr>
+            <tr><td>Tomía</td></tr>
+        </table>
+
+        <p>3. Per a l'usuari <span concordion:set="#nomUser">Marc</span> del client <span concordion:set="#nomClient">dtomacal</span>,
+            <b>Followings</b> serà:</p>
+        <table concordion:verify-rows="#followings : llistarFollowings(#nomClient, #nomUser)">
+            <tr><th concordion:assertEquals="#followings">Followings</th></tr>
+            <tr><td>Pol</td></tr>
+        </table>
+
+        <p>4. Per a l'usuari <span concordion:set="#nomUser">Laura</span> del client <span concordion:set="#nomClient">dtomacal</span>,
+            <b>Followings</b> serà:</p>
+        <table concordion:verify-rows="#followings : llistarFollowings(#nomClient, #nomUser)">
+            <tr><th concordion:assertEquals="#followings">Followings</th></tr>
+            <tr><td>Tomía</td></tr>
+        </table>
+
+        <p>5. Per a l'usuari <span concordion:set="#nomUser">Ignasi</span> del client <span concordion:set="#nomClient">dtomacal</span>,
+            <b>Followings</b> serà:</p>
+        <table concordion:verify-rows="#followings : llistarFollowings(#nomClient, #nomUser)">
+            <tr><th concordion:assertEquals="#followings">Followings</th></tr>
+            <tr><td>Pol</td></tr>
+        </table>
+
+        <p>6. Per a l'usuari <span concordion:set="#nomUser">Marc</span> del client <span concordion:set="#nomClient">chachipistachi</span>,
+            <b>Followings</b> serà:</p>
+        <table concordion:verify-rows="#followings : llistarFollowings(#nomClient, #nomUser)">
+            <tr><th concordion:assertEquals="#followings">Followings</th></tr>
+            <tr><td>Laura</td></tr>
+        </table>
+
+        <p>7. Per a l'usuari <span concordion:set="#nomUser">Marco</span> del client <span concordion:set="#nomClient">chachipistachi</span>,
+            <b>Followings</b> serà:</p>
+        <table concordion:verify-rows="#followings : llistarFollowings(#nomClient, #nomUser)">
+            <tr><th concordion:assertEquals="#followings">Followings</th></tr>
+            <tr><td>Tomía</td></tr>
+        </table>
+
+        <p>8. Per a l'usuari <span concordion:set="#nomUser">Ignasi</span> del client <span concordion:set="#nomClient">chachipistachi</span>,
+            <b>Followings</b> serà:</p>
+        <table concordion:verify-rows="#followings : llistarFollowings(#nomClient, #nomUser)">
+            <tr><th concordion:assertEquals="#followings">Followings</th></tr>
+            <tr><td>Laura</td></tr>
+        </table>
+
+        <p>9. Per a l'usuari <span concordion:set="#nomUser">Arnau</span> del client <span concordion:set="#nomClient">chachipistachi</span>,
+            <b>Followings</b> serà:</p>
+        <table concordion:verify-rows="#followings : llistarFollowings(#nomClient, #nomUser)">
+            <tr><th concordion:assertEquals="#followings">Followings</th></tr>
+            <tr><td>Tomía</td></tr>
+        </table>
+
+        <p>10. Per a l'usuari <span concordion:set="#nomUser">Tomía</span> del client <span concordion:set="#nomClient">ana</span>,
+            <b>Followings</b> serà:</p>
+        <table concordion:verify-rows="#followings : llistarFollowings(#nomClient, #nomUser)">
+            <tr><th concordion:assertEquals="#followings">Followings</th></tr>
+            <tr><td>Laura</td></tr>
+        </table>
+
+        <p>10. Per a l'usuari <span concordion:set="#nomUser">Liza</span> del client <span concordion:set="#nomClient">ana</span>,
+            <b>Followings</b> serà:</p>
+        <table concordion:verify-rows="#followings : llistarFollowings(#nomClient, #nomUser)">
+            <tr><th concordion:assertEquals="#followings">Followings</th></tr>
+            <tr><td>Laura</td></tr>
+        </table>
+    </div>
+
+</body>
+</html>

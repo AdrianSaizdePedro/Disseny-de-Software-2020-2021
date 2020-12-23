@@ -1,0 +1,81 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion">
+<head>
+    <title>UC3.1 (Llistar WatchingList), US7</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<h1> US7. Llistar Watching List </h1>
+<p>
+    Com a Usuari registrat, vull visitar els subcatàlegs de sèries que estic veient,
+    per així continuar la reproducció.
+</p>
+
+<h2>Criteri Acceptació 7.1: Watching List buit</h2>
+<p> En el cas que el subcatàleg de sèries vistes estigui buit, quan l'Usuari llisti el
+    subcatàleg de sèries vistes, el Sistema mostrarà el missatge: "No hi ha sèries vistes".
+</p>
+
+<div concordion:example="watchingListBuit">
+
+    <p>Per a l'usuari <span concordion:set="#user">Manuel</span> del client <span concordion:set="#client">ajaleo</span>,
+        que és nou i no ha vist cap sèrie, la <b>Watching List</b> retornarà:</p>
+
+    <table concordion:verify-rows="#serie : listWatchingList(#client, #user)">
+        <tr><th concordion:assertEquals="#serie">Watching List</th></tr>
+        <tr><td>No hi ha sèries visualitzades.</td></tr>
+    </table>
+</div>
+
+<h2>Criteri Acceptació 7.2: Watching List no buit</h2>
+<p> En el cas que el subcatàleg de sèries vistes contingui com a mínim una sèrie, quan l'Usuari llisti
+    el subcatàleg de sèries vistes, el Sistema mostrarà el subcatàleg amb totes les sèries vistes,
+    per ordre de reproducció més recent.
+</p>
+
+<div concordion:example="watchingListNoBuit">
+
+    <p>Per a l'usuari <span concordion:set="#user">Laura</span> del client <span concordion:set="#client">dtomacal</span>,
+        que s'ha vist les series de Stranger Things, Breaking Bad, The Mandalorian i Mr Robot en aquest ordre,
+        la <b>Watching List</b> serà:
+    </p>
+
+    <table concordion:verify-rows="#serie : listWatchingList(#client, #user)">
+        <tr><th concordion:assertEquals="#serie">Watching List</th></tr>
+        <tr><td>Mr Robot</td></tr>
+        <tr><td>The Mandalorian</td></tr>
+        <tr><td>Breaking Bad</td></tr>
+        <tr><td>Stranger Things</td></tr>
+    </table>
+
+    <p>Per a l'usuari <span concordion:set="#user">Pol</span> del client <span concordion:set="#client">ajaleo</span>,
+        que només s'ha vist les serie de The Mandalorian, la <b>Watching List</b> serà:
+    </p>
+
+    <table concordion:verify-rows="#serie : listWatchingList(#client, #user)">
+        <tr><th concordion:assertEquals="#serie">Watching List</th></tr>
+        <tr><td>The Mandalorian</td></tr>
+    </table>
+
+</div>
+
+<div concordion:example="invalidClientOrUser">
+<p> Per un client inventat <span concordion:set="#client">client_indef</span>, el mètode retornarà:</p>
+
+<table concordion:verify-rows="#serie : listWatchingList(#client, #user)">
+    <tr><th concordion:assertEquals="#serie">Watching List</th></tr>
+    <tr><td>El client 'client_indef' no existeix.</td></tr>
+</table>
+</div>
+
+<div concordion:example="invalidUser">
+    <p>Per un usuari inventat <span concordion:set="#user">usuari_indef</span> del client
+    <span concordion:set="#client">dtomacal</span>, el mètode retornarà:</p>
+
+    <table concordion:verify-rows="#serie : listWatchingList(#client, #user)">
+        <tr><th concordion:assertEquals="#serie">Watching List</th></tr>
+        <tr><td>L'usuari 'usuari_indef' del client 'dtomacal' no existeix.</td></tr>
+    </table>
+</div>
+
+</body>
+</html>
