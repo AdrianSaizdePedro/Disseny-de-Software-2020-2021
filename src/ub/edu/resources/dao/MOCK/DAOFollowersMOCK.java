@@ -13,34 +13,39 @@ public class DAOFollowersMOCK implements DAOFollowers {
      */
     private final Map<String, ArrayList<Usuari>> followers = new HashMap<>();
 
-    public DAOFollowersMOCK(DAOUsuari daoUsers) throws Exception {
+    public DAOFollowersMOCK(DAOUsuari daoUsers){
 
-        // Followers de 'Pol' del Cliente 'ajaleo'
-        ArrayList<Usuari> followers_1 = new ArrayList<>();
-        followers_1.add(Objects.requireNonNull(daoUsers.getById("id3").get(), "User 'id3' is null"));
-        followers_1.add(Objects.requireNonNull(daoUsers.getById("id6").get(), "User 'id6' is null"));
-        followers.put("id1", followers_1);
+        try {
+            // Followers de 'Pol' del Cliente 'ajaleo'
+            ArrayList<Usuari> followers_1 = new ArrayList<>();
+            followers_1.add(Objects.requireNonNull(daoUsers.getById("id3").get(), "User 'id3' is null"));
+            followers_1.add(Objects.requireNonNull(daoUsers.getById("id6").get(), "User 'id6' is null"));
+            followers.put("id1", followers_1);
 
-        // Followers de 'Laura' del Cliente 'dtomacal'
-        ArrayList<Usuari> followers_2 = new ArrayList<>();
-        followers_2.add(Objects.requireNonNull(daoUsers.getById("id1").get(), "User 'id1' is null"));
-        followers_2.add(Objects.requireNonNull(daoUsers.getById("id10").get(), "User 'id10' is null"));
-        followers.put("id4", followers_2);
+            // Followers de 'Laura' del Cliente 'dtomacal'
+            ArrayList<Usuari> followers_2 = new ArrayList<>();
+            followers_2.add(Objects.requireNonNull(daoUsers.getById("id1").get(), "User 'id1' is null"));
+            followers_2.add(Objects.requireNonNull(daoUsers.getById("id10").get(), "User 'id10' is null"));
+            followers.put("id4", followers_2);
 
-        // Followers de 'Laura' del Cliente 'chachipistachi'
-        ArrayList<Usuari> followers_3 = new ArrayList<>();
-        followers_3.add(Objects.requireNonNull(daoUsers.getById("id7").get(), "User 'id7' is null"));
-        followers_3.add(Objects.requireNonNull(daoUsers.getById("id13").get(), "User 'id13' is null"));
-        followers_3.add(Objects.requireNonNull(daoUsers.getById("id12").get(), "User 'id12' is null"));
-        followers.put("id8", followers_3);
+            // Followers de 'Laura' del Cliente 'chachipistachi'
+            ArrayList<Usuari> followers_3 = new ArrayList<>();
+            followers_3.add(Objects.requireNonNull(daoUsers.getById("id7").get(), "User 'id7' is null"));
+            followers_3.add(Objects.requireNonNull(daoUsers.getById("id13").get(), "User 'id13' is null"));
+            followers_3.add(Objects.requireNonNull(daoUsers.getById("id12").get(), "User 'id12' is null"));
+            followers.put("id8", followers_3);
 
-        // Followers de 'Tomía' del Cliente 'ana'
-        ArrayList<Usuari> followers_4 = new ArrayList<>();
-        followers_4.add(Objects.requireNonNull(daoUsers.getById("id9").get(), "User 'id9' is null"));
-        followers_4.add(Objects.requireNonNull(daoUsers.getById("id4").get(), "User 'id4' is null"));
-        followers_4.add(Objects.requireNonNull(daoUsers.getById("id11").get(), "User 'id11' is null"));
-        followers_4.add(Objects.requireNonNull(daoUsers.getById("id2").get(), "User 'id2' is null"));
-        followers.put("id12", followers_4);
+            // Followers de 'Tomía' del Cliente 'ana'
+            ArrayList<Usuari> followers_4 = new ArrayList<>();
+            followers_4.add(Objects.requireNonNull(daoUsers.getById("id9").get(), "User 'id9' is null"));
+            followers_4.add(Objects.requireNonNull(daoUsers.getById("id4").get(), "User 'id4' is null"));
+            followers_4.add(Objects.requireNonNull(daoUsers.getById("id11").get(), "User 'id11' is null"));
+            followers_4.add(Objects.requireNonNull(daoUsers.getById("id2").get(), "User 'id2' is null"));
+            followers.put("id12", followers_4);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override

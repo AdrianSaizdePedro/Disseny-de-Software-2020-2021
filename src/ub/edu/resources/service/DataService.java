@@ -10,6 +10,8 @@ import java.util.Optional;
 
 public class DataService {
     // Atributos
+    private volatile static DataService uniqueInstance;
+
     private final DAOSerie serieDAO;
     private final DAOClient clientDAO;
     private final DAOUsuari usuariDAO;
@@ -28,7 +30,7 @@ public class DataService {
      * Método contructor del DataService
      * @param factory de la AbstractFactoryData
      * */
-    public DataService(AbstractFactoryData factory){
+    private DataService(AbstractFactoryData factory){
         this.serieDAO = factory.createDAOSerie();
         this.clientDAO = factory.createDAOClient();
         this.usuariDAO = factory.createDAOUsuari();
@@ -43,7 +45,17 @@ public class DataService {
         this.followingsDAO = factory.createDAOFollowings(usuariDAO);
         // TO DO: Crear els altres DAO de les altres estructures
 
+    }
 
+    public static DataService getInstance(AbstractFactoryData factory) {
+        if (uniqueInstance == null) {
+            synchronized (DataService.class) {
+                if (uniqueInstance == null) {
+                    uniqueInstance = new DataService(factory);
+                }
+            }
+        }
+        return uniqueInstance;
     }
 
     //////////////////////////

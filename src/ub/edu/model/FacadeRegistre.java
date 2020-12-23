@@ -5,12 +5,25 @@ import java.util.Map;
 
 public class FacadeRegistre {
     // Atributos
+    private volatile static FacadeRegistre uniqueInstance;
+
     private final ub.edu.model.Registre registre;
 
     /**
      * Metodo constructor de FacadeRegistre
      */
-    public FacadeRegistre(){ this.registre = new ub.edu.model.Registre(); }
+    private FacadeRegistre(){ this.registre = new ub.edu.model.Registre(); }
+
+    public static FacadeRegistre getInstance() {
+        if (uniqueInstance == null) {
+            synchronized (FacadeClients.class) {
+                if (uniqueInstance == null) {
+                    uniqueInstance = new FacadeRegistre();
+                }
+            }
+        }
+        return uniqueInstance;
+    }
 
     /**
      * Metodo para inicializar el Registre

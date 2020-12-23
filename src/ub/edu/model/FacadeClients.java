@@ -1,5 +1,7 @@
 package ub.edu.model;
 
+import ub.edu.resources.service.DataService;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -7,12 +9,26 @@ import java.util.regex.Pattern;
 
 public class FacadeClients {
     // Atributos
+    private volatile static FacadeClients uniqueInstance;
+
     private final CarteraClients carteraClients;
 
     /**
      * Metodo constructor de FacadeClients
+     * Patrón Singleton
      */
-    public FacadeClients() { this.carteraClients = new CarteraClients(); }
+   private FacadeClients() { this.carteraClients = new CarteraClients(); }
+
+    public static FacadeClients getInstance() {
+        if (uniqueInstance == null) {
+            synchronized (FacadeClients.class) {
+                if (uniqueInstance == null) {
+                    uniqueInstance = new FacadeClients();
+                }
+            }
+        }
+        return uniqueInstance;
+    }
 
     /**
      * Metodo para inicializar la Cartera de Clientes

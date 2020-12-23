@@ -15,17 +15,17 @@ public class ControladorGUI implements IController{
     private FacadeRegistre facadeRegistre;
 
     private ControladorGUI() {
+        dataService = DataService.getInstance(new FactoryMOCK());
+        facadeSeries = FacadeSeries.getInstance();
+        facadeClients = FacadeClients.getInstance();
+        facadeRegistre = FacadeRegistre.getInstance();
     }
 
-    public static ControladorGUI getInstance() throws Exception {
+    public static ControladorGUI getInstance(){
         if (uniqueInstance == null) {
             synchronized (ControladorGUI.class) {
                 if (uniqueInstance == null) {
                     uniqueInstance = new ControladorGUI();
-                    uniqueInstance.dataService = new DataService(new FactoryMOCK());
-                    uniqueInstance.facadeSeries = new FacadeSeries();
-                    uniqueInstance.facadeClients = new FacadeClients();
-                    uniqueInstance.facadeRegistre = new FacadeRegistre();
                 }
             }
         }

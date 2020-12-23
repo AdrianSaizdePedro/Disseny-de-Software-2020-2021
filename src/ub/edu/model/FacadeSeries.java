@@ -4,12 +4,25 @@ import java.util.List;
 
 public class FacadeSeries {
     // Atributos
+    private volatile static FacadeSeries uniqueInstance;
+
     private final ub.edu.model.CatalegSeries catalegSeries;
 
     /**
      * Método constructor de FacadeSeries
      */
-    public FacadeSeries() { this.catalegSeries = new ub.edu.model.CatalegSeries(); }
+    private FacadeSeries() { this.catalegSeries = new ub.edu.model.CatalegSeries(); }
+
+    public static FacadeSeries getInstance() {
+        if (uniqueInstance == null) {
+            synchronized (FacadeSeries.class) {
+                if (uniqueInstance == null) {
+                    uniqueInstance = new FacadeSeries();
+                }
+            }
+        }
+        return uniqueInstance;
+    }
 
     /**
      * Metodo para inicializar el Catalogo de Series

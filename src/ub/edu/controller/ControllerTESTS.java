@@ -17,8 +17,8 @@ public class ControllerTESTS implements IController{
     public ControllerTESTS() {
         AbstractFactoryData factory = new FactoryMOCK();
         try {
-            DataService dataService = new DataService(factory);
-            facana = new Facade(dataService);
+            DataService dataService = DataService.getInstance(factory);
+            facana = Facade.getInstance(dataService);
             init();
         } catch (Exception e) {
             System.out.println("FATAL ERROR: " + e.getMessage());

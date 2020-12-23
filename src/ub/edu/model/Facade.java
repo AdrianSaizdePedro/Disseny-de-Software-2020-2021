@@ -1,9 +1,12 @@
 package ub.edu.model;
 
+import ub.edu.controller.ControladorGUI;
 import ub.edu.resources.service.DataService;
 
 public class Facade{
     // Atributos
+    private volatile static Facade uniqueInstance;
+
     private final DataService dataService;
     private final FacadeSeries facadeSeries;
     private final ub.edu.model.FacadeClients facadeClients;
@@ -11,12 +14,24 @@ public class Facade{
 
     /**
      * Método contructor de Facades
+     * Patrón Singleton
      * */
-    public Facade (DataService dataService) {
+    private Facade (DataService dataService) {
         this.dataService = dataService;
-        this.facadeSeries = new FacadeSeries();
-        this.facadeClients = new ub.edu.model.FacadeClients();
-        this.facadeRegistre = new FacadeRegistre();
+        this.facadeSeries = FacadeSeries.getInstance();
+        this.facadeClients = FacadeClients.getInstance();
+        this.facadeRegistre = FacadeRegistre.getInstance();
+    }
+
+    public static Facade getInstance(DataService dataService) {
+        if (uniqueInstance == null) {
+            synchronized (Facade.class) {
+                if (uniqueInstance == null) {
+                    uniqueInstance = new Facade(dataService);
+                }
+            }
+        }
+        return uniqueInstance;
     }
 
     //////////////////////////////////////////

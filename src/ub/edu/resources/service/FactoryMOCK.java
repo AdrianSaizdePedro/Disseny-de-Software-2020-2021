@@ -75,12 +75,12 @@ public class FactoryMOCK implements AbstractFactoryData {
     public DAOValoracioCor createDAOValoracioCor() { return new DAOValoracioCorMOCK(); }
 
     @Override
-    public DAOFollowers createDAOFollowers(DAOUsuari dao) throws Exception{
+    public DAOFollowers createDAOFollowers(DAOUsuari dao){
         return new DAOFollowersMOCK(dao);
     }
 
     @Override
-    public DAOFollowings createDAOFollowings(DAOUsuari dao) throws Exception {
+    public DAOFollowings createDAOFollowings(DAOUsuari dao){
         return new DAOFollowingsMOCK(dao);
     }
 
