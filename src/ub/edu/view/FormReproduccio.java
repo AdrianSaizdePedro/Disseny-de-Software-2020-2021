@@ -1,5 +1,7 @@
 package ub.edu.view;
 
+import ub.edu.controller.IController;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -21,6 +23,9 @@ class FormReproduccio extends JDialog {
     private int numTemporada;
     private String episodi;
 
+    private IController controller;
+    private Frame owner;
+
     /**
      * Constructor de la classe
      * @param serie identificador de la sèrie de l'episodi a reproduir
@@ -29,7 +34,9 @@ class FormReproduccio extends JDialog {
      * @param duracioEpisodi duració de l'episodi a reproduir
      * @param duracioVisualitzada duració ja visualitzada anteriorment de l'episodi a reproduir
      */
-    protected FormReproduccio(String serie, int numTemporada, String episodi, int duracioEpisodi, int duracioVisualitzada) {
+    protected FormReproduccio(Frame owner, IController controller, String serie, int numTemporada, String episodi, int duracioEpisodi, int duracioVisualitzada) {
+        this.owner = owner;
+        this.controller = controller;
         duracioVisualitzacio = duracioEpisodi;
         this.duracioVisualitzada = duracioVisualitzada;
         this.serie = serie;

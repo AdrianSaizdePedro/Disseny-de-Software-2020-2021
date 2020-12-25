@@ -19,7 +19,7 @@ public class ControladorGUI implements IController{
     private ControladorGUI() {
         dataService = DataService.getInstance(new FactoryMOCK());
         facana = Facade.getInstance(dataService);
-        view = new UBFLIXParty();
+        view = new UBFLIXParty(this);
     }
 
     public static ControladorGUI getInstance(){
@@ -35,7 +35,7 @@ public class ControladorGUI implements IController{
 
     public void init() throws Exception {
         facana.init();
-        view.init(this);
+        view.init();
     }
 
     //////////////////////////////////////

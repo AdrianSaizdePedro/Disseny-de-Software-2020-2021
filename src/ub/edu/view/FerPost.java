@@ -1,6 +1,9 @@
 package ub.edu.view;
 
+import ub.edu.controller.IController;
+
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 
 public class FerPost extends JDialog {
@@ -9,7 +12,13 @@ public class FerPost extends JDialog {
     private JButton cancelButton;
     private JPanel jpanel;
 
-    protected FerPost() {
+    private IController controller;
+    private Frame owner;
+
+    protected FerPost(Frame owner, IController controller) {
+        this.owner = owner;
+        this.controller = controller;
+
         setContentPane(jpanel);
         setModal(true);
         getRootPane().setDefaultButton(cancelButton);

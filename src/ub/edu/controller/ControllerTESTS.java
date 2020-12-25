@@ -7,7 +7,7 @@ import ub.edu.resources.service.FactoryMOCK;
 
 import java.util.ArrayList;
 
-public class ControllerTESTS implements IController{
+public class ControllerTESTS{
     // Atributos
     private Facade facana;
 

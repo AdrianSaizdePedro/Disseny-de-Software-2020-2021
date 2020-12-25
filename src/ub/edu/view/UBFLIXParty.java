@@ -2,7 +2,6 @@ package ub.edu.view;
 
 /* Interfície Gràfica desenvolupada per: Nils Ballús, Joan Cano, David Rial i Miquel Guiot */
 
-import ub.edu.controller.ControladorGUI;
 import ub.edu.controller.IController;
 import ub.edu.model.Episodi;
 
@@ -50,7 +49,7 @@ public class UBFLIXParty extends JFrame{
     private DefaultTableModel tableModelVis;
     private DefaultTableModel tableModelVal;
 
-    private ControladorGUI controller;
+    private IController controller;
     private String currentClient;
     private String currentUser;
 
@@ -58,19 +57,10 @@ public class UBFLIXParty extends JFrame{
     /**
      * Constructor de la classe UBFLIX que crida initComponents()
      */
-    public UBFLIXParty() {
+    public UBFLIXParty(IController controller) {
         super("UBFLIXParty");
-        this.setLocation(30, 30);
-        this.setVisible(true);
-        initComponents();
-    }
-
-    /**
-     * Inicializa la instancia controlador de la Vista.
-     * @param controller Controlador de la App
-     */
-    public void init(ControladorGUI controller){
         this.controller = controller;
+        this.setLocation(30, 30);
         setVisible(true);
     }
 
@@ -78,7 +68,7 @@ public class UBFLIXParty extends JFrame{
      * Mètode que inicialitza tots els components de la GUI de l'APP UBFLIXParty i s'afegeixen els listeners dels events
      * per quan es fa l'acció sobre els diferents components de Java.
      */
-    private void initComponents(){
+    public void init(){
         add(jPanel);
         setSize(800,700);
         setMinimumSize(new Dimension(800,700));
@@ -155,7 +145,7 @@ public class UBFLIXParty extends JFrame{
     }
 
     private void mostrarPerfil() {
-        FormPerfilUsuari perfil = new FormPerfilUsuari();
+        FormPerfilUsuari perfil = new FormPerfilUsuari(this, controller);
         perfil.pack();
         perfil.setVisible(true);
     }
@@ -180,7 +170,7 @@ public class UBFLIXParty extends JFrame{
     }
 
     private void userActionPerformed() {
-        FormUser dialog = new FormUser(this);
+        FormUser dialog = new FormUser(this, controller);
         dialog.pack();
         dialog.setLocationRelativeTo(this);
         dialog.setVisible(true);
@@ -234,7 +224,7 @@ public class UBFLIXParty extends JFrame{
      */
     private void ferLogIn() {
         jPanel.setVisible(false);
-        FrmLogIn dialog = new FrmLogIn(this);
+        FrmLogIn dialog = new FrmLogIn(this, controller);
         dialog.pack();
         dialog.setVisible(true);
         jPanel.setVisible(true);
@@ -381,8 +371,7 @@ public class UBFLIXParty extends JFrame{
     }
 
     /**
-     *
-     * @param
+     * Refresca la llista d'Usuaris del client actual
      */
     public void refreshUsersList() {
         comboBoxUsuaris.removeAllItems();
@@ -404,15 +393,9 @@ public class UBFLIXParty extends JFrame{
      * @param descripcio descripció de l'episodi seleccionat
      */
     private void onEpisodi(String idSerie, int temporada, String episodi, int duracio, int duracioVisualitzada, String descripcio) {
-        FormEpisodi dialog = new FormEpisodi(idSerie, temporada, episodi, duracio, descripcio);
+        FormEpisodi dialog = new FormEpisodi(this, controller, idSerie, temporada, episodi, duracio, descripcio);
         dialog.pack();
         dialog.setVisible(true);
-    }
-
-
-
-    public IController getController() {
-        return controller;
     }
 
     public String getCurrentClient() {

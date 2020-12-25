@@ -6,8 +6,10 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import ub.edu.controller.IController;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.net.MalformedURLException;
@@ -23,6 +25,9 @@ public class FormReproductorVideo extends JDialog {
     private  Scene scene = null;
     private  MediaPlayer mediaPlayer;
     private  MediaControl mediaControl;
+
+    private IController controller;
+    private Frame owner;
 
     private static final String MEDIA_URL = "assets/sample-mp4-file.mp4";
 
@@ -99,7 +104,9 @@ public class FormReproductorVideo extends JDialog {
 
 
 
-    public FormReproductorVideo (String serie, int numTemporada, String episodi, int duracioEpisodi, int duracioVisualitzada) {
+    public FormReproductorVideo (Frame owner, IController controller, String serie, int numTemporada, String episodi, int duracioEpisodi, int duracioVisualitzada) {
+        this.owner = owner;
+        this.controller = controller;
         duracioVisualitzacio = duracioEpisodi;
         this.duracioVisualitzada = duracioVisualitzada;
         this.serie = serie;

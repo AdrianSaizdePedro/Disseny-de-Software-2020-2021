@@ -1,7 +1,10 @@
 package ub.edu.view;
 
 
+import ub.edu.controller.IController;
+
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 
 /**
@@ -19,7 +22,10 @@ class FrmValoracio extends JDialog {
     private JButton btnMarcar;
     private JButton btnCor;
     private JButton btnEscollir;
+
     //Afegit manualment
+    private IController controller;
+    private Frame owner;
     private ButtonGroup buttonGroup;
 
     /**
@@ -28,7 +34,9 @@ class FrmValoracio extends JDialog {
      * @param numTemporada número de temporada de l'episodi
      * @param episodi títol de l'episodi seleccionat
      */
-    protected FrmValoracio(String idSerie, int numTemporada, String episodi) {
+    protected FrmValoracio(Frame owner, IController controller, String idSerie, int numTemporada, String episodi) {
+        this.owner = owner;
+        this.controller = controller;
         initComponents(idSerie, numTemporada, episodi);
         setResizable(false);
         setTitle("Valoració de l'episodi");
