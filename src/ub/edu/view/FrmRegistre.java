@@ -1,6 +1,7 @@
 package ub.edu.view;
 
 import ub.edu.controller.ControladorGUI;
+import ub.edu.controller.IController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,13 +30,15 @@ class FrmRegistre extends JDialog {
     private JPasswordField textPassword1;
     private JPasswordField textPassword2;
 
-
+    private IController controller;
+    private Frame owner;
 
     /**
      * Constructor de la finestra del Registre on es fixa l'aspecte d'aquesta i s'inicialitzen els components
      */
-    protected FrmRegistre(JDialog owner) {
-        super(owner);
+    protected FrmRegistre(Frame owner, IController controller) {
+        this.owner = owner;
+        this.controller = controller;
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
@@ -93,7 +96,6 @@ class FrmRegistre extends JDialog {
                 textPassword2.setText("");
             }
             else{
-                ControladorGUI controller = ControladorGUI.getInstance();
                 String info = controller.addClient(textUsername.getText(), String.valueOf(textPassword1.getPassword()), textDNI.getText(), textAdreca.getText(), true);
                 JOptionPane.showMessageDialog(this, info, "INFORMACIÓ REGISTRE CLIENT", JOptionPane.INFORMATION_MESSAGE);
                 if (info.equals("Client created")) {

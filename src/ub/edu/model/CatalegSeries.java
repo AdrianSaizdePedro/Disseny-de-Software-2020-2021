@@ -27,7 +27,9 @@ public class CatalegSeries {
                 List<Episodi> episodios = new ArrayList<>();
 
                 if (t.getIdSerie().equals(s.getIdSerie())) {
-                    for (Episodi e: allEpisodis) if (t.getIdTemporada() == e.getIdTemporada()) episodios.add(e);
+                    for (Episodi e: allEpisodis)
+                        if (t.getIdTemporada() == e.getIdTemporada() && t.getIdSerie() == e.getIdSerie())
+                            episodios.add(e);
                     t.setLlistaEpisodis(episodios);
                     temporadas.add(t);
                 }

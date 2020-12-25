@@ -1,5 +1,7 @@
 package ub.edu.view;
 
+import ub.edu.controller.IController;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -17,7 +19,8 @@ class FormEpisodi extends JDialog{
     private JPanel jpanel;
     private JLabel duracioEpisodi;
 
-
+    private IController controller;
+    private Frame owner;
 
     /**
      * Constructor de la classe FormEpisodi que crida initComponents()
@@ -27,7 +30,10 @@ class FormEpisodi extends JDialog{
      * @param duracio duració de l'episodi seleccionat
      * @param descripcio descripció de l'episodi seleccionat
      */
-    protected FormEpisodi(String idSerie, int numTemporada, String episodi, int duracio, String descripcio) {
+    protected FormEpisodi(Frame owner, IController controller, String idSerie, int numTemporada, String episodi, int duracio, String descripcio) {
+        this.owner = owner;
+        this.controller = controller;
+
         initComponents(idSerie, numTemporada,episodi, duracio, descripcio);
         setResizable(false);
         setTitle("Detall de l'episodi");
@@ -70,7 +76,7 @@ class FormEpisodi extends JDialog{
         valorarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                    FrmValoracio dialog = new FrmValoracio(idSerie, numTemporada, titol);
+                    FrmValoracio dialog = new FrmValoracio(owner, controller, idSerie, numTemporada, titol);
                     dialog.pack();
                     dialog.setVisible(true);
             }
@@ -87,8 +93,8 @@ class FormEpisodi extends JDialog{
     @SuppressWarnings("deprecation")
     private void onVisualitzar(String idSerie, int numTemporada, String titol, int duracio) {
             int duracioVisualitzada = 0;
-            FormReproduccio fr = new FormReproduccio(idSerie, numTemporada, titol, duracio, duracioVisualitzada);
-            //FormReproductorVideo fr = new FormReproductorVideo(idSerie, numTemporada, titol, duracio, duracioVisualitzada);
+            FormReproduccio fr = new FormReproduccio(owner, controller, idSerie, numTemporada, titol, duracio, duracioVisualitzada);
+            //FormReproductorVideo fr = new FormReproductorVideo(this, controller, idSerie, numTemporada, titol, duracio, duracioVisualitzada);
             fr.pack();
             fr.setVisible(true);
 

@@ -2,6 +2,8 @@ package ub.edu.view;
 
 /* Interfície Gràfica desenvolupada per: Nils Ballús, Joan Cano, David Rial i Miquel Guiot */
 
+import ub.edu.controller.IController;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -27,13 +29,17 @@ public class FormPerfilUsuari extends JFrame {
     private JButton ferPostButton;
     private JPanel jpanelRoot;
 
+    private IController controller;
+    private Frame owner;
 
     /**
      * Constructor de la classe PerfilUsuari que crida initComponents()
      */
-    protected FormPerfilUsuari(){
+    protected FormPerfilUsuari(Frame owner, IController controller){
+        this.owner = owner;
+        this.controller = controller;
         setContentPane(jpanelRoot);
-       // setModal(true);
+        // setModal(true);
         getRootPane().setDefaultButton(btnTancarSessio);
         setResizable(false);
 
@@ -75,14 +81,14 @@ public class FormPerfilUsuari extends JFrame {
     }
 
     private void onFerPost() {
-        FerPost view = new FerPost();
+        FerPost view = new FerPost(this, controller);
         view.pack();
         view.setVisible(true);
     }
 
 
     private void userActionPerformed() {
-        FormUser dialog = new FormUser(this);
+        FormUser dialog = new FormUser(this, controller);
         dialog.pack();
         dialog.setLocationRelativeTo(this);
         dialog.setVisible(true);
