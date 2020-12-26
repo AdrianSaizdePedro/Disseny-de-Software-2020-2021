@@ -13,22 +13,23 @@ public class DAOVisualitzacioMOCK implements DAOVisualitzacio {
 
         // Visualizaciones del Usuario 'id1', del Cliente 'ajaleo'
         ArrayList<Visualitzacio> visualitzacio_1 = new ArrayList<>();
-        visualitzacio_1.add(new Visualitzacio(1, "ajaleo", "id1", "The Mandalorian"));
+        visualitzacio_1.add(new Visualitzacio(1, "ajaleo", "id1", "TMand","The Mandalorian", 1, 1, "22/03/2011", 0));
         visualizedSeries.put("id1", visualitzacio_1);
 
         // Visualizaciones del Usuario 'id2', del Cliente 'ajaleo'
         ArrayList<Visualitzacio> visualitzacio_2 = new ArrayList<>();
-        visualitzacio_2.add(new Visualitzacio(3, "dtomacal", "id4", "Mr Robot"));
-        visualitzacio_2.add(new Visualitzacio(4, "dtomacal", "id4", "The Mandalorian"));
-        visualitzacio_2.add(new Visualitzacio(5, "dtomacal", "id4", "Breaking Bad" ));
-        visualitzacio_2.add(new Visualitzacio(6, "dtomacal", "id4", "Stranger Things"));
+        visualitzacio_2.add(new Visualitzacio(2, "dtomacal", "id4", "mrobot","Mr Robot", 1, 1, "22/03/2011", 0));
+        visualitzacio_2.add(new Visualitzacio(3, "dtomacal", "id4", "bbad","Breaking Bad", 1, 1, "22/03/2011", 0));
+        visualitzacio_2.add(new Visualitzacio(4, "dtomacal", "id4", "TMand","The Mandalorian", 1, 1, "22/03/2011", 30));
+        visualitzacio_2.add(new Visualitzacio(5, "dtomacal", "id4", "sthings","Stranger Things", 1, 1, "22/03/2011", 20));
         visualizedSeries.put("id4", visualitzacio_2);
 
         // Visualizaciones del Usuario 'id7', del Cliente 'dtomacal'
         ArrayList<Visualitzacio> visualitzacio_3 = new ArrayList<>();
-        visualitzacio_3.add(new Visualitzacio(7, "chachipistachi", "id7", "Stranger Things"));
-        visualitzacio_3.add(new Visualitzacio(8, "chachipistachi", "id7", "Game of Thrones"));
-        visualitzacio_3.add(new Visualitzacio(9, "chachipistachi", "id7", "Breaking Bad"));
+        visualitzacio_3.add(new Visualitzacio(6, "chachipistachi", "id7", "sthings","Stranger Things", 1, 1, "22/03/2011", 0));
+        visualitzacio_3.add(new Visualitzacio(7, "chachipistachi", "id7", "sthings","Stranger Things", 1, 2, "22/03/2011", 0));
+        visualitzacio_3.add(new Visualitzacio(8, "chachipistachi", "id7", "gofthrones","Game of Thrones", 1, 1, "22/03/2011", 30));
+        visualitzacio_3.add(new Visualitzacio(9, "chachipistachi", "id7", "bbad","Breaking Bad", 1, 1, "22/03/2011", 20));
         visualizedSeries.put("id7", visualitzacio_3);
     }
 

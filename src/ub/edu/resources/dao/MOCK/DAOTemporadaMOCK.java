@@ -30,6 +30,21 @@ public class DAOTemporadaMOCK implements DAOTemporada {
         temporadas_MrRobot.add(new Temporada("mrobot", 1 , 10));
         listTemporades.put("Mr Robot", temporadas_MrRobot);
 
+        // Temporadas para la Serie "Stranger Things"
+        ArrayList<Temporada> temporadas_Strangerthings = new ArrayList<>();
+        temporadas_Strangerthings.add(new Temporada("sthings", 1 , 3));
+        listTemporades.put("sthings", temporadas_Strangerthings);
+
+        // Temporadas para la Serie "Rick Y Morty"
+        ArrayList<Temporada> temporadas_RickYMorty = new ArrayList<>();
+        temporadas_RickYMorty.add(new Temporada("RyM", 1 , 3));
+        listTemporades.put("RyM", temporadas_RickYMorty);
+
+        // Temporadas para la Serie "The Mandalorian"
+        ArrayList<Temporada> temporadas_TheMandalorian = new ArrayList<>();
+        temporadas_TheMandalorian.add(new Temporada("TMand", 1 , 3));
+        listTemporades.put("TMand", temporadas_TheMandalorian);
+
     }
 
     @Override

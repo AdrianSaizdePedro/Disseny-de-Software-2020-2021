@@ -322,9 +322,10 @@ public class UBFLIXParty extends JFrame implements Observer{
         for (Episodi episodi: episodis) {
 
             String idSerie = episodi.getIdSerie();
+
             int numTemporada = Integer.parseInt(temporada.split(" ")[1]);
             int duracio = episodi.getDuracio();
-            int duracioVisualitzada = 0;
+            int duracioVisualitzada = 0;//controller.getDuracioVisualitzada(currentClient, currentUser, idSerie, numTemporada, episodi.getNumEpisodi());
             String descripcio = episodi.getDescripcio();
 
             JMenuItem ep = new JMenuItem(episodi.getTitol());
@@ -444,7 +445,7 @@ public class UBFLIXParty extends JFrame implements Observer{
      * @param descripcio descripció de l'episodi seleccionat
      */
     private void onEpisodi(String idSerie, int temporada, int idEpisodi, String nomEpisodi, int duracio, int duracioVisualitzada, String descripcio) {
-        FormEpisodi dialog = new FormEpisodi(this, controller, idSerie, temporada, idEpisodi, nomEpisodi, duracio, descripcio);
+        FormEpisodi dialog = new FormEpisodi(this, controller, idSerie, temporada, idEpisodi, nomEpisodi, duracio, duracioVisualitzada, descripcio, currentUser, currentClient);
         dialog.pack();
         dialog.setVisible(true);
     }

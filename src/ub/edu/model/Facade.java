@@ -385,6 +385,38 @@ public class Facade{
         return facadeSeries.existsSerieWithThisTitle(titolSerie);
     }
 
+    //         SOBRE VISUALIZACIONES         //
+
+    /**
+     * Permite guardar la visualizacion de un episodio
+     * @param id ID de la Visualizacion
+     * @param idClient ID del Cliente
+     * @param idUser ID del Usuario
+     * @param idSerie ID de la Serie
+     * @param nomSerie Nombre de la serie
+     * @param numTemporada Numero de Temporada
+     * @param idEpisodi ID del Episodio
+     * @param data Dataa
+     * @param segonsRestants Segundos Restantes
+     */
+    public void visualitzarEpisodi(int id, String idClient, String idUser, String idSerie, String nomSerie, int numTemporada, int idEpisodi, String data, int segonsRestants) {
+        facadeRegistre.visualitzarEpisodi(id, idClient, idUser, idSerie, nomSerie, numTemporada, idEpisodi, data, segonsRestants);
+    }
+
+    /**
+     * Metodo para saber el tiempo que ha visualizado un usuario de un episodio en concreto
+     * @param idClient ID del Cliente
+     * @param nomUsuari ID del Usuario
+     * @param idSerie ID de la Serie
+     * @param numTemporada Numero de Temporada
+     * @param numEpisodi ID del Episodio
+     * @return int de segundos visualizados
+     */
+    public int getDuracioVisualitzada(String idClient, String nomUsuari, String idSerie, int numTemporada, int numEpisodi) {
+        String idUser = dataService.getUsuariByIdClientAndUsername(idClient, nomUsuari).getIdUser();
+        int duracioEpisodi = dataService.getEpisodiByTitolTemporadaIdEpisodi(idSerie, numTemporada, numEpisodi).getDuracio();
+        return facadeRegistre.getDuracioVisualitzada(idClient, idUser, idSerie, numTemporada, numEpisodi, duracioEpisodi);
+    }
 
     //         SOBRE VALORACIONES          //
 
@@ -436,8 +468,14 @@ public class Facade{
     }
 
 
+
+
+
     public void registerObserver(Observer observer) {
         facadeRegistre.registerObserver(observer);
     }
+
+
+
 }
 

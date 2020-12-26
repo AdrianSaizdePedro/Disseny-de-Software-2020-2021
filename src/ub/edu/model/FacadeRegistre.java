@@ -87,7 +87,7 @@ public class FacadeRegistre {
      * @param idUser nombre del Usuario
      * @return true si se ha añadido, false sino.
      */
-    public boolean addSerieToWatchingList(int id, String idClient, String idUser, String title) { return registre.addVisualitzacio(id, idClient, idUser, title); }
+    public boolean addSerieToWatchingList(int id, String idClient, String idUser, String title) { return true; }
 
     /**
      * Método para quitar una serie a la lista WatchingList de un usuario de un cliente.
@@ -95,7 +95,37 @@ public class FacadeRegistre {
      * @param nameUser nombre del Usuario
      * @return true si se ha eliminado, false sino.
      */
-    public boolean removeSerieFromWatchingList(int id, String idClient, String nameUser, String title) { return registre.removeVisualitzacio(id, idClient, nameUser, title); }
+    public boolean removeSerieFromWatchingList(int id, String idClient, String nameUser, String title) { return true; }
+
+
+    /**
+     * Permite guardar la visualizacion de un episodio
+     * @param id ID de la Visualizacion
+     * @param idClient ID del Cliente
+     * @param idUser ID del Usuario
+     * @param idSerie ID de la Serie
+     * @param nomSerie Nombre de la serie
+     * @param numTemporada Numero de Temporada
+     * @param idEpisodi ID del Episodio
+     * @param data Dataa
+     * @param segonsRestants Segundos Restantes
+     */
+    public void visualitzarEpisodi(int id, String idClient, String idUser, String idSerie, String nomSerie, int numTemporada, int idEpisodi, String data, int segonsRestants) {
+        registre.addVisualitzacio(id, idClient, idUser, idSerie, nomSerie, numTemporada, idEpisodi, data, segonsRestants);
+    }
+
+    /**
+     * Metodo para saber el tiempo que ha visualizado un usuario de un episodio en concreto
+     * @param idClient ID del Cliente
+     * @param idUser ID del Usuario
+     * @param idSerie ID de la Serie
+     * @param numTemporada Numero de Temporada
+     * @param numEpisodi ID del Episodio
+     * @return int de segundos visualizados
+     */
+    public int getDuracioVisualitzada(String idClient, String idUser, String idSerie, int numTemporada, int numEpisodi, int duracio) {
+        return registre.getDuracioVisualitzada(idClient, idUser, idSerie, numTemporada, numEpisodi, duracio);
+    }
 
     /**
      * Método para valorar una serie del catalogo con Estrellas
@@ -155,4 +185,6 @@ public class FacadeRegistre {
     public void registerObserver(Observer observer) {
         registre.registerObserver(observer);
     }
+
+
 }

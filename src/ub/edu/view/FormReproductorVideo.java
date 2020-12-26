@@ -22,9 +22,9 @@ public class FormReproductorVideo extends JDialog {
     private int numTemporada;
     private String episodi;
     private JFXPanel fxPanel;
-    private  Scene scene = null;
-    private  MediaPlayer mediaPlayer;
-    private  MediaControl mediaControl;
+    private Scene scene = null;
+    private MediaPlayer mediaPlayer;
+    private MediaControl mediaControl;
 
     private IController controller;
     private Frame owner;
@@ -107,7 +107,7 @@ public class FormReproductorVideo extends JDialog {
     public FormReproductorVideo (Frame owner, IController controller, String serie, int numTemporada, String episodi, int duracioEpisodi, int duracioVisualitzada) {
         this.owner = owner;
         this.controller = controller;
-        duracioVisualitzacio = duracioEpisodi;
+        this.duracioVisualitzacio = duracioEpisodi;
         this.duracioVisualitzada = duracioVisualitzada;
         this.serie = serie;
         this.numTemporada = numTemporada;

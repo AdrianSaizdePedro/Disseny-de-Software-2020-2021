@@ -3,6 +3,7 @@ package ub.edu.model;
 public class Episodi {
     // Atributos
     private String idSerie;
+    private String nomSerie;
     private int idTemporada;
     private int numEpisodi;
     private String titol;
@@ -22,7 +23,8 @@ public class Episodi {
      * @param descripcio sinopsis del Episodio
      * @param data fecha de lanzamiento
      */
-    public Episodi( String idSerie, int idTemporada, int numEpisodi, String titol, String duracio, String idioma, String descripcio, String data) {
+    public Episodi( String idSerie, String nomSerie, int idTemporada, int numEpisodi, String titol, String duracio, String idioma, String descripcio, String data) {
+        this.nomSerie = nomSerie;
         this.idSerie = idSerie;
         this.idTemporada = idTemporada;
         this.numEpisodi = numEpisodi;

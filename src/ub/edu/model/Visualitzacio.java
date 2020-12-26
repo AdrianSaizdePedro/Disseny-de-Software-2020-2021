@@ -6,19 +6,36 @@ public class Visualitzacio {
     private String idClient;
     private String idUser;
     private String idSerie;
+    private String nomSerie;
+    private int numTemporada;
+    private int idEpisodi;
+    private String estat;
+    private String data;
+    private int segonsRestants;
+
+
 
     /**
      * Metodo constructor de Visualitzacio
      * @param id ID de la Visualizacion
      * @param client Id del Cliente
      * @param user nombre del Usuario
-     * @param serie ID de la Serie
+     * @param idSerie ID de la Serie
+     * @param nomSerie nombre de la Serie
      */
-    public Visualitzacio(int id, String client, String user, String serie){
+    public Visualitzacio(int id, String client, String user, String idSerie, String nomSerie, int numTemporada,
+                            int idEpisodi, String data, int segonsRestants){
         this.idVisualitzacio = id;
         this.idClient = client;
         this.idUser = user;
-        this.idSerie = serie;
+        this.idSerie = idSerie;
+        this.nomSerie = nomSerie;
+        this.numTemporada = numTemporada;
+        this.idEpisodi = idEpisodi;
+        if(segonsRestants == 0) this.estat = "Watched";
+        else this.estat = "Watching";
+        this.data = data;
+        this.segonsRestants = segonsRestants;
     }
 
 
@@ -75,6 +92,101 @@ public class Visualitzacio {
      */
     public void setIdSerie(String idSerie) { this.idSerie = idSerie; }
 
+    /**
+     * Metodo para devolver el nom de la Serie
+     * @return Nom de la Serie
+     */
+    public String getNomSerie() {
+        return nomSerie;
+    }
+
+    /**
+     * Metodo para establecer el nombre de la Serie
+     * @param nomSerie Nombre de la Serie
+     */
+    public void setNomSerie(String nomSerie) {
+        this.nomSerie = nomSerie;
+    }
+
+    /**
+     * Metodo para devolver el id de la Temporada
+     * @return Id de la Temporada
+     */
+    public int getNumTemporada() {
+        return numTemporada;
+    }
+
+    /**
+     * Metodo para establecer el ID de la Temporada
+     * @param numTemporada ID de la Temporada
+     */
+    public void setNumTemporada(int numTemporada) {
+        this.numTemporada = numTemporada;
+    }
+
+    /**
+     * Metodo para devolver el ID del Episodio
+     * @return ID del episodio
+     */
+    public int getIdEpisodi() {
+        return idEpisodi;
+    }
+
+    /**
+     * Metodo para establecer el ID del Episodio
+     * @param idEpisodi ID del Episodio
+     */
+    public void setIdEpisodi(int idEpisodi) {
+        this.idEpisodi = idEpisodi;
+    }
+
+    /**
+     * Metodo para devolver el estado de la Visualitzacio
+     * @return Estado de la Visualitzacio
+     */
+    public String getEstat() {
+        return estat;
+    }
+
+    /**
+     * Metodo para establecer el Estado de la Visualitzacio
+     * @param estat Estado de la Visualitzacio
+     */
+    public void setEstat(String estat) {
+        this.estat = estat;
+    }
+
+    /**
+     * Metodo para devolver la data de la Visualitzacio
+     * @return Data de la Visualitzacio
+     */
+    public String getData() {
+        return data;
+    }
+
+    /**
+     * Metodo para establecer la Data de la Visualitzacio
+     * @param data Data de la Visualitzacio
+     */
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    /**
+     * Metodo para devolver los segundos restantes de la Visualitzacio
+     * @return Segundos restantes de la Visualitzacio
+     */
+    public int getSegonsRestants() {
+        return segonsRestants;
+    }
+
+    /**
+     * Metodo para establecer los Segundos Restantes de la Visualitzacio
+     * @param segonsRestants Segundos Restantes de la Visualitzacio
+     */
+    public void setSegonsRestants(int segonsRestants) {
+        this.segonsRestants = segonsRestants;
+    }
 
 
     //////////////////////////////////////
@@ -88,4 +200,10 @@ public class Visualitzacio {
      */
     @Override
     public boolean equals(Object obj) { return ((obj instanceof Visualitzacio) && this.idVisualitzacio == ((Visualitzacio)obj).idVisualitzacio); }
+
+
+    public void updateVisualitzacio(String data, int segonsRestants) {
+        this.setData(data);
+        this.setSegonsRestants(segonsRestants);
+    }
 }

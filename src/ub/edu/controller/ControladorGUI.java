@@ -257,6 +257,8 @@ public class ControladorGUI implements IController{
         return facana.getEpisodis(nomSerie,temporada);
     }
 
+
+
     //////////////////////////////////////
     /*   Métodos Test ferValoracioCor   */
     //////////////////////////////////////
@@ -315,8 +317,44 @@ public class ControladorGUI implements IController{
         } catch (Exception e) { return e.getMessage(); }
     }
 
+    /////////////////////////////////
+    /* Métodos Visualitzar Episodi */
+    /////////////////////////////////
+
+    /**
+     * Permite guardar la visualizacion de un episodio
+     * @param id ID de la Visualizacion
+     * @param idClient ID del Cliente
+     * @param idUser ID del Usuario
+     * @param idSerie ID de la Serie
+     * @param nomSerie Nombre de la serie
+     * @param numTemporada Numero de Temporada
+     * @param idEpisodi ID del Episodio
+     * @param data Dataa
+     * @param segonsRestants Segundos Restantes
+     */
+    public void visualitzarEpisodi(int id, String idClient, String idUser, String idSerie, String nomSerie, int numTemporada,
+                                   int idEpisodi, String data, int segonsRestants) {
+        facana.visualitzarEpisodi(id, idClient, idUser, idSerie, nomSerie, numTemporada, idEpisodi, data, segonsRestants);
+    }
+
+
+    /**
+     * Metodo para saber el tiempo que ha visualizado un usuario de un episodio en concreto
+     * @param idClient ID del Cliente
+     * @param idUser ID del Usuario
+     * @param idSerie ID de la Serie
+     * @param numTemporada Numero de Temporada
+     * @param numEpisodi ID del Episodio
+     * @return int de segundos visualizados
+     */
+    public int getDuracioVisualitzada(String idClient, String idUser, String idSerie, int numTemporada, int numEpisodi) {
+        return facana.getDuracioVisualitzada(idClient, idUser, idSerie, numTemporada, numEpisodi);
+    }
+
+
+
     public void registerObserver(Observer observer) {
         facana.registerObserver(observer);
     }
-
 }

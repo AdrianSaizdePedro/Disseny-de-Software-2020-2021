@@ -131,10 +131,10 @@ public class Registre implements  Subject{
      * @param idSerie ID de la Serie
      * @return Visualitzacio si la encuentra o null si no existe
      */
-    public ub.edu.model.Visualitzacio findVisualitzacio(String idUser, String idSerie) {
+    public ub.edu.model.Visualitzacio findVisualitzacio(String idUser, String idSerie, int idTemporade, int idEpisodi) {
         if (visualitzacions.containsKey(idUser)) {
             for (ub.edu.model.Visualitzacio repr : visualitzacions.get(idUser)) {
-                if (repr.getIdSerie().equals(idSerie)) return repr;
+                if (repr.getIdSerie().equals(idSerie) && repr.getNumTemporada() == idTemporade && repr.getIdEpisodi() == idEpisodi) return repr;
             }
         } return null;
     }
@@ -147,13 +147,18 @@ public class Registre implements  Subject{
      * @param idSerie Id de la Serie
      * @return True si se ha podido añadir correctamente, False si ha fallado la operacion
      */
-    public boolean addVisualitzacio(int id, String idClient, String idUser, String idSerie){
-        if (!visualitzacions.containsKey(idUser)) {
-            visualitzacions.put(idUser, new ArrayList<>());
-            return visualitzacions.get(idUser).add(new ub.edu.model.Visualitzacio(id, idClient, idUser, idSerie));
+    public boolean addVisualitzacio(int id, String idClient, String idUser, String idSerie, String nomSerie, int numTemporada, int idEpisodi, String data, int segonsRestants){
+        Visualitzacio visualitzacio = findVisualitzacio(idUser, idSerie, numTemporada, idEpisodi);
+        if (visualitzacio == null){
+            if (!visualitzacions.containsKey(idUser)) {
+                visualitzacions.put(idUser, new ArrayList<>());
+            }
+            return visualitzacions.get(idUser).add(new ub.edu.model.Visualitzacio(id, idClient, idUser, idSerie, nomSerie, numTemporada, idEpisodi, data, segonsRestants));
+        } else{
+            visualitzacio.updateVisualitzacio(data, segonsRestants);
+            return true;
         }
-        if (findVisualitzacio(idUser, idSerie) == null) return visualitzacions.get(idUser).add(new ub.edu.model.Visualitzacio(id, idClient, idUser, idSerie));
-        return false;
+
     }
 
     /**
@@ -164,11 +169,28 @@ public class Registre implements  Subject{
      * @param idSerie Id de la Serie
      * @return True si se ha podido eliminar correctamente, False si ha fallado la operacion
      */
-    public boolean removeVisualitzacio(int id, String idClient, String idUser, String idSerie){
-        if (findVisualitzacio(idUser, idSerie) != null) {
-            return visualitzacions.get(idUser).remove(findVisualitzacio(idUser, idSerie));
+    public boolean removeVisualitzacio(int id, String idClient, String idUser, String idSerie, String nomSerie, int numTemporada, int idEpisodi, String data, int segonsRestants){
+        if (findVisualitzacio(idUser, idSerie, numTemporada, idEpisodi) != null) {
+            return visualitzacions.get(idUser).remove(findVisualitzacio(idUser, idSerie, numTemporada, idEpisodi));
         } return false;
     }
+
+    /**
+     * Metodo para saber el tiempo que ha visualizado un usuario de un episodio en concreto
+     * @param idClient ID del Cliente
+     * @param idUser ID del Usuario
+     * @param idSerie ID de la Serie
+     * @param numTemporada Numero de Temporada
+     * @param numEpisodi ID del Episodio
+     * @return int de segundos visualizados
+     */
+    public int getDuracioVisualitzada(String idClient, String idUser, String idSerie, int numTemporada, int numEpisodi, int duracio) {
+        int duracioRestant = 0;
+        if(findVisualitzacio(idUser, idSerie, numTemporada, numEpisodi) != null) duracioRestant = findVisualitzacio(idUser, idSerie, numTemporada, numEpisodi).getSegonsRestants();
+        return duracio-duracioRestant;
+    }
+
+
 
 
     //////////////////////////////////////
@@ -361,4 +383,6 @@ public class Registre implements  Subject{
         }
         return ((double)sumaTotal)/sizeLista;
     }
+
+
 }
