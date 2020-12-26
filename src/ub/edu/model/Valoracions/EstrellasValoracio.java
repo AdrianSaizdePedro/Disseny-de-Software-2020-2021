@@ -1,6 +1,8 @@
-package ub.edu.model;
+package ub.edu.model.Valoracions;
 
-public class EstrellasValoracio extends ub.edu.model.Valoracio {
+import ub.edu.model.Valoracions.Valoracio;
+
+public class EstrellasValoracio extends Valoracio {
     // Atributos
     private int estrellas;
 

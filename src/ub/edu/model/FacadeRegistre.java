@@ -1,5 +1,9 @@
 package ub.edu.model;
 
+import ub.edu.model.Valoracions.CorValoracio;
+import ub.edu.model.Valoracions.EstrellasValoracio;
+import ub.edu.view.Observer;
+
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -115,6 +119,7 @@ public class FacadeRegistre {
         if (val != null) {
             if (val.getEstrellas() != estrelles) {
                 val.updateRating(estrelles, data);
+                registre.notifyObservers();
                 return 5;
             }
             registre.removeEstrellaValoracio(id, idClient, nomUsuari, idSerie, idTemporada, idEpisodi, estrelles, data);
@@ -147,4 +152,7 @@ public class FacadeRegistre {
         return 5;
     }
 
+    public void registerObserver(Observer observer) {
+        registre.registerObserver(observer);
+    }
 }

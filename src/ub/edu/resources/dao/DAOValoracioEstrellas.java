@@ -1,6 +1,6 @@
 package ub.edu.resources.dao;
 
-import ub.edu.model.EstrellasValoracio;
+import ub.edu.model.Valoracions.EstrellasValoracio;
 
 import java.util.ArrayList;
 import java.util.List;

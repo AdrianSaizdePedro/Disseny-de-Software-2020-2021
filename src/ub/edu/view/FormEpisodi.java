@@ -30,11 +30,11 @@ class FormEpisodi extends JDialog{
      * @param duracio duració de l'episodi seleccionat
      * @param descripcio descripció de l'episodi seleccionat
      */
-    protected FormEpisodi(Frame owner, IController controller, String idSerie, int numTemporada, String episodi, int duracio, String descripcio) {
+    protected FormEpisodi(Frame owner, IController controller, String idSerie, int numTemporada, int idEpisodi, String episodi, int duracio, String descripcio) {
         this.owner = owner;
         this.controller = controller;
 
-        initComponents(idSerie, numTemporada,episodi, duracio, descripcio);
+        initComponents(idSerie, numTemporada, idEpisodi, episodi, duracio, descripcio);
         setResizable(false);
         setTitle("Detall de l'episodi");
     }
@@ -47,7 +47,7 @@ class FormEpisodi extends JDialog{
      * @param duracio duració de l'episodi seleccionat
      * @param descripcio descripció de l'episodi seleccionat
      */
-    private void initComponents(String idSerie, int numTemporada, String titol, int duracio, String descripcio) {
+    private void initComponents(String idSerie, int numTemporada, int idEpisodi, String titol, int duracio, String descripcio) {
 
         add(jpanel);
         setModal(true);
@@ -76,7 +76,7 @@ class FormEpisodi extends JDialog{
         valorarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                    FrmValoracio dialog = new FrmValoracio(owner, controller, idSerie, numTemporada, titol);
+                    FrmValoracio dialog = new FrmValoracio(owner, controller, idSerie, numTemporada, idEpisodi, titol);
                     dialog.pack();
                     dialog.setVisible(true);
             }

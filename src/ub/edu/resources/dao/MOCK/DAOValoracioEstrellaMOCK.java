@@ -1,6 +1,6 @@
 package ub.edu.resources.dao.MOCK;
 
-import ub.edu.model.EstrellasValoracio;
+import ub.edu.model.Valoracions.EstrellasValoracio;
 import ub.edu.resources.dao.DAOValoracioEstrellas;
 
 import java.util.*;

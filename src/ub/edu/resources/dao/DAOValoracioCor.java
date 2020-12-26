@@ -1,6 +1,6 @@
 package ub.edu.resources.dao;
 
-import ub.edu.model.CorValoracio;
+import ub.edu.model.Valoracions.CorValoracio;
 
 import java.util.ArrayList;
 import java.util.List;

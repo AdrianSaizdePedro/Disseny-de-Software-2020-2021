@@ -1,6 +1,6 @@
-package ub.edu.model;
+package ub.edu.model.Valoracions;
 
-public class Valoracio {
+public abstract class Valoracio {
     // Atributos
     private int idVal;
     private int idTemporada;

@@ -1,6 +1,6 @@
 package ub.edu.resources.dao.MOCK;
 
-import ub.edu.model.CorValoracio;
+import ub.edu.model.Valoracions.CorValoracio;
 import ub.edu.resources.dao.DAOValoracioCor;
 
 import java.util.*;

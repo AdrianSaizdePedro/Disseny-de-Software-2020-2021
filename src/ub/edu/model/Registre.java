@@ -1,12 +1,19 @@
 package ub.edu.model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javassist.bytecode.Descriptor;
+import ub.edu.model.Valoracions.CorValoracio;
+import ub.edu.model.Valoracions.EstrellasValoracio;
+import ub.edu.model.Valoracions.Valoracio;
+import ub.edu.model.Valoracions.ValoracioFactory;
+import ub.edu.view.Observer;
 
-public class Registre {
+import java.util.*;
+
+public class Registre implements  Subject{
     // Atributos
+    private List<Observer> observers;
+    private ValoracioFactory valoracioFactory;
+
     private Map<String, ArrayList<Preferencia>> preferencias;
     private Map<String, ArrayList<ub.edu.model.Visualitzacio>> visualitzacions;
     private Map<String, ArrayList<CorValoracio>> corsValoracio;
@@ -16,6 +23,8 @@ public class Registre {
      * Metodo constructor de Registre
      */
     public Registre(){
+        this.observers = new ArrayList<>();
+        this.valoracioFactory = new ValoracioFactory();
         this.preferencias = new HashMap<>();
         this.visualitzacions = new HashMap<>();
         this.corsValoracio = new HashMap<>();
@@ -162,6 +171,10 @@ public class Registre {
     }
 
 
+    //////////////////////////////////////
+    /*    METODOS SOBRE VALORACIO       */
+    //////////////////////////////////////
+
 
     //////////////////////////////////////
     /*    METODOS SOBRE COR VALORACIO   */
@@ -197,9 +210,10 @@ public class Registre {
     public void addCorValoracio(int id, String idClient, String idUser, String idSerie, int idTemp, int idEpisodi, String data){
         if (!corsValoracio.containsKey(idUser)){
             corsValoracio.put(idUser, new ArrayList<>());
-            corsValoracio.get(idUser).add( new CorValoracio(id, idClient, idUser, idSerie, idTemp, idEpisodi, data));
+            corsValoracio.get(idUser).add(new CorValoracio(id, idClient, idUser, idSerie, idTemp, idEpisodi, data));
         }
         if (findCorValoracio(idUser, idSerie, idTemp, idEpisodi) == null) corsValoracio.get(idUser).add(new CorValoracio(id, idClient, idUser, idSerie, idTemp, idEpisodi, data));
+
     }
 
     /**
@@ -214,7 +228,6 @@ public class Registre {
      */
     public void removeCorValoracio(int id, String idClient, String idUser, String idSerie, int idTemp, int idEpisodi, String data){
         if (findCorValoracio(idUser, idSerie, idTemp, idEpisodi) != null) corsValoracio.get(idUser).remove(findCorValoracio(idUser, idSerie, idTemp, idEpisodi));
-
     }
 
 
@@ -258,6 +271,7 @@ public class Registre {
         }
         if (findEstrellasValoracio(idUser, idSerie, idTemp, idEpisodi) == null) estrellasValoracio.get(idUser).add(new EstrellasValoracio(id, idClient, idUser, idSerie, idTemp, idEpisodi, numEstrelles, data));
 
+        notifyObservers();
     }
 
     /**
@@ -272,6 +286,79 @@ public class Registre {
      */
     public void removeEstrellaValoracio(int id, String idClient, String idUser, String idSerie, int idTemp, int idEpisodi, int numEstrelles, String data){
         if (findEstrellasValoracio(idUser, idSerie, idTemp, idEpisodi) != null) estrellasValoracio.get(idUser).remove(findEstrellasValoracio(idUser, idSerie, idTemp, idEpisodi));
+        notifyObservers();
     }
 
+    ////////////////////////////////////////
+    /*    METODOS SOBRE PATRON OBSERVER   */
+    ////////////////////////////////////////
+    @Override
+    public void registerObserver(Observer observer) {
+        observers.add(observer);
+        notifyObservers();
+
+    }
+
+    @Override
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (int i = 0; i < observers.size(); i++) {
+            Observer observer = (Observer)observers.get(i);
+            observer.update(getTopTenValoracions());
+        }
+    }
+
+
+    private List<EstrellasValoracio> getListOfValorations(){
+        List<EstrellasValoracio> listaEstrellasVal = new ArrayList<>();
+        for(List<EstrellasValoracio> listEstrellasValoracio: estrellasValoracio.values()){
+            listaEstrellasVal.addAll(listEstrellasValoracio);
+        }
+        return listaEstrellasVal;
+    }
+
+    private List<Map.Entry<String, Double>> getTopTenValoracions(){
+        Map<String, ArrayList<Integer>> map = new HashMap<>();
+        for(ArrayList<EstrellasValoracio> listaEstrellasValoracions: estrellasValoracio.values()){
+            for (EstrellasValoracio estrellasValoracio: listaEstrellasValoracions){
+                String idSerie = estrellasValoracio.getIdSerie();
+                int estrellas = estrellasValoracio.getEstrellas();
+                if(map.containsKey(idSerie)) map.get(idSerie).add(estrellas);
+                else{
+                    map.put(idSerie, new ArrayList<>());
+                    map.get(idSerie).add(estrellas);
+                }
+            }
+        }
+        Map<String, Double> map2 = new HashMap<>();
+
+        for (Map.Entry<String, ArrayList<Integer>> entry : map.entrySet()) {
+            map2.put(entry.getKey(), getMedia(entry.getValue()));
+        }
+
+        List<Map.Entry<String, Double>> listaOrdenada = new ArrayList<>(map2.entrySet());
+        listaOrdenada.sort(Map.Entry.comparingByValue());
+
+        List<Map.Entry<String, Double>> listaDefinitiva = new ArrayList<>();
+        for(Map.Entry<String, Double> entry: listaOrdenada){
+            if(listaDefinitiva.size() < 10) listaDefinitiva.add(entry);
+        }
+
+        Collections.reverse(listaDefinitiva);
+
+        return listaDefinitiva;
+    }
+
+    private double getMedia(ArrayList<Integer> notas){
+        int sumaTotal = 0;
+        int sizeLista = notas.size();
+        for (Integer nota : notas) {
+            sumaTotal += nota;
+        }
+        return ((double)sumaTotal)/sizeLista;
+    }
 }

@@ -2,6 +2,7 @@ package ub.edu.model;
 
 import ub.edu.controller.ControladorGUI;
 import ub.edu.resources.service.DataService;
+import ub.edu.view.Observer;
 
 import java.util.List;
 
@@ -435,6 +436,8 @@ public class Facade{
     }
 
 
-
+    public void registerObserver(Observer observer) {
+        facadeRegistre.registerObserver(observer);
+    }
 }
 

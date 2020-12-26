@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="ub.edu.view.UBFLIXParty">
-  <grid id="27dc6" binding="jPanel" layout-manager="GridLayoutManager" row-count="4" column-count="6" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="jPanel" layout-manager="GridLayoutManager" row-count="4" column-count="7" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
       <xy x="20" y="20" width="745" height="385"/>
@@ -13,7 +13,7 @@
     <children>
       <tabbedpane id="a499d" binding="llistes">
         <constraints>
-          <grid row="1" column="0" row-span="2" col-span="2" vsize-policy="3" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
+          <grid row="1" column="0" row-span="2" col-span="3" vsize-policy="3" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
             <minimum-size width="350" height="-1"/>
             <preferred-size width="350" height="200"/>
           </grid>
@@ -39,7 +39,6 @@
                 </constraints>
                 <properties>
                   <enabled value="true"/>
-                  <ub.edu.model/>
                   <selectionMode value="0"/>
                 </properties>
               </component>
@@ -103,7 +102,7 @@
       </tabbedpane>
       <component id="331ce" class="javax.swing.JLabel" binding="labelTopVisualitzacions">
         <constraints>
-          <grid row="1" column="2" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="3" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="TOP 10 VISUALITZACIONS"/>
@@ -111,7 +110,7 @@
       </component>
       <component id="1b6b0" class="javax.swing.JLabel" binding="labelTopValoracions">
         <constraints>
-          <grid row="1" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="TOP 10 VALORACIONS"/>
@@ -119,7 +118,7 @@
       </component>
       <component id="ac38" class="javax.swing.JTable" binding="tableTopValoracions">
         <constraints>
-          <grid row="2" column="4" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
+          <grid row="2" column="5" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
             <preferred-size width="140" height="50"/>
           </grid>
         </constraints>
@@ -129,7 +128,7 @@
       </component>
       <component id="f5d06" class="javax.swing.JTable" binding="tableTopVisualitzacions">
         <constraints>
-          <grid row="2" column="2" row-span="1" col-span="2" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
+          <grid row="2" column="3" row-span="1" col-span="2" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
             <preferred-size width="140" height="50"/>
           </grid>
         </constraints>
@@ -147,15 +146,13 @@
       </component>
       <component id="be596" class="javax.swing.JComboBox" binding="comboBoxUsuaris">
         <constraints>
-          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
-        <properties>
-          <ub.edu.model/>
-        </properties>
+        <properties/>
       </component>
       <component id="90d87" class="javax.swing.JButton" binding="perfilButton" default-binding="true">
         <constraints>
-          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="Perfil"/>
@@ -163,7 +160,7 @@
       </component>
       <component id="20dbd" class="javax.swing.JButton" binding="btnTancarSessio">
         <constraints>
-          <grid row="3" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+          <grid row="3" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
             <maximum-size width="150" height="50"/>
           </grid>
         </constraints>
@@ -173,7 +170,7 @@
       </component>
       <component id="7a520" class="javax.swing.JButton" binding="btnCrearUsuari">
         <constraints>
-          <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="Crear Usuari"/>
@@ -181,9 +178,17 @@
       </component>
       <hspacer id="e5f1">
         <constraints>
-          <grid row="0" column="5" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="6" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
       </hspacer>
+      <component id="fb579" class="javax.swing.JButton" binding="btnTreureMyList">
+        <constraints>
+          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Treure de My List"/>
+        </properties>
+      </component>
     </children>
   </grid>
 </form>

@@ -6,23 +6,25 @@ import ub.edu.controller.IController;
 import ub.edu.model.Episodi;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.lang.reflect.Array;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
 /**
  * GUI bàsica de l'app UBFLIX on es mostraran les diferents llistes corresponent a cada client que hagi realitzat el Log In.
  * Aquesta classe hereta de JFrame i és la vista principal de l'aplicació.
  */
-public class UBFLIXParty extends JFrame{
+public class UBFLIXParty extends JFrame implements Observer{
 
     private JPanel jPanel;
     private JTabbedPane llistes;
@@ -30,10 +32,10 @@ public class UBFLIXParty extends JFrame{
     private JPanel fieldWatchNext;
     private JPanel fieldWatched;
     private JPanel fieldNotStarted;
-    private JList listAll;
-    private JList listMyList;
-    private JList listWatched;
-    private JList listContinueWatching;
+    private JList<String> listAll;
+    private JList<String> listMyList;
+    private JList<String> listWatched;
+    private JList<String> listContinueWatching;
     private JTable tableTopVisualitzacions;
     private JTable tableTopValoracions;
     private JLabel labelTopVisualitzacions;
@@ -41,13 +43,18 @@ public class UBFLIXParty extends JFrame{
     private JButton btnTancarSessio;
     private JButton btnCrearUsuari;
     private JButton btnAfegirMyList;
-    private JComboBox comboBoxUsuaris;
+    private JButton btnTreureMyList;
+    private JComboBox<String> comboBoxUsuaris;
     private JButton perfilButton;
+
 
     //Afegits manualment
     private HashMap<String, JPopupMenu> popupMenuTemporades;
     private DefaultTableModel tableModelVis;
     private DefaultTableModel tableModelVal;
+
+    private List<Map.Entry<String, Double>> listaTopTenValoracions;
+    private List<Map.Entry<String, Double>> listaTopTenVisualitzacions;
 
     private IController controller;
     private String currentClient;
@@ -90,7 +97,13 @@ public class UBFLIXParty extends JFrame{
         btnAfegirMyList.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(jPanel, "Serie afegida a My List!");
+                addSerieToMyList();
+            }
+        });
+        btnTreureMyList.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                removeSerieFromMyList();
             }
         });
         btnCrearUsuari.addActionListener(new ActionListener() {
@@ -103,6 +116,22 @@ public class UBFLIXParty extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 mostrarPerfil();
+            }
+        });
+        llistes.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                if(llistes.getSelectedIndex() == 0){
+                    btnAfegirMyList.setEnabled(true);
+                    btnTreureMyList.setEnabled(false);
+                } else if(llistes.getSelectedIndex() == 2){
+                    btnAfegirMyList.setEnabled(false);
+                    btnTreureMyList.setEnabled(true);
+                }
+                else{
+                    btnAfegirMyList.setEnabled(false);
+                    btnTreureMyList.setEnabled(false);
+                }
             }
         });
         listAll.addListSelectionListener(new ListSelectionListener() {
@@ -134,7 +163,7 @@ public class UBFLIXParty extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 if (comboBoxUsuaris.getItemCount() > 0) {
                     setCurrentUser((String)comboBoxUsuaris.getSelectedItem());
-                    //updateSeriesLists();
+                    refreshLlistes();
                 }
             }
         });
@@ -142,7 +171,10 @@ public class UBFLIXParty extends JFrame{
 
         inicialitzarLlistaTopVisualitzacions();
         inicialitzarLlistaTopValoracions();
+
+        controller.registerObserver(this);
     }
+
 
     private void mostrarPerfil() {
         FormPerfilUsuari perfil = new FormPerfilUsuari(this, controller);
@@ -299,7 +331,7 @@ public class UBFLIXParty extends JFrame{
             ep.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    onEpisodi(idSerie, numTemporada, episodi.getTitol(), duracio, duracioVisualitzada, descripcio);
+                    onEpisodi(idSerie, numTemporada, episodi.getNumEpisodi(), episodi.getTitol(), duracio, duracioVisualitzada, descripcio);
                 }
             });
             jm.add(ep);
@@ -317,12 +349,31 @@ public class UBFLIXParty extends JFrame{
         refreshTopVisualitzacions();
     }
 
+
+    /**
+     * Método que añade una serie a mi MyList
+     */
+    private void addSerieToMyList() {
+        String info = controller.addSerieToMyList(1, currentClient, currentUser, listAll.getSelectedValue());
+        JOptionPane.showMessageDialog(jPanel, info);
+        refreshMyList();
+    }
+
+    /**
+     * Método que elimina una serie a mi MyList
+     */
+    private void removeSerieFromMyList() {
+        String info = controller.removeSerieFromMyList(1, currentClient, currentUser, listMyList.getSelectedValue());
+        JOptionPane.showMessageDialog(jPanel, info);
+        refreshMyList();
+    }
+
     /**
      * Mètode que actualitza les sèries de la llista MyList
      */
     private void refreshMyList() {
-        String[] series = {"serie 11", "serie 22", "serie 33"};
-        listMyList.setListData(series);
+        List<String> series = (List<String>) controller.listMyList(currentClient, currentUser);
+        listMyList.setListData(new Vector<>(series));
     }
 
     /**
@@ -349,9 +400,9 @@ public class UBFLIXParty extends JFrame{
         int numRows = tableModelVal.getRowCount();
         for (int i = numRows - 1; i >= 0; i--)
             tableModelVal.removeRow(i);
-        String [] topTenVal = {"serie 1", "serie 2", "serie 3", "serie 4", "serie 5", "serie 6", "serie 7", "serie 8", "serie 9", "serie 10"};
-        for (String serie: topTenVal) {
-            tableModelVal.addRow(new String[]{serie, String.format("%.2f", 5.7)});
+
+        for (Map.Entry serie: listaTopTenValoracions) {
+            tableModelVal.addRow(new String[]{(String) serie.getKey(), String.format("%.2f", serie.getValue())});
         }
     }
 
@@ -387,15 +438,25 @@ public class UBFLIXParty extends JFrame{
      * Mètode que serveix per obrir la finestra amb tota la informació i opcions disponibles d'un episodi seleccionat
      * @param idSerie identificador de la sèrie de l'episodi
      * @param temporada número de temporada de l'episodi
-     * @param episodi títol de l'episodi seleccionat
+     * @param nomEpisodi títol de l'episodi seleccionat
      * @param duracio duració de l'episodi seleccionat
      * @param duracioVisualitzada duració ja visualitzada pel client de l'episodi seleccionat
      * @param descripcio descripció de l'episodi seleccionat
      */
-    private void onEpisodi(String idSerie, int temporada, String episodi, int duracio, int duracioVisualitzada, String descripcio) {
-        FormEpisodi dialog = new FormEpisodi(this, controller, idSerie, temporada, episodi, duracio, descripcio);
+    private void onEpisodi(String idSerie, int temporada, int idEpisodi, String nomEpisodi, int duracio, int duracioVisualitzada, String descripcio) {
+        FormEpisodi dialog = new FormEpisodi(this, controller, idSerie, temporada, idEpisodi, nomEpisodi, duracio, descripcio);
         dialog.pack();
         dialog.setVisible(true);
+    }
+
+    /**
+     *
+     * @param listaTopTenValoracions
+     */
+    @Override
+    public void update(List<Map.Entry<String, Double>> listaTopTenValoracions) {
+        this.listaTopTenValoracions = listaTopTenValoracions;
+        refreshLlistes();
     }
 
     public String getCurrentClient() {
@@ -413,4 +474,6 @@ public class UBFLIXParty extends JFrame{
     public void setCurrentUser(String currentUser) {
         this.currentUser = currentUser;
     }
+
+
 }

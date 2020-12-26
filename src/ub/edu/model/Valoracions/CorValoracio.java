@@ -1,6 +1,8 @@
-package ub.edu.model;
+package ub.edu.model.Valoracions;
 
-public class CorValoracio extends ub.edu.model.Valoracio {
+import ub.edu.model.Valoracions.Valoracio;
+
+public class CorValoracio extends Valoracio {
     /**
      * Metodo constructor de la Valoracion con Corazones
      * @param id ID de la Valoracion
@@ -11,5 +13,7 @@ public class CorValoracio extends ub.edu.model.Valoracio {
      * @param idEpisodi numero del Episodi
      * @param data fecha de la valoracion
      */
-    public CorValoracio(int id, String idClient, String idUsuari, String idSerie, int temporada, int idEpisodi, String data) { super(id, idClient, idUsuari, idSerie, temporada, idEpisodi, data); }
+    public CorValoracio(int id, String idClient, String idUsuari, String idSerie, int temporada, int idEpisodi, String data) {
+        super(id, idClient, idUsuari, idSerie, temporada, idEpisodi, data);
+    }
 }

@@ -6,6 +6,8 @@ import ub.edu.controller.IController;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Formulari de valorar un episodi, es pot valorar segons emoció, marcar el dispositiu i/o escollir el personatge favorit. Aquesta classe hereta de JDialog
@@ -19,9 +21,7 @@ class FrmValoracio extends JDialog {
     private JPanel panelEmocio;
     private JSlider barraEmocio;
     private JPanel panelCor;
-    private JButton btnMarcar;
     private JButton btnCor;
-    private JButton btnEscollir;
 
     //Afegit manualment
     private IController controller;
@@ -34,10 +34,10 @@ class FrmValoracio extends JDialog {
      * @param numTemporada número de temporada de l'episodi
      * @param episodi títol de l'episodi seleccionat
      */
-    protected FrmValoracio(Frame owner, IController controller, String idSerie, int numTemporada, String episodi) {
+    protected FrmValoracio(Frame owner, IController controller, String idSerie, int numTemporada, int idEpisodi, String episodi) {
         this.owner = owner;
         this.controller = controller;
-        initComponents(idSerie, numTemporada, episodi);
+        initComponents(idSerie, numTemporada, idEpisodi, episodi);
         setResizable(false);
         setTitle("Valoració de l'episodi");
     }
@@ -48,7 +48,7 @@ class FrmValoracio extends JDialog {
      * @param numTemporada número de temporada de l'episodi
      * @param episodi títol de l'episodi seleccionat
      */
-    private void initComponents(String idSerie, int numTemporada, String episodi) {
+    private void initComponents(String idSerie, int numTemporada, int idEpisodi, String episodi) {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(btnValorar);
@@ -57,7 +57,7 @@ class FrmValoracio extends JDialog {
 
         btnValorar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                onValorar(idSerie, numTemporada, episodi);
+                valorarEstrella(idSerie, numTemporada, idEpisodi, episodi);
             }
         });
 
@@ -99,9 +99,7 @@ class FrmValoracio extends JDialog {
         btnCor.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String estat = "Episodi valorat";
-                JOptionPane.showMessageDialog(contentPane, estat);
-                dispose();
+                valorarCor(idSerie, numTemporada, idEpisodi, episodi);
             }
         });
     }
@@ -141,9 +139,35 @@ class FrmValoracio extends JDialog {
      * @param numTemporada número de temporada de l'episodi
      * @param episodi títol de l'episodi seleccionat
      */
-    private void onValorar(String idSerie, int numTemporada, String episodi) {
-        String estat = "Episodi valorat";
-        JOptionPane.showMessageDialog(contentPane, estat);
+    private void valorarEstrella(String idSerie, int numTemporada, int idEpisodi, String episodi) {
+
+        int estrelles = barraEmocio.getValue();
+
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        LocalDate localDate = LocalDate.now();
+
+        String info = controller.valorarEpisodiEstrellas(1, ((UBFLIXParty) owner).getCurrentClient(),
+                ((UBFLIXParty) owner).getCurrentUser(), idSerie, numTemporada, idEpisodi, estrelles, dtf.format(localDate));
+
+        JOptionPane.showMessageDialog(contentPane, info);
+        dispose();
+    }
+
+    /**
+     * Mètode que serveix per guardar la Valoració per Emoció un cop s'ha valorat
+     * @param idSerie identificador de la sèrie de l'episodi
+     * @param numTemporada número de temporada de l'episodi
+     * @param episodi títol de l'episodi seleccionat
+     */
+    private void valorarCor(String idSerie, int numTemporada, int idEpisodi, String episodi) {
+
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        LocalDate localDate = LocalDate.now();
+
+        String info = controller.valorarEpisodiCor(1, ((UBFLIXParty) owner).getCurrentClient(),
+                ((UBFLIXParty) owner).getCurrentUser(), idSerie, numTemporada, idEpisodi, dtf.format(localDate));
+
+        JOptionPane.showMessageDialog(contentPane, info);
         dispose();
     }
 
