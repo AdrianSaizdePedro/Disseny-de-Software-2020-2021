@@ -115,7 +115,8 @@ class FormEpisodi extends JDialog{
      * @return True si el client hi està subscrit. False en cas contrari.
      */
     private boolean estaVisualitzat(String idSerie, int numTemporada, int idEpisodi) {
-        return true;
+        boolean resultado = controller.isEpisodiVisualitzat(idSerie, numTemporada, idEpisodi, this.currentClient, this.currentUsuari);
+        return resultado;
     }
 
 

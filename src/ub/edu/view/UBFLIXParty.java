@@ -447,7 +447,7 @@ public class UBFLIXParty extends JFrame implements Observer{
      * @param descripcio descripció de l'episodi seleccionat
      */
     private void onEpisodi(String idSerie, int temporada, int idEpisodi, String nomEpisodi, int duracio, int duracioVisualitzada, String descripcio) {
-        FormEpisodi dialog = new FormEpisodi(this, controller, idSerie, temporada, idEpisodi, nomEpisodi, duracio, duracioVisualitzada, descripcio, currentUser, currentClient);
+        FormEpisodi dialog = new FormEpisodi(this, controller, idSerie, temporada, idEpisodi, nomEpisodi, duracio, duracioVisualitzada, descripcio, currentClient, currentUser);
         dialog.pack();
         dialog.setVisible(true);
     }

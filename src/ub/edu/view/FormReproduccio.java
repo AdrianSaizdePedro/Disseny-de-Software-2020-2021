@@ -43,7 +43,7 @@ class FormReproduccio extends JDialog {
         this.controller = controller;
         this.currentClient = currentClient;
         this.currentUser = currentUser;
-        duracioVisualitzacio = duracioEpisodi;
+        this.duracioVisualitzacio = duracioEpisodi;
         this.duracioVisualitzada = duracioVisualitzada;
         this.serie = idSerie;
         this.numTemporada = numTemporada;

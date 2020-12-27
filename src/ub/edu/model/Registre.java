@@ -13,7 +13,7 @@ public class Registre implements  Subject{
     private ValoracioFactory valoracioFactory;
 
     private Map<String, ArrayList<Preferencia>> preferencias;
-    private Map<String, ArrayList<ub.edu.model.Visualitzacio>> visualitzacions;
+    private Map<String, ArrayList<Visualitzacio>> visualitzacions;
     private Map<String, ArrayList<CorValoracio>> corsValoracio;
     private Map<String, ArrayList<EstrellasValoracio>> estrellasValoracio;
 
@@ -156,7 +156,6 @@ public class Registre implements  Subject{
             visualitzacio.updateVisualitzacio(data, segonsRestants);
             return true;
         }
-
     }
 
     /**
@@ -186,6 +185,22 @@ public class Registre implements  Subject{
         int duracioRestant = 0;
         if(findVisualitzacio(idUser, idSerie, numTemporada, numEpisodi) != null) duracioRestant = findVisualitzacio(idUser, idSerie, numTemporada, numEpisodi).getSegonsRestants();
         return duracio-duracioRestant;
+    }
+
+    /**
+     * Metodo para saber si un Episodio ha sido o no Visualizado
+     * @param nomSerie id de la serie
+     * @param numTemporada numero de la temporada
+     * @param idEpisodi id del episodio
+     * @param idUsuari idClient
+     * @return true si se ha visualizado, false si no...
+     */
+    public boolean isEpisodiVisualitzat(String nomSerie, int numTemporada, int idEpisodi, String idUsuari) {
+        Visualitzacio visualitzacio = findVisualitzacio(idUsuari, nomSerie, numTemporada, idEpisodi);
+        if(visualitzacio != null){
+            return visualitzacio.getEstat().equals("Watched") || visualitzacio.getSegonsRestants() == 0;
+        }
+        return false;
     }
 
 

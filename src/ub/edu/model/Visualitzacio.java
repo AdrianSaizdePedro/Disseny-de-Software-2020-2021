@@ -186,5 +186,7 @@ public class Visualitzacio {
     public void updateVisualitzacio(String data, int segonsRestants) {
         this.setData(data);
         this.setSegonsRestants(segonsRestants);
+        if(segonsRestants == 0) setEstat("Watched");
+        else setEstat("Watching");
     }
 }

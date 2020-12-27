@@ -103,7 +103,6 @@ public class FacadeRegistre {
      * @param id ID de la Visualizacion
      * @param idClient ID del Cliente
      * @param idUser ID del Usuario
-     * @param idSerie ID de la Serie
      * @param nomSerie Nombre de la serie
      * @param numTemporada Numero de Temporada
      * @param idEpisodi ID del Episodio
@@ -125,6 +124,18 @@ public class FacadeRegistre {
      */
     public int getDuracioVisualitzada(String idClient, String idUser, String idSerie, int numTemporada, int numEpisodi, int duracio) {
         return registre.getDuracioVisualitzada(idClient, idUser, idSerie, numTemporada, numEpisodi, duracio);
+    }
+
+    /**
+     * Metodo para saber si un Episodio ha sido o no Visualizado
+     * @param nomSerie id de la serie
+     * @param numTemporada numero de la temporada
+     * @param idEpisodi id del episodio
+     * @param idUsuari idClient
+     * @return true si se ha visualizado, false si no...
+     */
+    public boolean isEpisodiVisualitzat(String nomSerie, int numTemporada, int idEpisodi, String idUsuari) {
+        return registre.isEpisodiVisualitzat(nomSerie, numTemporada, idEpisodi, idUsuari);
     }
 
     /**
@@ -185,6 +196,7 @@ public class FacadeRegistre {
     public void registerObserver(Observer observer) {
         registre.registerObserver(observer);
     }
+
 
 
 }

@@ -33,6 +33,8 @@ public interface IController {
 
     int getDuracioVisualitzada(String idClient, String idUser, String idSerie, int numTemporada, int numEpisodi);
 
+    boolean isEpisodiVisualitzat(String idSerie, int numTemporada, int idEpisodi, String currentClient, String currentUsuari);
+
     String valorarEpisodiCor(int id, String idClient, String nomUsuari, String idSerie, int idTemporada, int idEpisodi, String data);
 
     String valorarEpisodiEstrellas(int id, String idClient, String nomUsuari, String idSerie, int idTemporada, int idEpisodi, int estrelles, String data);

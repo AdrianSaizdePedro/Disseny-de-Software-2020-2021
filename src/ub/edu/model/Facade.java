@@ -391,15 +391,16 @@ public class Facade{
      * Permite guardar la visualizacion de un episodio
      * @param id ID de la Visualizacion
      * @param idClient ID del Cliente
-     * @param idUser ID del Usuario
+     * @param nomUser ID del Usuario
      * @param idSerie ID de la Serie
      * @param numTemporada Numero de Temporada
      * @param idEpisodi ID del Episodio
      * @param data Dataa
      * @param segonsRestants Segundos Restantes
      */
-    public void visualitzarEpisodi(int id, String idClient, String idUser, String idSerie, int numTemporada, int idEpisodi, String data, int segonsRestants) throws Exception {
+    public void visualitzarEpisodi(int id, String idClient, String nomUser, String idSerie, int numTemporada, int idEpisodi, String data, int segonsRestants) throws Exception {
         String nomSerie = facadeSeries.getNomSerieByID(idSerie);
+        String idUser = dataService.getUsuariByIdClientAndUsername(idClient, nomUser).getIdUser();
         facadeRegistre.visualitzarEpisodi(id, idClient, idUser, nomSerie, numTemporada, idEpisodi, data, segonsRestants);
     }
 
@@ -417,7 +418,20 @@ public class Facade{
         int duracioEpisodi = dataService.getEpisodiByTitolTemporadaIdEpisodi(idSerie, numTemporada, numEpisodi).getDuracio();
         return facadeRegistre.getDuracioVisualitzada(idClient, idUser, idSerie, numTemporada, numEpisodi, duracioEpisodi);
     }
-
+    /**
+     * Metodo para saber si un Episodio ha sido o no Visualizado
+     * @param idSerie id de la serie
+     * @param numTemporada numero de la temporada
+     * @param idEpisodi id del episodio
+     * @param currentClient ID CLiente
+     * @param currentUsuari nomClient
+     * @return true si se ha visualizado, false si no...
+     */
+    public boolean isEpisodiVisualitzat(String idSerie, int numTemporada, int idEpisodi, String currentClient, String currentUsuari) throws Exception {
+        String idUser = dataService.getUsuariByIdClientAndUsername(currentClient, currentUsuari).getIdUser();
+        String nomSerie = facadeSeries.getNomSerieByID(idSerie);
+        return facadeRegistre.isEpisodiVisualitzat(nomSerie, numTemporada, idEpisodi, idUser);
+    }
     //         SOBRE VALORACIONES          //
 
     /**

@@ -325,17 +325,17 @@ public class ControladorGUI implements IController{
      * Permite guardar la visualizacion de un episodio
      * @param id ID de la Visualizacion
      * @param idClient ID del Cliente
-     * @param idUser ID del Usuario
+     * @param nomUser ID del Usuario
      * @param idSerie ID de la Serie
      * @param numTemporada Numero de Temporada
      * @param idEpisodi ID del Episodio
      * @param data Dataa
      * @param segonsRestants Segundos Restantes
      */
-    public void visualitzarEpisodi(int id, String idClient, String idUser, String idSerie, int numTemporada,
+    public void visualitzarEpisodi(int id, String idClient, String nomUser, String idSerie, int numTemporada,
                                    int idEpisodi, String data, int segonsRestants) {
         try {
-            facana.visualitzarEpisodi(id, idClient, idUser, idSerie, numTemporada, idEpisodi, data, segonsRestants);
+            facana.visualitzarEpisodi(id, idClient, nomUser, idSerie, numTemporada, idEpisodi, data, segonsRestants);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -355,6 +355,23 @@ public class ControladorGUI implements IController{
         return facana.getDuracioVisualitzada(idClient, idUser, idSerie, numTemporada, numEpisodi);
     }
 
+    /**
+     * Metodo para saber si un Episodio ha sido o no Visualizado
+     * @param idSerie id de la serie
+     * @param numTemporada numero de la temporada
+     * @param idEpisodi id del episodio
+     * @param currentClient ID CLiente
+     * @param currentUsuari nomClient
+     * @return true si se ha visualizado, false si no...
+     */
+    public boolean isEpisodiVisualitzat(String idSerie, int numTemporada, int idEpisodi, String currentClient, String currentUsuari) {
+        try {
+            return facana.isEpisodiVisualitzat(idSerie, numTemporada, idEpisodi, currentClient, currentUsuari);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
 
     public void registerObserver(Observer observer) {
