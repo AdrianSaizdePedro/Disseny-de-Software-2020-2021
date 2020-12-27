@@ -6,6 +6,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
 import ub.edu.controller.IController;
 
 import javax.swing.*;
@@ -18,8 +19,8 @@ import java.time.format.DateTimeFormatter;
 
 public class FormReproductorVideo extends JDialog {
     private  JPanel panelReproduccio;
-    private final int duracioVisualitzacio;
-    private final int duracioVisualitzada;
+    private int duracioVisualitzacio;
+    private int duracioVisualitzada;
     private final String serie;
     private final int numTemporada;
     private final int episodi;
@@ -33,6 +34,7 @@ public class FormReproductorVideo extends JDialog {
     private final IController controller;
     private final Frame owner;
 
+    private static final int MAX_TIME_REPRODUCCION = 125;
     private static final String MEDIA_URL = "assets/sample-mp4-file.mp4";
 
     private void initAndShowGUI() {
@@ -57,17 +59,18 @@ public class FormReproductorVideo extends JDialog {
      */
     private void formWindowClosing(WindowEvent evt, String serie, int numTemporada, int idEpisodi) {
         if (mediaPlayer!=null) {
-            int tempsVisualitzacio = (int) ((mediaPlayer.getCurrentTime().toMillis() * duracioVisualitzacio) / 100.0);
-            int segundosRestantes = tempsVisualitzacio - duracioVisualitzada;
+
+            int tempsVisualitzacio = (int) ((mediaPlayer.getCurrentTime().toMillis()) / 1000.0);
+            int segundosRestantes = duracioVisualitzacio - tempsVisualitzacio;
 
 
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
             LocalDate localDate = LocalDate.now();
 
-            controller.visualitzarEpisodi(1, currentClient, currentUser, serie, numTemporada, idEpisodi, dtf.format(localDate), segundosRestantes);
+            String info = controller.visualitzarEpisodi(1, currentClient, currentUser, serie, numTemporada, idEpisodi, dtf.format(localDate), segundosRestantes);
 
-            String estat = "Visualització tancada del reproductor";
-            JOptionPane.showMessageDialog(panelReproduccio, estat);
+
+            JOptionPane.showMessageDialog(panelReproduccio, info);
             scene = null;
             mediaPlayer.stop();
             mediaControl.setVisible(false);
@@ -97,9 +100,18 @@ public class FormReproductorVideo extends JDialog {
         Media media = new Media(mediaFile.toURI().toURL().toString());
         if (mediaPlayer==null)  {
             mediaPlayer = new MediaPlayer(media);
-            // Sempre comença a reproduir des de 0
-            mediaPlayer.setAutoPlay(true);
 
+            if(duracioVisualitzacio >  (int) mediaPlayer.getTotalDuration().toSeconds()){
+                duracioVisualitzada = MAX_TIME_REPRODUCCION - (duracioVisualitzacio - duracioVisualitzada);
+                if(duracioVisualitzada < 0 ) duracioVisualitzada = 0;
+                duracioVisualitzacio = MAX_TIME_REPRODUCCION;
+
+            }
+
+            mediaPlayer.setStartTime(new Duration(duracioVisualitzada*1000));
+            mediaPlayer.setStopTime(new Duration(duracioVisualitzacio*1000));
+
+            mediaPlayer.setAutoPlay(true);
             mediaControl = new MediaControl(mediaPlayer);
 
             scene.setRoot(mediaControl);
@@ -111,13 +123,13 @@ public class FormReproductorVideo extends JDialog {
 
 
 
-    public FormReproductorVideo (Frame owner, IController controller, String idSerie, int numTemporada, int episodi, int duracioEpisodi, int duracioVisualitzada, String currentClient, String currentUser) {
+    public FormReproductorVideo (Frame owner, IController controller, String idSerie, int numTemporada, int episodi, int duracioEpisodi, String currentClient, String currentUser) {
         this.owner = owner;
         this.controller = controller;
         this.currentClient = currentClient;
         this.currentUser = currentUser;
         this.duracioVisualitzacio = duracioEpisodi;
-        this.duracioVisualitzada = duracioVisualitzada;
+        this.duracioVisualitzada = controller.getDuracioVisualitzada(currentClient, currentUser, idSerie, numTemporada, episodi, duracioEpisodi);
         this.serie = idSerie;
         this.numTemporada = numTemporada;
         this.episodi = episodi;
@@ -138,7 +150,8 @@ public class FormReproductorVideo extends JDialog {
     }
 
     private void formWindowOpened(WindowEvent evt, String serie, int numTemporada, int episodi) {
-            if (scene == null || !scene.getWindow().isShowing()) {
+        if(duracioVisualitzada == duracioVisualitzacio) duracioVisualitzada = 0;
+        if (scene == null || !scene.getWindow().isShowing()) {
                 SwingUtilities.invokeLater(this::initAndShowGUI);
             }
     }

@@ -183,10 +183,11 @@ public class Visualitzacio {
     public boolean equals(Object obj) { return ((obj instanceof Visualitzacio) && this.idVisualitzacio == ((Visualitzacio)obj).idVisualitzacio); }
 
 
-    public void updateVisualitzacio(String data, int segonsRestants) {
+    public boolean updateVisualitzacio(String data, int segonsRestants) {
         this.setData(data);
         this.setSegonsRestants(segonsRestants);
         if(segonsRestants == 0) setEstat("Watched");
-        else setEstat("Watching");
+
+        return true;
     }
 }

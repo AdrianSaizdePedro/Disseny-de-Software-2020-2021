@@ -335,14 +335,13 @@ public class ControladorGUI implements IController{
      * @param segonsRestants Segundos Restantes
      */
     public String visualitzarEpisodi(int id, String idClient, String nomUser, String idSerie, int numTemporada,
-                                   int idEpisodi, String data, int segonsRestants) {
+                                     int idEpisodi, String data, int segonsRestants) {
         try {
-            int casosFacade = facana.visualitzarEpisodi(id, idClient, nomUser, idSerie, numTemporada, idEpisodi, data, segonsRestants);
-            switch (casosFacade){
-                case 1: return "Episodio añadido a Continue Watching List";
-                case 2: return "Episodio añadido a Already Watched List";
-                default: return "No se ha podido visualizar el Episodio";
+            if(facana.visualitzarEpisodi(id, idClient, nomUser, idSerie, numTemporada, idEpisodi, data, segonsRestants)){
+                if(segonsRestants == 0) return "Episodio añadido a Already Watched List";
+                else return "Episodio añadido a Continue Watching List";
             }
+            else return "Visualización no guardada correctamente";
         } catch (Exception e) {
             return e.getMessage();
         }

@@ -131,7 +131,7 @@ public class Registre implements RegisterSubject{
      * @param idSerie ID de la Serie
      * @return Visualitzacio si la encuentra o null si no existe
      */
-    public ub.edu.model.Visualitzacio findVisualitzacio(String idUser, String idSerie, int idTemporade, int idEpisodi) {
+    public Visualitzacio findVisualitzacio(String idUser, String idSerie, int idTemporade, int idEpisodi) {
         if (visualitzacions.containsKey(idUser)) {
             for (ub.edu.model.Visualitzacio repr : visualitzacions.get(idUser)) {
                 if (repr.getNomSerie().equals(idSerie) && repr.getNumTemporada() == idTemporade && repr.getIdEpisodi() == idEpisodi) return repr;
@@ -146,15 +146,15 @@ public class Registre implements RegisterSubject{
      * @param idUser ID del Usuario
      * @param nomSerie Id de la Serie
      */
-    public void addVisualitzacio(int id, String idClient, String idUser, String nomSerie, int numTemporada, int idEpisodi, String data, int segonsRestants){
+    public boolean addVisualitzacio(int id, String idClient, String idUser, String nomSerie, int numTemporada, int idEpisodi, String data, int segonsRestants){
         Visualitzacio visualitzacio = findVisualitzacio(idUser, nomSerie, numTemporada, idEpisodi);
         if (visualitzacio == null){
             if (!visualitzacions.containsKey(idUser)) {
                 visualitzacions.put(idUser, new ArrayList<>());
             }
-            visualitzacions.get(idUser).add(new Visualitzacio(id, idClient, idUser, nomSerie, numTemporada, idEpisodi, data, segonsRestants));
+            return visualitzacions.get(idUser).add(new Visualitzacio(id, idClient, idUser, nomSerie, numTemporada, idEpisodi, data, segonsRestants));
         } else{
-            visualitzacio.updateVisualitzacio(data, segonsRestants);
+            return visualitzacio.updateVisualitzacio(data, segonsRestants);
         }
     }
 

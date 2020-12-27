@@ -397,7 +397,7 @@ public class Facade{
      * @param data Dataa
      * @param segonsRestants Segundos Restantes
      */
-    public int visualitzarEpisodi(int id, String idClient, String nomUser, String idSerie, int numTemporada, int idEpisodi, String data, int segonsRestants) throws Exception {
+    public boolean visualitzarEpisodi(int id, String idClient, String nomUser, String idSerie, int numTemporada, int idEpisodi, String data, int segonsRestants) throws Exception {
         String nomSerie = facadeSeries.getNomSerieByID(idSerie);
         String idUser = facadeClients.getIDUsuariByClientAndUsername(idClient, nomUser);
         return facadeRegistre.visualitzarEpisodi(id, idClient, idUser, nomSerie, numTemporada, idEpisodi, data, segonsRestants);

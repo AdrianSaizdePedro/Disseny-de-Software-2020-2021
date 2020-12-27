@@ -109,8 +109,8 @@ public class FacadeRegistre {
      * @param data Dataa
      * @param segonsRestants Segundos Restantes
      */
-    public void visualitzarEpisodi(int id, String idClient, String idUser, String nomSerie, int numTemporada, int idEpisodi, String data, int segonsRestants) {
-        registre.addVisualitzacio(id, idClient, idUser, nomSerie, numTemporada, idEpisodi, data, segonsRestants);
+    public boolean visualitzarEpisodi(int id, String idClient, String idUser, String nomSerie, int numTemporada, int idEpisodi, String data, int segonsRestants) {
+        return registre.addVisualitzacio(id, idClient, idUser, nomSerie, numTemporada, idEpisodi, data, segonsRestants);
     }
 
     /**
