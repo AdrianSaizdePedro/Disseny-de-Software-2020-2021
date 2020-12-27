@@ -412,10 +412,11 @@ public class Facade{
      * @param numEpisodi ID del Episodio
      * @return int de segundos visualizados
      */
-    public int getDuracioVisualitzada(String idClient, String nomUsuari, String idSerie, int numTemporada, int numEpisodi) {
+    public int getDuracioVisualitzada(String idClient, String nomUsuari, String idSerie, int numTemporada, int numEpisodi) throws Exception {
         String idUser = dataService.getUsuariByIdClientAndUsername(idClient, nomUsuari).getIdUser();
+        String nomSerie = facadeSeries.getNomSerieByID(idSerie);
         int duracioEpisodi = dataService.getEpisodiByTitolTemporadaIdEpisodi(idSerie, numTemporada, numEpisodi).getDuracio();
-        return facadeRegistre.getDuracioVisualitzada(idClient, idUser, idSerie, numTemporada, numEpisodi, duracioEpisodi);
+        return facadeRegistre.getDuracioVisualitzada(idClient, idUser, nomSerie, numTemporada, numEpisodi, duracioEpisodi);
     }
     /**
      * Metodo para saber si un Episodio ha sido o no Visualizado

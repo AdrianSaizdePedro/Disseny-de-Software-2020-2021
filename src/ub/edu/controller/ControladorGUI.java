@@ -352,7 +352,12 @@ public class ControladorGUI implements IController{
      * @return int de segundos visualizados
      */
     public int getDuracioVisualitzada(String idClient, String idUser, String idSerie, int numTemporada, int numEpisodi) {
-        return facana.getDuracioVisualitzada(idClient, idUser, idSerie, numTemporada, numEpisodi);
+        try {
+            return facana.getDuracioVisualitzada(idClient, idUser, idSerie, numTemporada, numEpisodi);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
     }
 
     /**

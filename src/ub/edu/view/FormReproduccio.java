@@ -36,15 +36,14 @@ class FormReproduccio extends JDialog {
      * @param numTemporada número de temporada de l'episodi a reproduir
      * @param episodi títol de l'episodi a reproduir
      * @param duracioEpisodi duració de l'episodi a reproduir
-     * @param duracioVisualitzada duració ja visualitzada anteriorment de l'episodi a reproduir
      */
-    protected FormReproduccio(Frame owner, IController controller, String idSerie, int numTemporada, int episodi, int duracioEpisodi, int duracioVisualitzada, String currentClient, String currentUser) {
+    protected FormReproduccio(Frame owner, IController controller, String idSerie, int numTemporada, int episodi, int duracioEpisodi, String currentClient, String currentUser) {
         this.owner = owner;
         this.controller = controller;
         this.currentClient = currentClient;
         this.currentUser = currentUser;
         this.duracioVisualitzacio = duracioEpisodi;
-        this.duracioVisualitzada = duracioVisualitzada;
+        this.duracioVisualitzada = controller.getDuracioVisualitzada(currentClient, currentUser, idSerie, numTemporada, episodi);
         this.serie = idSerie;
         this.numTemporada = numTemporada;
         this.episodi = episodi;
@@ -92,6 +91,7 @@ class FormReproduccio extends JDialog {
      * @param evt event que detecta quan s'obra la finestra
      */
     private void formWindowOpened(WindowEvent evt) {
+        if(duracioVisualitzada == duracioVisualitzacio) duracioVisualitzada = 0;
         progressBar.setValue((duracioVisualitzada*100)/duracioVisualitzacio);
         int delay = (duracioVisualitzacio*1000)/100;
         actionListener = new ActionListener() {
@@ -119,7 +119,7 @@ class FormReproduccio extends JDialog {
     private void formWindowClosing(WindowEvent evt, String serie, int numTemporada, int idEpisodi) {
         timer.stop();
         int tempsVisualitzacio = ((progressBar.getValue()*duracioVisualitzacio)/100);
-        int segundosRestantes = duracioVisualitzacio - tempsVisualitzacio - duracioVisualitzada;
+        int segundosRestantes = duracioVisualitzacio - tempsVisualitzacio;
 
 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");

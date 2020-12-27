@@ -14,6 +14,8 @@ public class DAOVisualitzacioMOCK implements DAOVisualitzacio {
         // Visualizaciones del Usuario 'id1', del Cliente 'ajaleo'
         ArrayList<Visualitzacio> visualitzacio_1 = new ArrayList<>();
         visualitzacio_1.add(new Visualitzacio(1, "ajaleo", "id1","The Mandalorian", 1, 1, "22/03/2011", 0));
+        visualitzacio_1.add(new Visualitzacio(1, "ajaleo", "id1","The Mandalorian", 1, 2, "22/03/2011", 10));
+
         visualizedSeries.put("id1", visualitzacio_1);
 
         // Visualizaciones del Usuario 'id2', del Cliente 'ajaleo'

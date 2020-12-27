@@ -328,10 +328,10 @@ public class UBFLIXParty extends JFrame implements RegisterObserver{
 
                     int numTemporada = Integer.parseInt(temporada.split(" ")[1]);
                     int duracio = episodi.getDuracio();
-                    int duracioVisualitzada = controller.getDuracioVisualitzada(currentClient, currentUser, idSerie, numTemporada, episodi.getNumEpisodi());
+                    //int duracioVisualitzada = controller.getDuracioVisualitzada(currentClient, currentUser, idSerie, numTemporada, episodi.getNumEpisodi());
                     String descripcio = episodi.getDescripcio();
                     
-                    onEpisodi(idSerie, numTemporada, episodi.getNumEpisodi(), episodi.getTitol(), duracio, duracioVisualitzada, descripcio);
+                    onEpisodi(idSerie, numTemporada, episodi.getNumEpisodi(), episodi.getTitol(), duracio, descripcio);
                 }
             });
             jm.add(ep);
@@ -444,8 +444,8 @@ public class UBFLIXParty extends JFrame implements RegisterObserver{
      * @param duracioVisualitzada duració ja visualitzada pel client de l'episodi seleccionat
      * @param descripcio descripció de l'episodi seleccionat
      */
-    private void onEpisodi(String idSerie, int temporada, int idEpisodi, String nomEpisodi, int duracio, int duracioVisualitzada, String descripcio) {
-        FormEpisodi dialog = new FormEpisodi(this, controller, idSerie, temporada, idEpisodi, nomEpisodi, duracio, duracioVisualitzada, descripcio, currentClient, currentUser);
+    private void onEpisodi(String idSerie, int temporada, int idEpisodi, String nomEpisodi, int duracio, String descripcio) {
+        FormEpisodi dialog = new FormEpisodi(this, controller, idSerie, temporada, idEpisodi, nomEpisodi, duracio, descripcio, currentClient, currentUser);
         dialog.pack();
         dialog.setVisible(true);
     }

@@ -32,14 +32,14 @@ class FormEpisodi extends JDialog{
      * @param duracio duració de l'episodi seleccionat
      * @param descripcio descripció de l'episodi seleccionat
      */
-    protected FormEpisodi(Frame owner, IController controller, String idSerie, int numTemporada, int idEpisodi, String episodi, int duracio, int duracioVisualitzada,
+    protected FormEpisodi(Frame owner, IController controller, String idSerie, int numTemporada, int idEpisodi, String episodi, int duracio,
                           String descripcio, String currentClient, String currentUsuari) {
         this.owner = owner;
         this.controller = controller;
         this.currentClient = currentClient;
         this.currentUsuari = currentUsuari;
 
-        initComponents(idSerie, numTemporada, idEpisodi, episodi, duracio, duracioVisualitzada, descripcio);
+        initComponents(idSerie, numTemporada, idEpisodi, episodi, duracio, descripcio);
         setResizable(false);
         setTitle("Detall de l'episodi");
     }
@@ -52,7 +52,7 @@ class FormEpisodi extends JDialog{
      * @param duracio duració de l'episodi seleccionat
      * @param descripcio descripció de l'episodi seleccionat
      */
-    private void initComponents(String idSerie, int numTemporada, int idEpisodi, String titol, int duracio, int duracioVisualitzada, String descripcio) {
+    private void initComponents(String idSerie, int numTemporada, int idEpisodi, String titol, int duracio, String descripcio) {
 
         add(jpanel);
         setModal(true);
@@ -74,7 +74,7 @@ class FormEpisodi extends JDialog{
         visualitzarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                onVisualitzar(idSerie, numTemporada, idEpisodi, duracio, duracioVisualitzada);
+                onVisualitzar(idSerie, numTemporada, idEpisodi, duracio);
             }
         });
 
@@ -96,10 +96,10 @@ class FormEpisodi extends JDialog{
      * @param duracio duració de l'episodi seleccionat
      */
     @SuppressWarnings("deprecation")
-    private void onVisualitzar(String idSerie, int numTemporada, int idEpisodi, int duracio, int duracioVisualitzada) {
+    private void onVisualitzar(String idSerie, int numTemporada, int idEpisodi, int duracio) {
 
-        if(duracio == duracioVisualitzada) duracioVisualitzada = 0;
-        FormReproduccio fr = new FormReproduccio(owner, controller, idSerie, numTemporada, idEpisodi, duracio, duracioVisualitzada, currentClient, currentUsuari);
+        //if(duracio == duracioVisualitzada) duracioVisualitzada = 0;
+        FormReproduccio fr = new FormReproduccio(owner, controller, idSerie, numTemporada, idEpisodi, duracio, currentClient, currentUsuari);
         //FormReproductorVideo fr = new FormReproductorVideo(owner, controller, idSerie, numTemporada, idEpisodi, duracio, duracioVisualitzada, currentClient, currentUsuari);
         fr.pack();
         fr.setVisible(true);
