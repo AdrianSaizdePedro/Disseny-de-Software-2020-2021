@@ -1,7 +1,7 @@
 package ub.edu.controller;
 
 import ub.edu.model.Episodi;
-import ub.edu.view.Observer;
+import ub.edu.view.RegisterObserver;
 
 import java.util.List;
 
@@ -33,5 +33,5 @@ public interface IController {
 
     String valorarEpisodiEstrellas(int id, String idClient, String nomUsuari, String idSerie, int idTemporada, int idEpisodi, int estrelles, String data);
 
-    public void registerObserver(Observer observer);
+    void registerObserver(RegisterObserver observer);
 }

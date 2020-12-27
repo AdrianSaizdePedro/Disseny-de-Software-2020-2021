@@ -4,6 +4,7 @@ package ub.edu.view;
 
 import ub.edu.controller.IController;
 import ub.edu.model.Episodi;
+import ub.edu.model.StrategyTOP.IterableStrategy;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -14,17 +15,14 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
-import java.lang.reflect.Array;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
-import java.util.Vector;
 
 /**
  * GUI bàsica de l'app UBFLIX on es mostraran les diferents llistes corresponent a cada client que hagi realitzat el Log In.
  * Aquesta classe hereta de JFrame i és la vista principal de l'aplicació.
  */
-public class UBFLIXParty extends JFrame implements Observer{
+public class UBFLIXParty extends JFrame implements RegisterObserver{
 
     private JPanel jPanel;
     private JTabbedPane llistes;
@@ -53,8 +51,8 @@ public class UBFLIXParty extends JFrame implements Observer{
     private DefaultTableModel tableModelVis;
     private DefaultTableModel tableModelVal;
 
-    private List<Map.Entry<String, Double>> listaTopTenValoracions;
-    private List<Map.Entry<String, Double>> listaTopTenVisualitzacions;
+    //private List<Map.Entry<String, Double>> listaTopTenValoracions;
+    //private List<Map.Entry<String, Double>> listaTopTenVisualitzacions;
 
     private IController controller;
     private String currentClient;
@@ -171,7 +169,6 @@ public class UBFLIXParty extends JFrame implements Observer{
 
         inicialitzarLlistaTopVisualitzacions();
         inicialitzarLlistaTopValoracions();
-
         controller.registerObserver(this);
     }
 
@@ -345,8 +342,8 @@ public class UBFLIXParty extends JFrame implements Observer{
         refreshWatched();
         refreshMyList();
         refreshContinueWatching();
-        refreshTopValoracions();
-        refreshTopVisualitzacions();
+        //refreshTopValoracions();
+        //refreshTopVisualitzacions();
     }
 
 
@@ -395,13 +392,14 @@ public class UBFLIXParty extends JFrame implements Observer{
     /**
      * Mètode que actualitza les sèries del top10 de sèries més ben valorades
      */
-    private void refreshTopValoracions() {
+    @Override
+    public void refreshTopValoracions(IterableStrategy topValoracions) {
         //Fem el clear de la llista del top 10 de valoracions
         int numRows = tableModelVal.getRowCount();
         for (int i = numRows - 1; i >= 0; i--)
             tableModelVal.removeRow(i);
 
-        for (Map.Entry serie: listaTopTenValoracions) {
+        for (Map.Entry serie: (Iterable<Map.Entry>) topValoracions) {
             tableModelVal.addRow(new String[]{(String) serie.getKey(), String.format("%.2f", serie.getValue())});
         }
     }
@@ -409,15 +407,15 @@ public class UBFLIXParty extends JFrame implements Observer{
     /**
      * Mètode que actualitza les sèries del top10 de sèries més visualitzades
      */
-    private void refreshTopVisualitzacions() {
+    @Override
+    public void refreshTopVisualitzacions(IterableStrategy topVisualitzacions) {
         //Fem el clear de la llista del top 10 de visualitzacions
         int numRows = tableModelVis.getRowCount();
         for (int i = numRows - 1; i >= 0; i--)
             tableModelVis.removeRow(i);
 
-        String [] topTenVisualitzacions = {"serie 1", "serie 2", "serie 3", "serie 4", "serie 5", "serie 6", "serie 7", "serie 8", "serie 9", "serie 10"};
-        for (String serie: topTenVisualitzacions) {
-            tableModelVis.addRow(new Object[]{serie, 10});
+        for (Map.Entry serie: (Iterable<Map.Entry>) topVisualitzacions) {
+            tableModelVis.addRow(new String[]{(String) serie.getKey(), String.format("%.2f", serie.getValue())});
         }
     }
 
@@ -449,16 +447,6 @@ public class UBFLIXParty extends JFrame implements Observer{
         dialog.setVisible(true);
     }
 
-    /**
-     *
-     * @param listaTopTenValoracions
-     */
-    @Override
-    public void update(List<Map.Entry<String, Double>> listaTopTenValoracions) {
-        this.listaTopTenValoracions = listaTopTenValoracions;
-        refreshLlistes();
-    }
-
     public String getCurrentClient() {
         return currentClient;
     }
@@ -474,6 +462,4 @@ public class UBFLIXParty extends JFrame implements Observer{
     public void setCurrentUser(String currentUser) {
         this.currentUser = currentUser;
     }
-
-
 }
