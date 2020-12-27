@@ -189,6 +189,32 @@ public class ControladorGUI implements IController{
         }
     }
 
+    /**
+     * Método para listar las series de la lista Watched de un Usuario.
+     * @param client nombre del Cliente
+     * @param user nombre del Usuario
+     * @return Iterable con los títulos de las series de Watched
+     */
+    public Iterable<String> listMyWatchedList(String client, String user) {
+        try { return facana.listWatchingList(client, user); }
+        catch (Exception exp) {
+            ArrayList<String> exception = new ArrayList<>();
+            exception.add(exp.getMessage());
+            return exception;
+        }
+
+    }
+
+    public Iterable<String> listMyContinueWatchingList(String client, String user) {
+        try { return facana.listContinueWatchingList(client, user); }
+        catch (Exception exp) {
+            ArrayList<String> exception = new ArrayList<>();
+            exception.add(exp.getMessage());
+            return exception;
+        }
+    }
+
+
     ////////////////////////////////////////
     /*   Métodos Test marcarSerieMyList   */
     ////////////////////////////////////////
@@ -338,14 +364,38 @@ public class ControladorGUI implements IController{
                                      int idEpisodi, String data, int segonsRestants) {
         try {
             if(facana.visualitzarEpisodi(id, idClient, nomUser, idSerie, numTemporada, idEpisodi, data, segonsRestants)){
-                if(segonsRestants == 0) return "Episodio añadido a Already Watched List";
-                else return "Episodio añadido a Continue Watching List";
+                if(segonsRestants == 0) {
+                    addSerieToWatchingList(id, idClient, nomUser, idSerie, numTemporada, idEpisodi, data, segonsRestants);
+                    return "Episodio añadido a Already Watched List";
+
+                } else return "Episodio añadido a Continue Watching List";
             }
             else return "Visualización no guardada correctamente";
         } catch (Exception e) {
             return e.getMessage();
         }
     }
+
+    /**
+     * Método para añadir una serie a la lista Watched de un Usuario.
+     * @param id id de la preferencia
+     * @param idClient nombre del Cliente
+     * @param idUser nombre del Usuario
+     * @param nomSerie títol de la Serie
+     * @param numTemporada numero de la Temporada
+     * @param idEpisodi numero del Episodio
+     * @param data fecha de visualizacion
+     * @param segonsRestants Segundos restantes de la visualizacion
+     * @return Mensaje conforme si se ha añadido correctamente o no se ha completado la operación.
+     * */
+    public String addSerieToWatchingList(int id, String idClient, String idUser, String nomSerie, int numTemporada, int idEpisodi, String data, int segonsRestants) {
+        try {
+            if (facana.addSerieToWatchingList(id, idClient, idUser, nomSerie, numTemporada, idEpisodi, data, segonsRestants)) return "Sèrie '" + nomSerie + "' correctament afegida a Watched List.";
+            return "Sèrie '" + nomSerie + "' ja afegida a la llista Watched.";
+        } catch(Exception exp) { return exp.getMessage(); }
+    }
+
+
 
 
     /**

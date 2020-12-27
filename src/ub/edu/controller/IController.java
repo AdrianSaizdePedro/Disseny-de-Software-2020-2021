@@ -19,6 +19,10 @@ public interface IController {
 
     Iterable<String> listMyList(String client, String user);
 
+    Iterable<String> listMyWatchedList(String client, String user);
+
+    Iterable<String> listMyContinueWatchingList(String client, String user);
+
     String addSerieToMyList(int id, String client, String user, String serie);
 
     String removeSerieFromMyList(int id, String client, String user, String serie);
@@ -31,6 +35,8 @@ public interface IController {
 
     String visualitzarEpisodi(int id, String idClient, String idUser, String idSerie, int numTemporada, int idEpisodi, String data, int segonsRestants);
 
+    String addSerieToWatchingList(int id, String idClient, String idUser, String nomSerie, int numTemporada, int idEpisodi, String data, int segonsRestants);
+
     int getDuracioVisualitzada(String idClient, String idUser, String idSerie, int numTemporada, int numEpisodi, int duracioEpisodi);
 
     boolean isEpisodiVisualitzat(String idSerie, int numTemporada, int idEpisodi, String currentClient, String currentUsuari);
@@ -40,4 +46,5 @@ public interface IController {
     String valorarEpisodiEstrellas(int id, String idClient, String nomUsuari, String idSerie, int idTemporada, int idEpisodi, int estrelles, String data);
 
     void registerObserver(RegisterObserver observer);
+
 }

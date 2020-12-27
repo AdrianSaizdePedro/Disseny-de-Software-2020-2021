@@ -42,14 +42,23 @@ public class FacadeRegistre {
 
 
     /**
-     * Método para listar la lista WatchingList de un usuario de un cliente.
-     * Reordena las listar de modo que las lista en orden de inserción.
+     * Método para listar la lista WatchedList de un usuario de un cliente.
      * @param idUser  ID Usuari
-     * @return Iterable de títulos de las series de WatchingList del usuario.
+     * @return Iterable de títulos de las series de WatchedList del usuario.
      */
-    public Iterable<String> listWatchingList(String idUser) throws Exception {
-        if (registre.listVisualitzacionsById(idUser).isEmpty()) throw new Exception("No hi ha sèries visualitzades.");
-        return registre.listVisualitzacionsById(idUser);
+    public Iterable<String> listWatchedList(String idUser) throws Exception {
+        if (registre.listWatchedList(idUser).isEmpty()) throw new Exception("No hi ha sèries visualitzades.");
+        return registre.listWatchedList(idUser);
+    }
+
+    /**
+     * Método para listar la lista ContinueWatchingList de un usuario de un cliente.
+     * @param idUser  ID Usuari
+     * @return Iterable de títulos de las series de ContinueWatchingList del usuario.
+     */
+    public Iterable<String> listContinueWatchingList(String idUser) throws Exception{
+        if (registre.listContinueWatchingList(idUser).isEmpty()) throw new Exception("No hi ha cap sèrie començada.");
+        return registre.listContinueWatchingList(idUser);
     }
 
     /**
@@ -62,6 +71,7 @@ public class FacadeRegistre {
         if (registre.listPreferenciasById(idUser).isEmpty()) throw new Exception("No hi ha sèries preferides.");
         return registre.listPreferenciasById(idUser);
     }
+
 
     /**
      * Método para añadir una serie en la lista MyList de un usuario de un cliente.
@@ -87,7 +97,7 @@ public class FacadeRegistre {
      * @param idUser nombre del Usuario
      * @return true si se ha añadido, false sino.
      */
-    public boolean addSerieToWatchingList(int id, String idClient, String idUser, String title) { return true; }
+    public boolean addSerieToWatchingList(int id, String idClient, String idUser, String nomSerie, int numTemporada, int idEpisodi, String data, int segonsRestants) { return registre.addVisualitzacio(id, idClient, idUser, nomSerie, numTemporada, idEpisodi, data, segonsRestants); }
 
     /**
      * Método para quitar una serie a la lista WatchingList de un usuario de un cliente.
@@ -112,6 +122,8 @@ public class FacadeRegistre {
     public boolean visualitzarEpisodi(int id, String idClient, String idUser, String nomSerie, int numTemporada, int idEpisodi, String data, int segonsRestants) {
         return registre.addVisualitzacio(id, idClient, idUser, nomSerie, numTemporada, idEpisodi, data, segonsRestants);
     }
+
+
 
     /**
      * Metodo para saber el tiempo que ha visualizado un usuario de un episodio en concreto

@@ -63,6 +63,8 @@ public class Registre implements RegisterSubject{
         return titols;
     }
 
+
+
     /**
      * Metodo para encontrar la Preferencia de Serie de un Usuario
      * @param idUser ID del Usuario
@@ -118,10 +120,26 @@ public class Registre implements RegisterSubject{
      * @param idUser ID del Usuario
      * @return lista con los titulos de las Series
      */
-    public List<String> listVisualitzacionsById(String idUser) {
+    public List<String> listWatchedList(String idUser) {
         List<String> titols = new ArrayList<>();
         if (!visualitzacions.containsKey(idUser)) return titols;
-        for (ub.edu.model.Visualitzacio repr: visualitzacions.get(idUser)) titols.add(repr.getNomSerie());
+        for (ub.edu.model.Visualitzacio repr: visualitzacions.get(idUser)) {
+            if(!titols.contains(repr.getNomSerie()) && repr.getEstat().equals("Watched")) titols.add(repr.getNomSerie());
+        }
+        return titols;
+    }
+
+    /**
+     * Metodo para listar todas las Series que ha visto un Usuario
+     * @param idUser ID del Usuario
+     * @return lista con los titulos de las Series
+     */
+    public List<String> listContinueWatchingList(String idUser) {
+        List<String> titols = new ArrayList<>();
+        if (!visualitzacions.containsKey(idUser)) return titols;
+        for (ub.edu.model.Visualitzacio repr: visualitzacions.get(idUser)) {
+            if(!titols.contains(repr.getNomSerie()) && repr.getEstat().equals("Watching")) titols.add(repr.getNomSerie());
+        }
         return titols;
     }
 
@@ -157,6 +175,7 @@ public class Registre implements RegisterSubject{
             return visualitzacio.updateVisualitzacio(data, segonsRestants);
         }
     }
+
 
     /**
      * Metodo para eliminar una Visualizacion de una Serie de un Usuario
@@ -363,6 +382,8 @@ public class Registre implements RegisterSubject{
         }
         return valoracionsForSerie.entrySet();
     }
+
+
 
     /*
     private List<Map.Entry<String, Double>> getTopTenValoracions(){

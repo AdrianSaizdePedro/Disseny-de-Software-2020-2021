@@ -98,16 +98,27 @@ public class UBFLIXParty extends JFrame implements RegisterObserver{
             } else if(llistes.getSelectedIndex() == 2){
                 btnAfegirMyList.setEnabled(false);
                 btnTreureMyList.setEnabled(true);
-            }
-            else{
+            } else if(llistes.getSelectedIndex() == 1){
+
+            } else{
                 btnAfegirMyList.setEnabled(false);
                 btnTreureMyList.setEnabled(false);
             }
+            refreshLlistes();
         });
         listAll.addListSelectionListener(e -> mostrarPopupMenuTemporades(listAll, fieldAll));
         listMyList.addListSelectionListener(e -> mostrarPopupMenuTemporades(listMyList, fieldWatchNext));
-        listWatched.addListSelectionListener(e -> mostrarPopupMenuTemporades(listWatched, fieldWatched));
-        listContinueWatching.addListSelectionListener(e -> mostrarPopupMenuTemporades(listContinueWatching, fieldNotStarted));
+
+        listWatched.addListSelectionListener(e ->{
+            refreshLlistes();
+            mostrarPopupMenuTemporades(listWatched, fieldWatched);
+        });
+
+        listContinueWatching.addListSelectionListener(e -> {
+            refreshLlistes();
+            mostrarPopupMenuTemporades(listContinueWatching, fieldNotStarted);
+        });
+
         comboBoxUsuaris.addActionListener(e -> {
             if (comboBoxUsuaris.getItemCount() > 0) {
                 setCurrentUser((String)comboBoxUsuaris.getSelectedItem());
@@ -231,7 +242,6 @@ public class UBFLIXParty extends JFrame implements RegisterObserver{
      * Mètode que actualitza les sèries del catàleg
      */
     private void refreshListAll() {
-        //String[] series = {"serie 1","serie 2", "serie 3"};
         List<String> series = controller.llistarCatalegSeries();
         listAll.setListData(new Vector<>(series));
         refreshTemporades(series);
@@ -326,16 +336,16 @@ public class UBFLIXParty extends JFrame implements RegisterObserver{
      * Mètode que actualitza les sèries de la llista Watched
      */
     private void refreshWatched() {
-        String[] series = {"serie 21", "serie 22", "serie 23"};
-        listWatched.setListData(series);
+        List<String> series = (List<String>) controller.listMyWatchedList(currentClient, currentUser);
+        listWatched.setListData(new Vector<>(series));
     }
 
     /**
      * Mètode que actualitza les sèries de la llista ContinueWatching
      */
     private void refreshContinueWatching() {
-        String[] series = {"serie 31", "serie 32", "serie 33"};
-        listContinueWatching.setListData(series);
+        List<String> series = (List<String>) controller.listMyContinueWatchingList(currentClient, currentUser);
+        listContinueWatching.setListData(new Vector<>(series));
     }
 
     /**

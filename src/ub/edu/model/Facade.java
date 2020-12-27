@@ -289,7 +289,7 @@ public class Facade{
         if (!isValidNameClient(idClient)) throw new Exception("El client '" + idClient + "' no existeix.");
         if (!existsNameUser(idClient, nameUser)) throw new Exception("L'usuari '" + nameUser + "' del client '"+ idClient + "' no existeix.");
         String idUser = facadeClients.getIDUsuariByClientAndUsername(idClient, nameUser);
-        return facadeRegistre.listWatchingList(idUser);
+        return facadeRegistre.listWatchedList(idUser);
     }
 
     /**
@@ -305,6 +305,9 @@ public class Facade{
         String idUser = facadeClients.getIDUsuariByClientAndUsername(idClient, nameUser);
         return facadeRegistre.listMyList(idUser);
     }
+
+
+
 
     /**
      * Método para mostrar los detalles de uns Serie
@@ -402,6 +405,32 @@ public class Facade{
         String idUser = facadeClients.getIDUsuariByClientAndUsername(idClient, nomUser);
         return facadeRegistre.visualitzarEpisodi(id, idClient, idUser, nomSerie, numTemporada, idEpisodi, data, segonsRestants);
     }
+
+
+    /**
+     * Método para añadir una serie a la lista WatchingList de un usuario de un cliente.
+     * @param idClient nombre del Cliente
+     * @param idUser nombre del Usuario
+     * @return true si se ha añadido, false sino.
+     */
+    public boolean addSerieToWatchingList(int id, String idClient, String idUser, String nomSerie, int numTemporada, int idEpisodi, String data, int segonsRestants) throws Exception {
+        if (!existsSerieWithThisTitle(nomSerie)) throw new Exception("La sèrie '" + nomSerie + "' no existeix.");
+
+        if (facadeRegistre.addSerieToWatchingList(id, idClient, idUser, nomSerie, numTemporada, idEpisodi, data, segonsRestants)) {
+            dataService.addVisualitzacio(new Visualitzacio(id, idClient, idUser, nomSerie, numTemporada, idEpisodi, data, segonsRestants));
+            return true;
+        }
+        return false;
+
+    }
+
+    public Iterable<String> listContinueWatchingList(String client, String user) throws Exception{
+        if (!isValidNameClient(client)) throw new Exception("El client '" + client + "' no existeix.");
+        if (!existsNameUser(client, user)) throw new Exception("L'usuari '" + user + "' del client '"+ client + "' no existeix.");
+        String idUser = facadeClients.getIDUsuariByClientAndUsername(client, user);
+        return facadeRegistre.listContinueWatchingList(idUser);
+    }
+
 
     /**
      * Metodo para saber el tiempo que ha visualizado un usuario de un episodio en concreto

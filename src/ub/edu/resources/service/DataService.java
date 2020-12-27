@@ -318,6 +318,18 @@ public class DataService {
     public Map<String, ArrayList<Visualitzacio>> getAllVisualitzacions() { return visualitzacioDAO.getMap(); }
 
 
+    /**
+     * Método para añadir una Visualizacion en base de datos.
+     * @param visual Visualizacion a añadir.
+     */
+    public void addVisualitzacio(Visualitzacio visual) throws Exception { visualitzacioDAO.add(visual); }
+
+
+    /**
+     * Método para eliminar una Visualizacion en base de datos
+     * @param visual preferencia a eliminar
+     */
+    public void removeVisualitzacio(Visualitzacio visual) throws Exception{ visualitzacioDAO.delete(visual); }
 
     //////////////////////////
     /*     DAO VALORACIO    */
