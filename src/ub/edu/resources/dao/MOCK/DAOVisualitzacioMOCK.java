@@ -7,7 +7,7 @@ import java.util.*;
 
 public class DAOVisualitzacioMOCK implements DAOVisualitzacio {
 
-    private final Map<String, ArrayList<Visualitzacio>> visualizedSeries = new HashMap();
+    private final Map<String, ArrayList<Visualitzacio>> visualizedSeries = new HashMap<>();
 
     public DAOVisualitzacioMOCK(){
 

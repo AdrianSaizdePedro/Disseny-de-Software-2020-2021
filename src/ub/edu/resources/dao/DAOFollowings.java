@@ -10,9 +10,9 @@ public interface DAOFollowings extends DAO<Usuari> {
 
     List<Usuari> getFollowingsByIdUser(String idUser);
 
-    boolean removeFollowing(String idUser, Usuari following);
+    void removeFollowing(String idUser, Usuari following);
 
-    boolean addFollowing(String idUser, Usuari following);
+    void addFollowing(String idUser, Usuari following);
 
     Map<String, ArrayList<Usuari>> getMap();
 }

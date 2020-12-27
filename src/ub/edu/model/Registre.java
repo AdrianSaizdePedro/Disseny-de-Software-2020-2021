@@ -11,8 +11,7 @@ import java.util.*;
 
 public class Registre implements RegisterSubject{
     // Atributos
-    private List<RegisterObserver> observers;
-    private ValoracioFactory valoracioFactory;
+    private final List<RegisterObserver> observers;
 
     private Map<String, ArrayList<Preferencia>> preferencias;
     private Map<String, ArrayList<Visualitzacio>> visualitzacions;
@@ -25,7 +24,7 @@ public class Registre implements RegisterSubject{
      */
     public Registre(){
         this.observers = new ArrayList<>();
-        this.valoracioFactory = new ValoracioFactory();
+        ValoracioFactory valoracioFactory = new ValoracioFactory();
         this.preferencias = new HashMap<>();
         this.visualitzacions = new HashMap<>();
         this.corsValoracio = new HashMap<>();
@@ -146,18 +145,16 @@ public class Registre implements RegisterSubject{
      * @param idClient Id del Cliente
      * @param idUser ID del Usuario
      * @param nomSerie Id de la Serie
-     * @return True si se ha podido añadir correctamente, False si ha fallado la operacion
      */
-    public boolean addVisualitzacio(int id, String idClient, String idUser, String nomSerie, int numTemporada, int idEpisodi, String data, int segonsRestants){
+    public void addVisualitzacio(int id, String idClient, String idUser, String nomSerie, int numTemporada, int idEpisodi, String data, int segonsRestants){
         Visualitzacio visualitzacio = findVisualitzacio(idUser, nomSerie, numTemporada, idEpisodi);
         if (visualitzacio == null){
             if (!visualitzacions.containsKey(idUser)) {
                 visualitzacions.put(idUser, new ArrayList<>());
             }
-            return visualitzacions.get(idUser).add(new ub.edu.model.Visualitzacio(id, idClient, idUser, nomSerie, numTemporada, idEpisodi, data, segonsRestants));
+            visualitzacions.get(idUser).add(new Visualitzacio(id, idClient, idUser, nomSerie, numTemporada, idEpisodi, data, segonsRestants));
         } else{
             visualitzacio.updateVisualitzacio(data, segonsRestants);
-            return true;
         }
     }
 
@@ -343,8 +340,7 @@ public class Registre implements RegisterSubject{
 
     @Override
     public void notifyObservers() {
-        for (int i = 0; i < observers.size(); i++) {
-            RegisterObserver observer = observers.get(i);
+        for (RegisterObserver observer : observers) {
             observer.refreshTopValoracions(new TOPValoracionsStrategy(getValoracionsBySerie()));
             //observer.refreshTopVisualitzacions(new TOPVisualitzacionsStrategy(getVisualitzacionsBySerie()));
         }

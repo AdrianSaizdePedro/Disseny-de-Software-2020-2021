@@ -1,6 +1,6 @@
 package ub.edu.view;
 
-import ub.edu.controller.ControladorGUI;
+
 import ub.edu.controller.IController;
 
 import javax.swing.*;
@@ -30,8 +30,8 @@ class FrmRegistre extends JDialog {
     private JPasswordField textPassword1;
     private JPasswordField textPassword2;
 
-    private IController controller;
-    private Frame owner;
+    private final IController controller;
+    private final Frame owner;
 
     /**
      * Constructor de la finestra del Registre on es fixa l'aspecte d'aquesta i s'inicialitzen els components
@@ -53,17 +53,9 @@ class FrmRegistre extends JDialog {
      * Mètode que inicialitza tots els components de la GUI del Registre d'usuaris i s'afegeixen els listeners dels events per quan es fa la acció sobre els components.
      */
     private void initComponents() {
-        buttonOK.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onOK();
-            }
-        });
+        buttonOK.addActionListener(e -> onOK());
 
-        buttonCancel.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        });
+        buttonCancel.addActionListener(e -> onCancel());
 
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -74,11 +66,7 @@ class FrmRegistre extends JDialog {
         });
 
         // call onCancel() on ESCAPE
-        contentPane.registerKeyboardAction(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+        contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
 
 
@@ -112,7 +100,7 @@ class FrmRegistre extends JDialog {
                 }
             }
         } catch (HeadlessException e) {
-            JOptionPane.showMessageDialog(this, e.getMessage(), "ERROR AL REGISTRAR", JOptionPane.YES_NO_OPTION);
+            JOptionPane.showMessageDialog(this, e.getMessage(), "ERROR AL REGISTRAR", JOptionPane.ERROR_MESSAGE);
         }
     }
 

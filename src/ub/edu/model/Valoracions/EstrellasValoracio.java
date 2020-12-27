@@ -1,6 +1,6 @@
 package ub.edu.model.Valoracions;
 
-import ub.edu.model.Valoracions.Valoracio;
+
 
 public class EstrellasValoracio extends Valoracio {
     // Atributos

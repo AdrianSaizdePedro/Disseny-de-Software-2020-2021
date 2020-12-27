@@ -7,10 +7,10 @@ import ub.edu.model.Episodi;
 import ub.edu.model.StrategyTOP.IterableStrategy;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
+/*import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ListSelectionListener;*/
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -54,7 +54,7 @@ public class UBFLIXParty extends JFrame implements RegisterObserver{
     //private List<Map.Entry<String, Double>> listaTopTenValoracions;
     //private List<Map.Entry<String, Double>> listaTopTenVisualitzacions;
 
-    private IController controller;
+    private final IController controller;
     private String currentClient;
     private String currentUser;
 
@@ -86,83 +86,32 @@ public class UBFLIXParty extends JFrame implements RegisterObserver{
                 formWindowClosing(evt);
             }
         });
-        btnTancarSessio.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ferLogIn();
+        btnTancarSessio.addActionListener(e -> ferLogIn());
+        btnAfegirMyList.addActionListener(e -> addSerieToMyList());
+        btnTreureMyList.addActionListener(e -> removeSerieFromMyList());
+        btnCrearUsuari.addActionListener(e -> userActionPerformed());
+        perfilButton.addActionListener(e -> mostrarPerfil());
+        llistes.addChangeListener(e -> {
+            if(llistes.getSelectedIndex() == 0){
+                btnAfegirMyList.setEnabled(true);
+                btnTreureMyList.setEnabled(false);
+            } else if(llistes.getSelectedIndex() == 2){
+                btnAfegirMyList.setEnabled(false);
+                btnTreureMyList.setEnabled(true);
+            }
+            else{
+                btnAfegirMyList.setEnabled(false);
+                btnTreureMyList.setEnabled(false);
             }
         });
-        btnAfegirMyList.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                addSerieToMyList();
-            }
-        });
-        btnTreureMyList.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                removeSerieFromMyList();
-            }
-        });
-        btnCrearUsuari.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                userActionPerformed();
-            }
-        });
-        perfilButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                mostrarPerfil();
-            }
-        });
-        llistes.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                if(llistes.getSelectedIndex() == 0){
-                    btnAfegirMyList.setEnabled(true);
-                    btnTreureMyList.setEnabled(false);
-                } else if(llistes.getSelectedIndex() == 2){
-                    btnAfegirMyList.setEnabled(false);
-                    btnTreureMyList.setEnabled(true);
-                }
-                else{
-                    btnAfegirMyList.setEnabled(false);
-                    btnTreureMyList.setEnabled(false);
-                }
-            }
-        });
-        listAll.addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                mostrarPopupMenuTemporades(listAll, fieldAll);
-            }
-        });
-        listMyList.addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                mostrarPopupMenuTemporades(listMyList, fieldWatchNext);
-            }
-        });
-        listWatched.addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                mostrarPopupMenuTemporades(listWatched, fieldWatched);
-            }
-        });
-        listContinueWatching.addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                mostrarPopupMenuTemporades(listContinueWatching, fieldNotStarted);
-            }
-        });
-        comboBoxUsuaris.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (comboBoxUsuaris.getItemCount() > 0) {
-                    setCurrentUser((String)comboBoxUsuaris.getSelectedItem());
-                    refreshLlistes();
-                }
+        listAll.addListSelectionListener(e -> mostrarPopupMenuTemporades(listAll, fieldAll));
+        listMyList.addListSelectionListener(e -> mostrarPopupMenuTemporades(listMyList, fieldWatchNext));
+        listWatched.addListSelectionListener(e -> mostrarPopupMenuTemporades(listWatched, fieldWatched));
+        listContinueWatching.addListSelectionListener(e -> mostrarPopupMenuTemporades(listContinueWatching, fieldNotStarted));
+        comboBoxUsuaris.addActionListener(e -> {
+            if (comboBoxUsuaris.getItemCount() > 0) {
+                setCurrentUser((String)comboBoxUsuaris.getSelectedItem());
+                refreshLlistes();
             }
         });
         popupMenuTemporades = new HashMap<>();
@@ -229,7 +178,7 @@ public class UBFLIXParty extends JFrame implements RegisterObserver{
      * @param llista llista que conté la sèrie seleccionada
      * @param panel panel de la vista que conté les llistes
      */
-    private void mostrarPopupMenuTemporades(JList llista, JPanel panel) {
+    private void mostrarPopupMenuTemporades(JList<String> llista, JPanel panel) {
         int index = llista.getSelectedIndex();
         Object element = llista.getSelectedValue();
         llista.removeSelectionInterval(llista.getLastVisibleIndex()+1, llista.getLastVisibleIndex()+1);
@@ -321,18 +270,15 @@ public class UBFLIXParty extends JFrame implements RegisterObserver{
 
 
             JMenuItem ep = new JMenuItem(episodi.getTitol());
-            ep.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    String idSerie = episodi.getIdSerie();
+            ep.addActionListener(e -> {
+                String idSerie = episodi.getIdSerie();
 
-                    int numTemporada = Integer.parseInt(temporada.split(" ")[1]);
-                    int duracio = episodi.getDuracio();
-                    //int duracioVisualitzada = controller.getDuracioVisualitzada(currentClient, currentUser, idSerie, numTemporada, episodi.getNumEpisodi());
-                    String descripcio = episodi.getDescripcio();
-                    
-                    onEpisodi(idSerie, numTemporada, episodi.getNumEpisodi(), episodi.getTitol(), duracio, descripcio);
-                }
+                int numTemporada = Integer.parseInt(temporada.split(" ")[1]);
+                int duracio = episodi.getDuracio();
+                //int duracioVisualitzada = controller.getDuracioVisualitzada(currentClient, currentUser, idSerie, numTemporada, episodi.getNumEpisodi());
+                String descripcio = episodi.getDescripcio();
+
+                onEpisodi(idSerie, numTemporada, episodi.getNumEpisodi(), episodi.getTitol(), duracio, descripcio);
             });
             jm.add(ep);
         }
@@ -441,7 +387,7 @@ public class UBFLIXParty extends JFrame implements RegisterObserver{
      * @param temporada número de temporada de l'episodi
      * @param nomEpisodi títol de l'episodi seleccionat
      * @param duracio duració de l'episodi seleccionat
-     * @param duracioVisualitzada duració ja visualitzada pel client de l'episodi seleccionat
+     *
      * @param descripcio descripció de l'episodi seleccionat
      */
     private void onEpisodi(String idSerie, int temporada, int idEpisodi, String nomEpisodi, int duracio, String descripcio) {

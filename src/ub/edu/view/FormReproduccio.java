@@ -4,7 +4,7 @@ import ub.edu.controller.IController;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
+//import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.time.LocalDate;
@@ -18,17 +18,16 @@ class FormReproduccio extends JDialog {
     private JProgressBar progressBar;
     private JButton tancaButton;
     private Timer timer;
-    private ActionListener actionListener;
-    private int duracioVisualitzacio;
+    private final int duracioVisualitzacio;
     private int duracioVisualitzada;
-    private String serie;
-    private int numTemporada;
-    private int episodi;
+    private final String serie;
+    private final int numTemporada;
+    private final int episodi;
 
-    private String currentClient;
-    private String currentUser;
-    private IController controller;
-    private Frame owner;
+    private final String currentClient;
+    private final String currentUser;
+    private final IController controller;
+    private final Frame owner;
 
     /**
      * Constructor de la classe
@@ -71,11 +70,7 @@ class FormReproduccio extends JDialog {
         progressBar.setMaximum(100);
         progressBar.setStringPainted(true);
 
-        tancaButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onPause(serie, numTemporada, episodi);
-            }
-        });
+        tancaButton.addActionListener(e -> onPause(serie, numTemporada, episodi));
 
     }
 
@@ -94,14 +89,11 @@ class FormReproduccio extends JDialog {
         if(duracioVisualitzada == duracioVisualitzacio) duracioVisualitzada = 0;
         progressBar.setValue((duracioVisualitzada*100)/duracioVisualitzacio);
         int delay = (duracioVisualitzacio*1000)/100;
-        actionListener = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (progressBar.getValue() < 100)
-                    progressBar.setValue(progressBar.getValue() + 1);
-                else {
-                    formWindowClosing(evt, serie, numTemporada, episodi);
-                }
+        ActionListener actionListener = e -> {
+            if (progressBar.getValue() < 100)
+                progressBar.setValue(progressBar.getValue() + 1);
+            else {
+                formWindowClosing(evt, serie, numTemporada, episodi);
             }
         };
         if (timer==null) this.timer = new Timer(delay, actionListener);

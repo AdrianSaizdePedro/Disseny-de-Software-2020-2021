@@ -24,9 +24,8 @@ class FrmValoracio extends JDialog {
     private JButton btnCor;
 
     //Afegit manualment
-    private IController controller;
-    private Frame owner;
-    private ButtonGroup buttonGroup;
+    private final IController controller;
+    private final Frame owner;
 
     /**
      * Constructor de la classe FrmValoracio
@@ -55,17 +54,9 @@ class FrmValoracio extends JDialog {
         groupButton();
         inici();
 
-        btnValorar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                valorarEstrella(idSerie, numTemporada, idEpisodi, episodi);
-            }
-        });
+        btnValorar.addActionListener(e -> valorarEstrella(idSerie, numTemporada, idEpisodi, episodi));
 
-        buttonCancel.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        });
+        buttonCancel.addActionListener(e -> onCancel());
 
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -76,32 +67,17 @@ class FrmValoracio extends JDialog {
         });
 
         // call onCancel() on ESCAPE
-        contentPane.registerKeyboardAction(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
-        corRatioButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                panelCor.setVisible(true);
-                panelEmocio.setVisible(false);
-            }
+        contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+        corRatioButton.addActionListener(e -> {
+            panelCor.setVisible(true);
+            panelEmocio.setVisible(false);
         });
-        emocioRadioButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                panelCor.setVisible(false);
-                panelEmocio.setVisible(true);
-            }
+        emocioRadioButton.addActionListener(e -> {
+            panelCor.setVisible(false);
+            panelEmocio.setVisible(true);
         });
 
-        btnCor.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                valorarCor(idSerie, numTemporada, idEpisodi, episodi);
-            }
-        });
+        btnCor.addActionListener(e -> valorarCor(idSerie, numTemporada, idEpisodi, episodi));
     }
 
     /**
@@ -118,7 +94,7 @@ class FrmValoracio extends JDialog {
      */
     private void groupButton() {
 
-        buttonGroup = new ButtonGroup();
+        ButtonGroup buttonGroup = new ButtonGroup();
 
         buttonGroup.add(corRatioButton);
         buttonGroup.add(emocioRadioButton);

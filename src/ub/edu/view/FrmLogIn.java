@@ -1,7 +1,7 @@
 package ub.edu.view;
 
 
-import ub.edu.controller.ControladorGUI;
+
 import ub.edu.controller.IController;
 
 import javax.swing.*;
@@ -21,8 +21,8 @@ class FrmLogIn extends JDialog {
     private JLabel labelPassword;
     private JButton btnRegistrar;
 
-    private IController controller;
-    private Frame owner;
+    private final IController controller;
+    private final Frame owner;
 
     /**
      * Constructor de la finestra del LogIn on es fixa l'aspecte d'aquesta i s'inicialitzen els components
@@ -43,17 +43,9 @@ class FrmLogIn extends JDialog {
      * Mètode que inicialitza tots els components de la GUI del LogIn i s'afegeixen els listeners dels events per quan es fa la acció sobre els botons.
      */
     private void initComponents() {
-        btnLogIn.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onOK();
-            }
-        });
+        btnLogIn.addActionListener(e -> onOK());
 
-        buttonCancel.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        });
+        buttonCancel.addActionListener(e -> onCancel());
 
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -64,18 +56,9 @@ class FrmLogIn extends JDialog {
         });
 
         // call onCancel() on ESCAPE
-        contentPane.registerKeyboardAction(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+        contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 
-        btnRegistrar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                onRegistrar();
-            }
-        });
+        btnRegistrar.addActionListener(e -> onRegistrar());
     }
 
     /**
@@ -96,7 +79,7 @@ class FrmLogIn extends JDialog {
             }
 
         } catch (HeadlessException e) {
-            JOptionPane.showMessageDialog(this, e.getMessage(), "FINESTRA ERROR", JOptionPane.YES_NO_OPTION);
+            JOptionPane.showMessageDialog(this, e.getMessage(), "FINESTRA ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }
 

@@ -12,13 +12,12 @@ import java.util.List;
 public class ControladorGUI implements IController{
     private volatile static ControladorGUI uniqueInstance;
 
-    private DataService dataService;
-    private Facade facana;
+    private final Facade facana;
 
-    private UBFLIXParty view;
+    private final UBFLIXParty view;
 
     private ControladorGUI() {
-        dataService = DataService.getInstance(new FactoryMOCK());
+        DataService dataService = DataService.getInstance(new FactoryMOCK());
         facana = Facade.getInstance(dataService);
         view = new UBFLIXParty(this);
     }
@@ -42,13 +41,14 @@ public class ControladorGUI implements IController{
     //////////////////////////////////////
     /*      Métodos Test AltaClient     */
     //////////////////////////////////////
-
+/*
 
     /**
      * Método para pedir la validación de la contraseña de un Cliente
      * @param password contraseña del Cliente
      * @return True si se valida correctamente, False sino
      * */
+    /*
     public boolean validatePassword(String password) {
         return facana.validatePassword(password);
     }
@@ -58,6 +58,7 @@ public class ControladorGUI implements IController{
      * @param username nombre del Cliente
      * @return True si existe ya el cliente, False si no está cogido
      * */
+    /*
     public boolean isTakenUsername(String username) { return facana.isValidNameClient(username); }
 
     /**
@@ -65,8 +66,9 @@ public class ControladorGUI implements IController{
      * @param dni DNI del Cliente
      * @return True si el DNI es correcto, False sino
      * */
+    /*
     public boolean validateDNI(String dni) { return facana.validarDNI(dni); }
-
+*/
     /**
      * Método para añadir un Cliente a la cartera de Clientes y a la base de datos
      * @param idClient nombre  del Cliente
@@ -111,33 +113,33 @@ public class ControladorGUI implements IController{
     public Iterable<String> listUsuaris(String nomClient) {
         return facana.listUsuaris(nomClient);
     }
-
+/*
     /**
      * Método para validar la existencia del nombre de un Cliente en CarteraClients
      * @param username nombre del Cliente
      * @return frase conforme se ha validado o no el nombre del Cliente
-     * */
+     *
     public String isValidNameClient(String username) {
         if (facana.isValidNameClient(username)) return "Valid Client";
         else return "Client Unknown";
-    }
+    }*/
 
 
 
     //////////////////////////////////////////
     /*        Metodos Test AltaUsuari       */
     //////////////////////////////////////////
-
+/*
     /**
      * Método para comprobar que no se repitan nombres de Usuario en un Cliente
      * @param nomClient nombre del Cliente
      * @param nomUsuari nombre del Usuario
      * @return True si existe el nombre de usuario, False sino
-     * */
+     * *//*
     public boolean existsNameUser(String nomClient, String nomUsuari) {
         try { return facana.existsNameUser(nomClient, nomUsuari); }
         catch (Exception e) { return false; }
-    }
+    }*/
 
     /**
      * Método para comprobar si se puede añadir un nuevo usuario a un Cliente

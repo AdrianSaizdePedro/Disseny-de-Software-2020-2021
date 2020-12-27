@@ -1,6 +1,5 @@
 package ub.edu.model;
 
-import ub.edu.resources.service.DataService;
 
 import java.util.ArrayList;
 import java.util.List;

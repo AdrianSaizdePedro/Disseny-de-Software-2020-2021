@@ -3,7 +3,6 @@ package ub.edu.model;
 public class Episodi {
     // Atributos
     private String idSerie;
-    private String nomSerie;
     private int idTemporada;
     private int numEpisodi;
     private String titol;
@@ -24,7 +23,6 @@ public class Episodi {
      * @param data fecha de lanzamiento
      */
     public Episodi( String idSerie, String nomSerie, int idTemporada, int numEpisodi, String titol, String duracio, String idioma, String descripcio, String data) {
-        this.nomSerie = nomSerie;
         this.idSerie = idSerie;
         this.idTemporada = idTemporada;
         this.numEpisodi = numEpisodi;
@@ -42,8 +40,7 @@ public class Episodi {
             String horas = tiempo[0];
             String minutos = tiempo[1];
             String segundos = tiempo[2];
-            int resultado = Integer.parseInt(horas)*3600 + Integer.parseInt(minutos)*60 + Integer.parseInt(segundos);
-            return resultado;
+            return Integer.parseInt(horas)*3600 + Integer.parseInt(minutos)*60 + Integer.parseInt(segundos);
         } catch (NumberFormatException excepcion) {
             return 0;
         }

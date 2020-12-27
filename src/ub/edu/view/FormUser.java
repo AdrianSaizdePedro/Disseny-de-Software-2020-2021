@@ -1,6 +1,6 @@
 package ub.edu.view;
 
-import ub.edu.controller.ControladorGUI;
+
 import ub.edu.controller.IController;
 
 import javax.swing.*;
@@ -14,8 +14,8 @@ public class FormUser extends JDialog{
     private JTextField textFieldUsername;
     private JLabel usernameLabel;
 
-    private IController controller;
-    private Frame owner;
+    private final IController controller;
+    private final Frame owner;
 
     public FormUser(Frame owner, IController controller) {
         this.owner = owner;
@@ -30,17 +30,9 @@ public class FormUser extends JDialog{
     }
 
     private void initComponents() {
-        buttonOK.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onRegister();
-            }
-        });
+        buttonOK.addActionListener(e -> onRegister());
 
-        buttonCancel.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        });
+        buttonCancel.addActionListener(e -> onCancel());
 
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -51,11 +43,7 @@ public class FormUser extends JDialog{
         });
 
         // call onCancel() on ESCAPE
-        contentPane.registerKeyboardAction(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+        contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 
         textFieldUsername.requestFocusInWindow();
     }

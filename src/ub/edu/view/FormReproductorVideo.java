@@ -18,20 +18,20 @@ import java.time.format.DateTimeFormatter;
 
 public class FormReproductorVideo extends JDialog {
     private  JPanel panelReproduccio;
-    private int duracioVisualitzacio;
-    private int duracioVisualitzada;
-    private String serie;
-    private int numTemporada;
-    private int episodi;
+    private final int duracioVisualitzacio;
+    private final int duracioVisualitzada;
+    private final String serie;
+    private final int numTemporada;
+    private final int episodi;
     private JFXPanel fxPanel;
     private Scene scene = null;
     private MediaPlayer mediaPlayer;
     private MediaControl mediaControl;
 
-    private String currentClient;
-    private String currentUser;
-    private IController controller;
-    private Frame owner;
+    private final String currentClient;
+    private final String currentUser;
+    private final IController controller;
+    private final Frame owner;
 
     private static final String MEDIA_URL = "assets/sample-mp4-file.mp4";
 
@@ -42,12 +42,7 @@ public class FormReproductorVideo extends JDialog {
         fxPanel = new JFXPanel();
 
         if (scene == null || !scene.getWindow().isShowing()) {
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    initFX(fxPanel);
-                }
-            });
+            Platform.runLater(() -> initFX(fxPanel));
             panelReproduccio.add(fxPanel);
         }
 
@@ -144,12 +139,7 @@ public class FormReproductorVideo extends JDialog {
 
     private void formWindowOpened(WindowEvent evt, String serie, int numTemporada, int episodi) {
             if (scene == null || !scene.getWindow().isShowing()) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        initAndShowGUI();
-                    }
-                });
+                SwingUtilities.invokeLater(this::initAndShowGUI);
             }
     }
 }

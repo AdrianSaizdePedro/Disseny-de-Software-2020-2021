@@ -18,10 +18,10 @@ import java.util.*;
  */
 
 public abstract class IterableStrategy<E, V> implements Iterable<V>{
-    private List<V> heap;
+    private final List<V> heap;
 
     protected IterableStrategy(Iterable<E> iterable, Comparator<V> comparator){
-        heap = new ArrayList();
+        heap = new ArrayList<>();
         for (E e: iterable) heap.add(transform(e));
         heap.sort(comparator);
     }

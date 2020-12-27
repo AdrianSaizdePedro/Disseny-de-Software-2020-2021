@@ -12,12 +12,7 @@ public class FerPost extends JDialog {
     private JButton cancelButton;
     private JPanel jpanel;
 
-    private IController controller;
-    private Frame owner;
-
     protected FerPost(Frame owner, IController controller) {
-        this.owner = owner;
-        this.controller = controller;
 
         setContentPane(jpanel);
         setModal(true);
@@ -34,17 +29,9 @@ public class FerPost extends JDialog {
         setSize(250,300);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
-        sendButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onPost();
-            }
-        });
+        sendButton.addActionListener(e -> onPost());
 
-        cancelButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        });
+        cancelButton.addActionListener(e -> onCancel());
 
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -55,11 +42,7 @@ public class FerPost extends JDialog {
         });
 
         // call onCancel() on ESCAPE
-        jpanel.registerKeyboardAction(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+        jpanel.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 
         AreaMissatge.requestFocusInWindow();
     }

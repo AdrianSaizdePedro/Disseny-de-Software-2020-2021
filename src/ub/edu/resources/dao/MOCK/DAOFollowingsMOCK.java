@@ -100,12 +100,11 @@ public class DAOFollowingsMOCK implements DAOFollowings {
      * Método para añadir un following a un Usuario concreto
      * @param idUser ID del Usuario seguido
      * @param following Usuario que sigue
-     * @return true si se añade, false si no.
      */
     @Override
-    public boolean addFollowing(String idUser, Usuari following) {
+    public void addFollowing(String idUser, Usuari following) {
         if (!followings.containsKey(idUser)) followings.put(idUser, new ArrayList<>());
-        return followings.get(idUser).add(following);
+        followings.get(idUser).add(following);
     }
 
     @Override
@@ -117,11 +116,10 @@ public class DAOFollowingsMOCK implements DAOFollowings {
      * Método para añadir un following a un Usuario concreto
      * @param idUser ID del Usuario seguido
      * @param following Usuario que sigue
-     * @return true si se añade, false si no.
      */
     @Override
-    public boolean removeFollowing(String idUser, Usuari following) {
-        return followings.get(idUser).remove(following);
+    public void removeFollowing(String idUser, Usuari following) {
+        followings.get(idUser).remove(following);
     }
 
     /**

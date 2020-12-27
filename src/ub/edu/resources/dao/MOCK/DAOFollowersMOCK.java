@@ -69,9 +69,9 @@ public class DAOFollowersMOCK implements DAOFollowers {
     }
 
     @Override
-    public boolean addFollower(String idUser, Usuari follower) {
+    public void addFollower(String idUser, Usuari follower) {
         if (!followers.containsKey(idUser)) followers.put(idUser, new ArrayList<>());
-        return followers.get(idUser).add(follower);
+        followers.get(idUser).add(follower);
     }
 
     @Override
@@ -80,8 +80,8 @@ public class DAOFollowersMOCK implements DAOFollowers {
     }
 
     @Override
-    public boolean removeFollower(String idUser, Usuari follower) {
-        return followers.get(idUser).remove(follower);
+    public void removeFollower(String idUser, Usuari follower) {
+        followers.get(idUser).remove(follower);
     }
 
     @Override

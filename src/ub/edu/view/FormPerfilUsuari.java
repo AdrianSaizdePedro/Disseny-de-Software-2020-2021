@@ -6,8 +6,8 @@ import ub.edu.controller.IController;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+/*import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;*/
 
 /**
  * Formulari del Perfil d'usuari. Aquesta classe permet veure el perfil de l'usuari, el seus Followings i els seus
@@ -18,19 +18,19 @@ public class FormPerfilUsuari extends JFrame {
     private JPanel jPanel;
     private JPanel Following;
     private JPanel Followers;
-    private JList listFollowing;
-    private JList listFollowers;
+    private JList<String> listFollowing;
+    private JList<String> listFollowers;
     private JButton btnTancarSessio;
     private JPanel Posts;
     private JTabbedPane llistes;
-    private JList listPost;
-    private JList listPostRebuts;
+    private JList<String> listPost;
+    private JList<String> listPostRebuts;
     private JPanel PostRebuts;
     private JButton ferPostButton;
     private JPanel jpanelRoot;
 
-    private IController controller;
-    private Frame owner;
+    private final IController controller;
+    private final Frame owner;
 
     /**
      * Constructor de la classe PerfilUsuari que crida initComponents()
@@ -64,19 +64,9 @@ public class FormPerfilUsuari extends JFrame {
                 formWindowClosing(evt);
             }
         });
-        btnTancarSessio.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        });
+        btnTancarSessio.addActionListener(e -> onCancel());
 
-        ferPostButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                onFerPost();
-            }
-        });
+        ferPostButton.addActionListener(e -> onFerPost());
 
     }
 

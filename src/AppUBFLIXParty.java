@@ -1,6 +1,6 @@
-import ub.edu.controller.ControladorGUI;
+
 import ub.edu.controller.IController;
-import ub.edu.view.UBFLIXParty;
+
 
 public class AppUBFLIXParty {
 
