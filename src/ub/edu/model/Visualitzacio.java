@@ -5,7 +5,6 @@ public class Visualitzacio {
     private int idVisualitzacio;
     private String idClient;
     private String idUser;
-    private String idSerie;
     private String nomSerie;
     private int numTemporada;
     private int idEpisodi;
@@ -20,15 +19,13 @@ public class Visualitzacio {
      * @param id ID de la Visualizacion
      * @param client Id del Cliente
      * @param user nombre del Usuario
-     * @param idSerie ID de la Serie
-     * @param nomSerie nombre de la Serie
+     * @param nomSerie ID de la Serie
      */
-    public Visualitzacio(int id, String client, String user, String idSerie, String nomSerie, int numTemporada,
-                            int idEpisodi, String data, int segonsRestants){
+    public Visualitzacio(int id, String client, String user, String nomSerie, int numTemporada,
+                         int idEpisodi, String data, int segonsRestants){
         this.idVisualitzacio = id;
         this.idClient = client;
         this.idUser = user;
-        this.idSerie = idSerie;
         this.nomSerie = nomSerie;
         this.numTemporada = numTemporada;
         this.idEpisodi = idEpisodi;
@@ -84,29 +81,13 @@ public class Visualitzacio {
      * Metodo para devolver el ID de la Serie
      * @return ID de la Serie
      */
-    public String getIdSerie() { return idSerie; }
+    public String getNomSerie() { return nomSerie; }
 
     /**
      * Metodo para establecer el ID de la Serie
-     * @param idSerie ID de la Serie
+     * @param nomSerie ID de la Serie
      */
-    public void setIdSerie(String idSerie) { this.idSerie = idSerie; }
-
-    /**
-     * Metodo para devolver el nom de la Serie
-     * @return Nom de la Serie
-     */
-    public String getNomSerie() {
-        return nomSerie;
-    }
-
-    /**
-     * Metodo para establecer el nombre de la Serie
-     * @param nomSerie Nombre de la Serie
-     */
-    public void setNomSerie(String nomSerie) {
-        this.nomSerie = nomSerie;
-    }
+    public void setNomSerie(String nomSerie) { this.nomSerie = nomSerie; }
 
     /**
      * Metodo para devolver el id de la Temporada

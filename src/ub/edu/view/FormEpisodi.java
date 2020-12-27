@@ -63,7 +63,7 @@ class FormEpisodi extends JDialog{
         titolEpisodi.setText("<html><u> Títol de l'episodi:</u> " + " "+ "<html></u> " + titol);
         duracioEpisodi.setText("<html><u> Duració:</u> " + duracio + " segons");
         descripcioEpisodi.setText("<html><body style=' width: 300 px'>"+"<html><u> Descripció:</u> " + descripcio);
-        valorarButton.setEnabled(estaVisualitzat(idSerie, numTemporada, titol));
+        valorarButton.setEnabled(estaVisualitzat(idSerie, numTemporada, idEpisodi));
         tornarAlMenuButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -74,7 +74,7 @@ class FormEpisodi extends JDialog{
         visualitzarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                onVisualitzar(idSerie, numTemporada, titol, duracio, duracioVisualitzada);
+                onVisualitzar(idSerie, numTemporada, idEpisodi, duracio, duracioVisualitzada);
             }
         });
 
@@ -92,29 +92,29 @@ class FormEpisodi extends JDialog{
      * Mètode que serveix per instanciar la finestra de visualització d'un episodi
      * @param idSerie identificador de la sèrie de l'episodi
      * @param numTemporada número de temporada de l'episodi
-     * @param titol títol de l'episodi seleccionat
+     * @param idEpisodi títol de l'episodi seleccionat
      * @param duracio duració de l'episodi seleccionat
      */
     @SuppressWarnings("deprecation")
-    private void onVisualitzar(String idSerie, int numTemporada, String titol, int duracio, int duracioVisualitzada) {
+    private void onVisualitzar(String idSerie, int numTemporada, int idEpisodi, int duracio, int duracioVisualitzada) {
 
         if(duracio == duracioVisualitzada) duracioVisualitzada = 0;
-        //FormReproduccio fr = new FormReproduccio(owner, controller, idSerie, numTemporada, titol, duracio, duracioVisualitzada);
-        FormReproductorVideo fr = new FormReproductorVideo(owner, controller, idSerie, numTemporada, titol, duracio, duracioVisualitzada);
+        FormReproduccio fr = new FormReproduccio(owner, controller, idSerie, numTemporada, idEpisodi, duracio, duracioVisualitzada, currentClient, currentUsuari);
+        //FormReproductorVideo fr = new FormReproductorVideo(owner, controller, idSerie, numTemporada, idEpisodi, duracio, duracioVisualitzada, currentClient, currentUsuari);
         fr.pack();
         fr.setVisible(true);
 
-        valorarButton.setEnabled(estaVisualitzat(idSerie, numTemporada, titol));
+        valorarButton.setEnabled(estaVisualitzat(idSerie, numTemporada, idEpisodi));
     }
 
     /**
      * Mètode que serveix per saber si el client està subscrit a l'episodi.
      * @param idSerie identificador de la sèrie de l'episodi
      * @param numTemporada número de temporada de l'episodi
-     * @param titol títol de l'episodi seleccionat
+     * @param idEpisodi títol de l'episodi seleccionat
      * @return True si el client hi està subscrit. False en cas contrari.
      */
-    private boolean estaVisualitzat(String idSerie, int numTemporada, String titol) {
+    private boolean estaVisualitzat(String idSerie, int numTemporada, int idEpisodi) {
         return true;
     }
 

@@ -307,7 +307,7 @@ public class DataService {
      */
     public Visualitzacio getVisualitzacioSerieByIdUserAndSerie(String idUser, String titol) {
         List<Visualitzacio> l = visualitzacioDAO.getVisualizedSeriesByIdUser(idUser);
-        if (l != null) for(Visualitzacio visual: l) if (visual.getIdSerie().equals(titol)) return visual;
+        if (l != null) for(Visualitzacio visual: l) if (visual.getNomSerie().equals(titol)) return visual;
         return null;
     }
 

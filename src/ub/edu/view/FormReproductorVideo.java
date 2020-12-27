@@ -13,6 +13,8 @@ import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.net.MalformedURLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class FormReproductorVideo extends JDialog {
     private  JPanel panelReproduccio;
@@ -20,12 +22,14 @@ public class FormReproductorVideo extends JDialog {
     private int duracioVisualitzada;
     private String serie;
     private int numTemporada;
-    private String episodi;
+    private int episodi;
     private JFXPanel fxPanel;
     private Scene scene = null;
     private MediaPlayer mediaPlayer;
     private MediaControl mediaControl;
 
+    private String currentClient;
+    private String currentUser;
     private IController controller;
     private Frame owner;
 
@@ -54,11 +58,19 @@ public class FormReproductorVideo extends JDialog {
      * @param evt event del mètode
      * @param serie identificador de la sèrie de l'episodi a reproduir
      * @param numTemporada número de temporada de l'episodi a reproduir
-     * @param episodi títol de l'episodi a reproduir
+     * @param idEpisodi títol de l'episodi a reproduir
      */
-    private void formWindowClosing(WindowEvent evt, String serie, int numTemporada, String episodi) {
+    private void formWindowClosing(WindowEvent evt, String serie, int numTemporada, int idEpisodi) {
         if (mediaPlayer!=null) {
             int tempsVisualitzacio = (int) ((mediaPlayer.getCurrentTime().toMillis() * duracioVisualitzacio) / 100.0);
+            int segundosRestantes = tempsVisualitzacio - duracioVisualitzada;
+
+
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+            LocalDate localDate = LocalDate.now();
+
+            controller.visualitzarEpisodi(1, currentClient, currentUser, serie, numTemporada, idEpisodi, dtf.format(localDate), segundosRestantes);
+
             String estat = "Visualització tancada del reproductor";
             JOptionPane.showMessageDialog(panelReproduccio, estat);
             scene = null;
@@ -104,12 +116,14 @@ public class FormReproductorVideo extends JDialog {
 
 
 
-    public FormReproductorVideo (Frame owner, IController controller, String serie, int numTemporada, String episodi, int duracioEpisodi, int duracioVisualitzada) {
+    public FormReproductorVideo (Frame owner, IController controller, String idSerie, int numTemporada, int episodi, int duracioEpisodi, int duracioVisualitzada, String currentClient, String currentUser) {
         this.owner = owner;
         this.controller = controller;
+        this.currentClient = currentClient;
+        this.currentUser = currentUser;
         this.duracioVisualitzacio = duracioEpisodi;
         this.duracioVisualitzada = duracioVisualitzada;
-        this.serie = serie;
+        this.serie = idSerie;
         this.numTemporada = numTemporada;
         this.episodi = episodi;
         setContentPane(panelReproduccio);
@@ -120,15 +134,15 @@ public class FormReproductorVideo extends JDialog {
 
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(WindowEvent evt) {
-                formWindowOpened(evt, serie, numTemporada, episodi);
+                formWindowOpened(evt, idSerie, numTemporada, episodi);
             }
-            public void windowClosing(WindowEvent evt) { formWindowClosing(evt, serie, numTemporada, episodi);
+            public void windowClosing(WindowEvent evt) { formWindowClosing(evt, idSerie, numTemporada, episodi);
             }
         });
         setDefaultCloseOperation(HIDE_ON_CLOSE);
     }
 
-    private void formWindowOpened(WindowEvent evt, String serie, int numTemporada, String episodi) {
+    private void formWindowOpened(WindowEvent evt, String serie, int numTemporada, int episodi) {
             if (scene == null || !scene.getWindow().isShowing()) {
                 SwingUtilities.invokeLater(new Runnable() {
                     @Override

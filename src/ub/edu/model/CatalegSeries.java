@@ -79,6 +79,16 @@ public class CatalegSeries {
         if (findByTitle(nomSerie) == null) throw new Exception("No se dispone de esta serie");
         return findByTitle(nomSerie).toString();
     }
+    /**
+     * Método para mostrar los detalles de uns Serie
+     * @param idSerie título de la Serie
+     * @return string con el tirulo y la descripcion de la Serie
+     * @throws Exception si no se dispone de la Serie
+     */
+    public String getNomSerieByID(String idSerie) throws Exception {
+        if (!existsSerie(idSerie)) throw new Exception("No se dispone de esta serie");
+        return find(idSerie).getTitol();
+    }
 
     /**
      * Metodo para saber si existe un Episodio de una Temporada y Serie concretas
@@ -146,4 +156,6 @@ public class CatalegSeries {
         }
         return llistaEpisodis;
     }
+
+
 }

@@ -393,14 +393,14 @@ public class Facade{
      * @param idClient ID del Cliente
      * @param idUser ID del Usuario
      * @param idSerie ID de la Serie
-     * @param nomSerie Nombre de la serie
      * @param numTemporada Numero de Temporada
      * @param idEpisodi ID del Episodio
      * @param data Dataa
      * @param segonsRestants Segundos Restantes
      */
-    public void visualitzarEpisodi(int id, String idClient, String idUser, String idSerie, String nomSerie, int numTemporada, int idEpisodi, String data, int segonsRestants) {
-        facadeRegistre.visualitzarEpisodi(id, idClient, idUser, idSerie, nomSerie, numTemporada, idEpisodi, data, segonsRestants);
+    public void visualitzarEpisodi(int id, String idClient, String idUser, String idSerie, int numTemporada, int idEpisodi, String data, int segonsRestants) throws Exception {
+        String nomSerie = facadeSeries.getNomSerieByID(idSerie);
+        facadeRegistre.visualitzarEpisodi(id, idClient, idUser, nomSerie, numTemporada, idEpisodi, data, segonsRestants);
     }
 
     /**

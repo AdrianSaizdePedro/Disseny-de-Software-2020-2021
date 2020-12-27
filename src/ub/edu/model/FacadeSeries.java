@@ -67,6 +67,17 @@ public class FacadeSeries {
     public String mostrarDetallsSerie(String nomSerie) throws Exception { return catalegSeries.mostrarDetallsSerie(nomSerie); }
 
     /**
+     * Método para mostrar los detalles de uns Serie
+     * @param idSerie título de la Serie
+     * @return string con el tirulo y la descripcion de la Serie
+     * @throws Exception si no se dispone de la Serie
+     */
+    public String getNomSerieByID(String idSerie) throws Exception {
+        return catalegSeries.getNomSerieByID(idSerie);
+    }
+
+
+    /**
      * Metodo para saber si existe un Episodio de una Temporada y Serie concretas
      * @param idSerie ID de la Serie
      * @param idTemporada ID de la Temporada

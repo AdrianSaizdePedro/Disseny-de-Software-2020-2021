@@ -43,19 +43,19 @@ public class DAOEpisodiMOCK implements DAOEpisodi {
         ///////////////////////////////
         // Episodis para Temporada 1 de la Serie Breaking Bad
         ArrayList<Episodi> episodis_GameOfThrones = new ArrayList<>();
-        episodis_GameOfThrones.add(new Episodi("gofthrones", "Game of Thrones",1 , 1, "Winter Is Coming", "65:13:00", "VOSE",   "El rey Robert Baratheon de Poniente viaja al Norte para ofrecerle a su viejo amigo Ned Stark, GuardiȮ del Norte y Ser de Invernalia, el puesto de Mano del Rey", "17/04/2011"));
-        episodis_GameOfThrones.add(new Episodi("gofthrones", "Game of Thrones",1 , 2, "The Kingsroad","60:00:00", "VOSE", "Tras aceptar su nuevo rol como Mano del Rey, Ned parte hacia Desembarco del Rey con sus hijas Sansa y Arya", "24/04/2011"));
-        episodis_GameOfThrones.add(new Episodi("gofthrones", "Game of Thrones",1 , 3, "Lord Snow","61:00:00", "VOSE","Ned se une al Consejo Privado del Rey en Desembarco del Rey","01/05/2011"));
+        episodis_GameOfThrones.add(new Episodi("gofthrones", "Game of Thrones",1 , 1, "Winter Is Coming", "00:13:00", "VOSE",   "El rey Robert Baratheon de Poniente viaja al Norte para ofrecerle a su viejo amigo Ned Stark, GuardiȮ del Norte y Ser de Invernalia, el puesto de Mano del Rey", "17/04/2011"));
+        episodis_GameOfThrones.add(new Episodi("gofthrones", "Game of Thrones",1 , 2, "The Kingsroad","00:01:00", "VOSE", "Tras aceptar su nuevo rol como Mano del Rey, Ned parte hacia Desembarco del Rey con sus hijas Sansa y Arya", "24/04/2011"));
+        episodis_GameOfThrones.add(new Episodi("gofthrones", "Game of Thrones",1 , 3, "Lord Snow","00:01:15", "VOSE","Ned se une al Consejo Privado del Rey en Desembarco del Rey","01/05/2011"));
 
         // Episodis para Temporada 2 de la Serie Breaking Bad
-        episodis_GameOfThrones.add(new Episodi("gofthrones", "Game of Thrones",2 , 1, "The north remembers", "45:15:00", "VOSE",   "Tyrion llega para salvar la corona de Joffrey", "01/04/2012"));
-        episodis_GameOfThrones.add(new Episodi("gofthrones", "Game of Thrones",2 , 2, "The Night Lands","60:00:00", "VOSE","Arya comparte un secreto con un recluta familiar" , "08/04/2012"));
-        episodis_GameOfThrones.add(new Episodi("gofthrones", "Game of Thrones",2 , 3, "What is dead may never die","61:00:00", "VOSE","Tyrion desenmascara...","15/05/2012"));
+        episodis_GameOfThrones.add(new Episodi("gofthrones", "Game of Thrones",2 , 1, "The north remembers", "00:15:00", "VOSE",   "Tyrion llega para salvar la corona de Joffrey", "01/04/2012"));
+        episodis_GameOfThrones.add(new Episodi("gofthrones", "Game of Thrones",2 , 2, "The Night Lands","00:00:15", "VOSE","Arya comparte un secreto con un recluta familiar" , "08/04/2012"));
+        episodis_GameOfThrones.add(new Episodi("gofthrones", "Game of Thrones",2 , 3, "What is dead may never die","00:00:15", "VOSE","Tyrion desenmascara...","15/05/2012"));
 
         // Episodis para Temporada 3 de la Serie Breaking Bad
-        episodis_GameOfThrones.add(new Episodi("gofthrones", "Game of Thrones",3 , 1, "Valar Dohaeris", "55:00:00", "VOSE",   "Todo Alburquerque queda paralizado despuϳ del accidente aϲeo. Walter White estǠviviendo solo en su casa. Su esposa, Skyler se ha mudado con su hijo y su reciϮ nacida hija para darle oportunidad a Walt para que empaque.", "20/01/2008"));
-        episodis_GameOfThrones.add(new Episodi("gofthrones", "Game of Thrones",3 , 2, "Dark wings","55:00:00", "VOSE","Walt tiene problemas ajustȮdose a su nueva vida. Se niega a seguir manufacturando el producto." , "27/01/2008"));
-        episodis_GameOfThrones.add(new Episodi("gofthrones", "Game of Thrones",3 , 3, "Walk of punishment","55:00:00", "VOSE","Walt regresa a su casa y le dice a Skyler que no tiene intenciخ de irse, Walter Jr. se alegra de saber que su padre estǠde vuelta.","10/02/2008"));
+        episodis_GameOfThrones.add(new Episodi("gofthrones", "Game of Thrones",3 , 1, "Valar Dohaeris", "00:00:30", "VOSE",   "Todo Alburquerque queda paralizado despuϳ del accidente aϲeo. Walter White estǠviviendo solo en su casa. Su esposa, Skyler se ha mudado con su hijo y su reciϮ nacida hija para darle oportunidad a Walt para que empaque.", "20/01/2008"));
+        episodis_GameOfThrones.add(new Episodi("gofthrones", "Game of Thrones",3 , 2, "Dark wings","00:00:30", "VOSE","Walt tiene problemas ajustȮdose a su nueva vida. Se niega a seguir manufacturando el producto." , "27/01/2008"));
+        episodis_GameOfThrones.add(new Episodi("gofthrones", "Game of Thrones",3 , 3, "Walk of punishment","00:00:30", "VOSE","Walt regresa a su casa y le dice a Skyler que no tiene intenciخ de irse, Walter Jr. se alegra de saber que su padre estǠde vuelta.","10/02/2008"));
 
         listEpisodis.put("gofthrones", episodis_GameOfThrones);
 
@@ -65,9 +65,9 @@ public class DAOEpisodiMOCK implements DAOEpisodi {
         ///////////////////////////////
         // Episodis para Temporada 1 de la Serie Mr Robot
         ArrayList<Episodi> episodis_MrRobot = new ArrayList<>();
-        episodis_MrRobot.add(new Episodi("mrobot", "Mr Robot",1 , 1, "eps1.0_hellofriend.mov", "45:00:00", "ES",   "Elliot Alderson trabaja en Allsafe, una empresa de seguridad informȴica.", "24/06/2015"));
-        episodis_MrRobot.add(new Episodi("mrobot", "Mr Robot",1 , 2, "Hey, ¿Que pasa?","60:00:00", "ES", "Walt tiene problemas ajustȮdose a su nueva vida. Se niega a seguir manufacturando el producto.", "01/07/2015"));
-        episodis_MrRobot.add(new Episodi("mrobot", "Mr Robot",1 , 3, "Marvel >> DC","61:00:00", "ES","Tyrell pega una paliza a un mendigo para liberar estrϳ.","08/07/2015"));
+        episodis_MrRobot.add(new Episodi("mrobot", "Mr Robot",1 , 1, "eps1.0_hellofriend.mov", "00:00:30", "ES",   "Elliot Alderson trabaja en Allsafe, una empresa de seguridad informȴica.", "24/06/2015"));
+        episodis_MrRobot.add(new Episodi("mrobot", "Mr Robot",1 , 2, "Hey, ¿Que pasa?","00:00:45", "ES", "Walt tiene problemas ajustȮdose a su nueva vida. Se niega a seguir manufacturando el producto.", "01/07/2015"));
+        episodis_MrRobot.add(new Episodi("mrobot", "Mr Robot",1 , 3, "Marvel >> DC","00:01:30", "ES","Tyrell pega una paliza a un mendigo para liberar estrϳ.","08/07/2015"));
 
         listEpisodis.put("mrobot", episodis_MrRobot);
 
@@ -77,8 +77,8 @@ public class DAOEpisodiMOCK implements DAOEpisodi {
         // Episodis para Temporada 1 de la Serie Stranger Things
         ArrayList<Episodi> episodis_Strangerthings = new ArrayList<>();
         episodis_Strangerthings.add(new Episodi("sthings", "Stranger Things",1 , 1, "Episodio 1: Stranger Things", "00:00:30", "ES",   "Ahora que Skyler sabe su secreto, y sin conocer que el equipo de la DEA estǠcercano a descubrir su negocio de drogas, Walt decide contar en una barbacoa familiar las novedades de su cȮcer. Aunque Hank le ofrece 5.000 dجares para su tratamiento, Ϭ rechaza el dinero. Le dice a Skyler que recurrirǠal dinero de su pensiخ, pero en realidad utilizarǠel dinero que han conseguido Jesse y Ϭ vendiendo drogas.","10/02/2008"));
-        episodis_Strangerthings.add(new Episodi("sthings", "Stranger Things",1 , 2, "Episodio 2: Stranger Things","60:00:00", "ES", "Elliott rechaza una bien remunerada oferta de trabajo ofrecida por", "01/07/2015"));
-        episodis_Strangerthings.add(new Episodi("sthings", "Stranger Things",1 , 3, "Episodio 3: Stranger Things","61:00:00", "ES","Tyrell pega una paliza a un mendigo para liberar estrϳ.","08/07/2015"));
+        episodis_Strangerthings.add(new Episodi("sthings", "Stranger Things",1 , 2, "Episodio 2: Stranger Things","00:00:05", "ES", "Elliott rechaza una bien remunerada oferta de trabajo ofrecida por", "01/07/2015"));
+        episodis_Strangerthings.add(new Episodi("sthings", "Stranger Things",1 , 3, "Episodio 3: Stranger Things","00:00:10", "ES","Tyrell pega una paliza a un mendigo para liberar estrϳ.","08/07/2015"));
 
         listEpisodis.put("sthings", episodis_Strangerthings);
 
@@ -89,8 +89,8 @@ public class DAOEpisodiMOCK implements DAOEpisodi {
         // Episodis para Temporada 1 de la Serie Rick Y Morty
         ArrayList<Episodi> episodis_RickYMorty = new ArrayList<>();
         episodis_RickYMorty.add(new Episodi("RyM", "Rick y Morty",1 , 1, "Episodio 1: Rick Y Morty", "00:00:30", "ES", "Pepinillo Rick", "03/04/2000"));
-        episodis_RickYMorty.add(new Episodi("RyM", "Rick y Morty",1 , 2, "Episodio 2: Rick Y Morty","60:00:00", "ES", "Elliott rechaza una bien remunerada oferta de trabajo ofrecida por", "01/07/2015"));
-        episodis_RickYMorty.add(new Episodi("RyM", "Rick y Morty",1 , 3, "Episodio 3: Rick Y Morty","61:00:00", "ES","Tyrell pega una paliza a un mendigo para liberar estrϳ.","08/07/2015"));
+        episodis_RickYMorty.add(new Episodi("RyM", "Rick y Morty",1 , 2, "Episodio 2: Rick Y Morty","00:00:20", "ES", "Elliott rechaza una bien remunerada oferta de trabajo ofrecida por", "01/07/2015"));
+        episodis_RickYMorty.add(new Episodi("RyM", "Rick y Morty",1 , 3, "Episodio 3: Rick Y Morty","00:00:50", "ES","Tyrell pega una paliza a un mendigo para liberar estrϳ.","08/07/2015"));
 
         listEpisodis.put("RyM", episodis_RickYMorty);
 

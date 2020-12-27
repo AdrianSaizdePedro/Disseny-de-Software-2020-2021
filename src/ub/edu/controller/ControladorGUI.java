@@ -327,15 +327,18 @@ public class ControladorGUI implements IController{
      * @param idClient ID del Cliente
      * @param idUser ID del Usuario
      * @param idSerie ID de la Serie
-     * @param nomSerie Nombre de la serie
      * @param numTemporada Numero de Temporada
      * @param idEpisodi ID del Episodio
      * @param data Dataa
      * @param segonsRestants Segundos Restantes
      */
-    public void visualitzarEpisodi(int id, String idClient, String idUser, String idSerie, String nomSerie, int numTemporada,
+    public void visualitzarEpisodi(int id, String idClient, String idUser, String idSerie, int numTemporada,
                                    int idEpisodi, String data, int segonsRestants) {
-        facana.visualitzarEpisodi(id, idClient, idUser, idSerie, nomSerie, numTemporada, idEpisodi, data, segonsRestants);
+        try {
+            facana.visualitzarEpisodi(id, idClient, idUser, idSerie, numTemporada, idEpisodi, data, segonsRestants);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

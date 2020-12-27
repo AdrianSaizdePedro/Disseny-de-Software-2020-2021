@@ -29,6 +29,8 @@ public interface IController {
 
     List<Episodi> getEpisodis(String nomSerie, int temporada);
 
+    void visualitzarEpisodi(int id, String idClient, String idUser, String idSerie, int numTemporada, int idEpisodi, String data, int segonsRestants);
+
     int getDuracioVisualitzada(String idClient, String idUser, String idSerie, int numTemporada, int numEpisodi);
 
     String valorarEpisodiCor(int id, String idClient, String nomUsuari, String idSerie, int idTemporada, int idEpisodi, String data);

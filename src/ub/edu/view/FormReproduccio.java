@@ -7,6 +7,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Finestra amb la barra de reproducció d'un episodi. Aquesta classe hereta de JDialog
@@ -21,25 +23,29 @@ class FormReproduccio extends JDialog {
     private int duracioVisualitzada;
     private String serie;
     private int numTemporada;
-    private String episodi;
+    private int episodi;
 
+    private String currentClient;
+    private String currentUser;
     private IController controller;
     private Frame owner;
 
     /**
      * Constructor de la classe
-     * @param serie identificador de la sèrie de l'episodi a reproduir
+     * @param idSerie identificador de la sèrie de l'episodi a reproduir
      * @param numTemporada número de temporada de l'episodi a reproduir
      * @param episodi títol de l'episodi a reproduir
      * @param duracioEpisodi duració de l'episodi a reproduir
      * @param duracioVisualitzada duració ja visualitzada anteriorment de l'episodi a reproduir
      */
-    protected FormReproduccio(Frame owner, IController controller, String serie, int numTemporada, String episodi, int duracioEpisodi, int duracioVisualitzada) {
+    protected FormReproduccio(Frame owner, IController controller, String idSerie, int numTemporada, int episodi, int duracioEpisodi, int duracioVisualitzada, String currentClient, String currentUser) {
         this.owner = owner;
         this.controller = controller;
+        this.currentClient = currentClient;
+        this.currentUser = currentUser;
         duracioVisualitzacio = duracioEpisodi;
         this.duracioVisualitzada = duracioVisualitzada;
-        this.serie = serie;
+        this.serie = idSerie;
         this.numTemporada = numTemporada;
         this.episodi = episodi;
         initComponents();
@@ -74,7 +80,7 @@ class FormReproduccio extends JDialog {
 
     }
 
-    private void onPause(String serie, int numTemporada, String episodi) {
+    private void onPause(String serie, int numTemporada, int episodi) {
         timer.stop();
         int tempsVisualitzacio = (progressBar.getValue()*duracioVisualitzacio)/100;
         String estat = "Visualització parada";
@@ -108,11 +114,19 @@ class FormReproduccio extends JDialog {
      * @param evt event del mètode
      * @param serie identificador de la sèrie de l'episodi a reproduir
      * @param numTemporada número de temporada de l'episodi a reproduir
-     * @param episodi títol de l'episodi a reproduir
+     * @param idEpisodi títol de l'episodi a reproduir
      */
-    private void formWindowClosing(WindowEvent evt, String serie, int numTemporada, String episodi) {
+    private void formWindowClosing(WindowEvent evt, String serie, int numTemporada, int idEpisodi) {
         timer.stop();
-        int tempsVisualitzacio = (progressBar.getValue()*duracioVisualitzacio)/100;
+        int tempsVisualitzacio = ((progressBar.getValue()*duracioVisualitzacio)/100);
+        int segundosRestantes = duracioVisualitzacio - tempsVisualitzacio - duracioVisualitzada;
+
+
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        LocalDate localDate = LocalDate.now();
+
+        controller.visualitzarEpisodi(1, currentClient, currentUser, serie, numTemporada, idEpisodi, dtf.format(localDate), segundosRestantes);
+
         String estat = "Episodi visualitzat";
         JOptionPane.showMessageDialog(jPanel, estat);
         dispose();

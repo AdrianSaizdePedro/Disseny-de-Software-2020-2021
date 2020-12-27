@@ -321,17 +321,19 @@ public class UBFLIXParty extends JFrame implements Observer{
 
         for (Episodi episodi: episodis) {
 
-            String idSerie = episodi.getIdSerie();
 
-            int numTemporada = Integer.parseInt(temporada.split(" ")[1]);
-            int duracio = episodi.getDuracio();
-            int duracioVisualitzada = 0;//controller.getDuracioVisualitzada(currentClient, currentUser, idSerie, numTemporada, episodi.getNumEpisodi());
-            String descripcio = episodi.getDescripcio();
 
             JMenuItem ep = new JMenuItem(episodi.getTitol());
             ep.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    String idSerie = episodi.getIdSerie();
+
+                    int numTemporada = Integer.parseInt(temporada.split(" ")[1]);
+                    int duracio = episodi.getDuracio();
+                    int duracioVisualitzada = controller.getDuracioVisualitzada(currentClient, currentUser, idSerie, numTemporada, episodi.getNumEpisodi());
+                    String descripcio = episodi.getDescripcio();
+                    
                     onEpisodi(idSerie, numTemporada, episodi.getNumEpisodi(), episodi.getTitol(), duracio, duracioVisualitzada, descripcio);
                 }
             });
