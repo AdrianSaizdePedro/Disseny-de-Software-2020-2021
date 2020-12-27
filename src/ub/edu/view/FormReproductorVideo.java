@@ -19,8 +19,11 @@ import java.time.format.DateTimeFormatter;
 
 public class FormReproductorVideo extends JDialog {
     private  JPanel panelReproduccio;
+
     private int duracioVisualitzacio;
     private int duracioVisualitzada;
+    private int segonsRestants;
+
     private final String serie;
     private final int numTemporada;
     private final int episodi;
@@ -63,7 +66,6 @@ public class FormReproductorVideo extends JDialog {
             int tempsVisualitzacio = (int) ((mediaPlayer.getCurrentTime().toMillis()) / 1000.0);
             int segundosRestantes = duracioVisualitzacio - tempsVisualitzacio;
 
-
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
             LocalDate localDate = LocalDate.now();
 
@@ -101,16 +103,15 @@ public class FormReproductorVideo extends JDialog {
         if (mediaPlayer==null)  {
             mediaPlayer = new MediaPlayer(media);
 
-            if(duracioVisualitzacio >  (int) mediaPlayer.getTotalDuration().toSeconds()){
-                duracioVisualitzada = MAX_TIME_REPRODUCCION - (duracioVisualitzacio - duracioVisualitzada);
-                if(duracioVisualitzada < 0 ) duracioVisualitzada = 0;
+            //Limitem la visualització de l'episodi al rang donat pel fitxer MP4
+            if(duracioVisualitzacio >  MAX_TIME_REPRODUCCION){
+                if (MAX_TIME_REPRODUCCION - (duracioVisualitzacio - duracioVisualitzada) > 0)
+                    duracioVisualitzada = MAX_TIME_REPRODUCCION - (duracioVisualitzacio - duracioVisualitzada);
                 duracioVisualitzacio = MAX_TIME_REPRODUCCION;
-
             }
 
             mediaPlayer.setStartTime(new Duration(duracioVisualitzada*1000));
             mediaPlayer.setStopTime(new Duration(duracioVisualitzacio*1000));
-
             mediaPlayer.setAutoPlay(true);
             mediaControl = new MediaControl(mediaPlayer);
 

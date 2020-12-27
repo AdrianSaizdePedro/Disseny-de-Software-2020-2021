@@ -40,7 +40,6 @@ public class FacadeRegistre {
         registre.init(allPreferencias, corValoracions, estrellasValoracions, allVisualitzacions);
     }
 
-
     /**
      * Método para listar la lista WatchingList de un usuario de un cliente.
      * Reordena las listar de modo que las lista en orden de inserción.

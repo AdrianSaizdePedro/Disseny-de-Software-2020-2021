@@ -84,10 +84,9 @@ class FormEpisodi extends JDialog{
      * @param duracio duració de l'episodi seleccionat
      */
     private void onVisualitzar(String idSerie, int numTemporada, int idEpisodi, int duracio) {
-
         //if(duracio == duracioVisualitzada) duracioVisualitzada = 0;
-        //FormReproduccio fr = new FormReproduccio(owner, controller, idSerie, numTemporada, idEpisodi, duracio, currentClient, currentUsuari);
-        FormReproductorVideo fr = new FormReproductorVideo(owner, controller, idSerie, numTemporada, idEpisodi, duracio, currentClient, currentUsuari);
+        FormReproduccio fr = new FormReproduccio(owner, controller, idSerie, numTemporada, idEpisodi, duracio, currentClient, currentUsuari);
+        //FormReproductorVideo fr = new FormReproductorVideo(owner, controller, idSerie, numTemporada, idEpisodi, duracio, currentClient, currentUsuari);
         fr.pack();
         fr.setVisible(true);
 

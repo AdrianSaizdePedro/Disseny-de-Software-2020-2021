@@ -5,6 +5,7 @@ package ub.edu.view;
 import ub.edu.controller.IController;
 import ub.edu.model.Episodi;
 import ub.edu.model.StrategyTOP.IterableStrategy;
+import ub.edu.model.Temporada;
 
 import javax.swing.*;
 /*import javax.swing.event.ChangeEvent;
@@ -231,7 +232,6 @@ public class UBFLIXParty extends JFrame implements RegisterObserver{
      * Mètode que actualitza les sèries del catàleg
      */
     private void refreshListAll() {
-        //String[] series = {"serie 1","serie 2", "serie 3"};
         List<String> series = controller.llistarCatalegSeries();
         listAll.setListData(new Vector<>(series));
         refreshTemporades(series);
@@ -245,9 +245,9 @@ public class UBFLIXParty extends JFrame implements RegisterObserver{
         popupMenuTemporades.clear();
         for (String serie: series) {
             JPopupMenu s = new JPopupMenu();
-            List<String> temporades = controller.getTemporades(serie);
-            for (String temporada: temporades) {
-                JMenu temp = new JMenu(temporada);
+            List<Integer> temporades = controller.getTemporades(serie);
+            for (int temporada: temporades) {
+                JMenu temp = new JMenu("Temporada" + temporada);
                 refreshEpisodis(serie, temporada, temp);
                 s.add(temp);
             }
@@ -258,24 +258,17 @@ public class UBFLIXParty extends JFrame implements RegisterObserver{
     /**
      * Mètode que serveix per actualitzar els episodis de la temporada de la sèrie indicats per paràmetres
      * @param serie sèrie de la qual s'ha d'actualitzar els episodis
-     * @param temporada temporadad de la qual s'ha d'actualitzar els episodis
+     * @param temporada temporada de la qual s'ha d'actualitzar els episodis
      * @param jm JMenu de l'episodi
      */
-    private void refreshEpisodis(String serie, String temporada, JMenu jm) {
-
-        List<Episodi> episodis = controller.getEpisodis(serie, Integer.parseInt(temporada.split(" ")[1]));
-
+    private void refreshEpisodis(String serie, int temporada, JMenu jm) {
+        List<Episodi> episodis = controller.getEpisodis(serie, temporada);
         for (Episodi episodi: episodis) {
-
-
-
             JMenuItem ep = new JMenuItem(episodi.getTitol());
             ep.addActionListener(e -> {
                 String idSerie = episodi.getIdSerie();
-
-                int numTemporada = Integer.parseInt(temporada.split(" ")[1]);
+                int numTemporada = temporada;
                 int duracio = episodi.getDuracio();
-                //int duracioVisualitzada = controller.getDuracioVisualitzada(currentClient, currentUser, idSerie, numTemporada, episodi.getNumEpisodi());
                 String descripcio = episodi.getDescripcio();
 
                 onEpisodi(idSerie, numTemporada, episodi.getNumEpisodi(), episodi.getTitol(), duracio, descripcio);
@@ -287,7 +280,7 @@ public class UBFLIXParty extends JFrame implements RegisterObserver{
     /**
      * Mètode que serveix per actualitzar totes les llistes de la vista
      */
-    private void refreshLlistes() {
+    public void refreshLlistes() {
         refreshWatched();
         refreshMyList();
         refreshContinueWatching();
@@ -326,16 +319,26 @@ public class UBFLIXParty extends JFrame implements RegisterObserver{
      * Mètode que actualitza les sèries de la llista Watched
      */
     private void refreshWatched() {
-        String[] series = {"serie 21", "serie 22", "serie 23"};
-        listWatched.setListData(series);
+        List<String> watchedList = controller.listWatchingList(currentClient, currentUser);
+        for (String serie : watchedList)
+            for(int temp : controller.getTemporades(serie))
+                for(Episodi episode : controller.getEpisodis(serie, temp))
+                    if (!controller.isEpisodiVisualitzat(episode.getIdSerie(), temp, episode.getNumEpisodi(), currentClient, currentUser))
+                        watchedList.remove(serie);
+        listWatched.setListData(new Vector<>(watchedList));
     }
 
     /**
      * Mètode que actualitza les sèries de la llista ContinueWatching
      */
     private void refreshContinueWatching() {
-        String[] series = {"serie 31", "serie 32", "serie 33"};
-        listContinueWatching.setListData(series);
+        List<String> watchingList = controller.listWatchingList(currentClient, currentUser);
+        for (String serie : watchingList)
+            for(int temp : controller.getTemporades(serie))
+                for(Episodi episode : controller.getEpisodis(serie, temp))
+                    if (!controller.isEpisodiVisualitzat(episode.getIdSerie(), temp, episode.getNumEpisodi(), currentClient, currentUser))
+                        watchingList.remove(serie);
+        listContinueWatching.setListData(new Vector<>(watchingList));
     }
 
     /**
@@ -364,7 +367,7 @@ public class UBFLIXParty extends JFrame implements RegisterObserver{
             tableModelVis.removeRow(i);
 
         for (Map.Entry serie: (Iterable<Map.Entry>) topVisualitzacions) {
-            tableModelVis.addRow(new String[]{(String) serie.getKey(), String.format("%.2f", serie.getValue())});
+            tableModelVis.addRow(new String[]{(String) serie.getKey(), String.format("%s", serie.getValue())});
         }
     }
 

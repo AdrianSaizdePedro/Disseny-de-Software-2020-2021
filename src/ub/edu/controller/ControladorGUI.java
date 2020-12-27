@@ -245,7 +245,7 @@ public class ControladorGUI implements IController{
      * @param nomSerie Nombre de la Serie
      * @return catalogo de temporadas de una serie
      * */
-    public List<String> getTemporades(String nomSerie){
+    public List<Integer> getTemporades(String nomSerie){
         return facana.getTemporades(nomSerie);
     }
 
@@ -259,6 +259,14 @@ public class ControladorGUI implements IController{
         return facana.getEpisodis(nomSerie,temporada);
     }
 
+    @Override
+    public List<String> listWatchingList(String currentClient, String currentUser){
+        try {
+            return (List<String>)facana.listWatchingList(currentClient, currentUser); }
+        catch(Exception e){
+            return new ArrayList();
+        }
+    }
 
 
     //////////////////////////////////////
@@ -383,6 +391,7 @@ public class ControladorGUI implements IController{
             return false;
         }
     }
+
     public void registerObserver(RegisterObserver observer) {
         facana.registerObserver(observer);
     }
