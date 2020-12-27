@@ -3,7 +3,7 @@ package ub.edu.controller;
 import ub.edu.model.*;
 import ub.edu.resources.service.DataService;
 import ub.edu.resources.service.FactoryMOCK;
-import ub.edu.view.Observer;
+import ub.edu.view.RegisterObserver;
 import ub.edu.view.UBFLIXParty;
 
 import java.util.ArrayList;
@@ -372,9 +372,8 @@ public class ControladorGUI implements IController{
             return false;
         }
     }
-
-
-    public void registerObserver(Observer observer) {
+    public void registerObserver(RegisterObserver observer) {
         facana.registerObserver(observer);
     }
+
 }

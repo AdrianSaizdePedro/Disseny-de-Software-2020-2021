@@ -2,7 +2,7 @@ package ub.edu.model;
 
 import ub.edu.model.Valoracions.CorValoracio;
 import ub.edu.model.Valoracions.EstrellasValoracio;
-import ub.edu.view.Observer;
+import ub.edu.view.RegisterObserver;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -193,7 +193,7 @@ public class FacadeRegistre {
         return 5;
     }
 
-    public void registerObserver(Observer observer) {
+    public void registerObserver(RegisterObserver observer) {
         registre.registerObserver(observer);
     }
 

@@ -1,21 +1,24 @@
 package ub.edu.model;
 
+import ub.edu.model.StrategyTOP.TOPValoracionsStrategy;
 import ub.edu.model.Valoracions.CorValoracio;
 import ub.edu.model.Valoracions.EstrellasValoracio;
 import ub.edu.model.Valoracions.ValoracioFactory;
-import ub.edu.view.Observer;
+import ub.edu.view.RegisterObserver;
 
+import java.util.Map.Entry;
 import java.util.*;
 
-public class Registre implements  Subject{
+public class Registre implements RegisterSubject{
     // Atributos
-    private List<Observer> observers;
+    private List<RegisterObserver> observers;
     private ValoracioFactory valoracioFactory;
 
     private Map<String, ArrayList<Preferencia>> preferencias;
     private Map<String, ArrayList<Visualitzacio>> visualitzacions;
     private Map<String, ArrayList<CorValoracio>> corsValoracio;
     private Map<String, ArrayList<EstrellasValoracio>> estrellasValoracio;
+
 
     /**
      * Metodo constructor de Registre
@@ -328,34 +331,44 @@ public class Registre implements  Subject{
     /*    METODOS SOBRE PATRON OBSERVER   */
     ////////////////////////////////////////
     @Override
-    public void registerObserver(Observer observer) {
+    public void registerObserver(RegisterObserver observer) {
         observers.add(observer);
         notifyObservers();
-
     }
 
     @Override
-    public void removeObserver(Observer observer) {
+    public void removeObserver(RegisterObserver observer) {
         observers.remove(observer);
     }
 
     @Override
     public void notifyObservers() {
         for (int i = 0; i < observers.size(); i++) {
-            Observer observer = (Observer)observers.get(i);
-            observer.update(getTopTenValoracions());
+            RegisterObserver observer = observers.get(i);
+            observer.refreshTopValoracions(new TOPValoracionsStrategy(getValoracionsBySerie()));
+            //observer.refreshTopVisualitzacions(new TOPVisualitzacionsStrategy(getVisualitzacionsBySerie()));
         }
     }
 
-
-    private List<EstrellasValoracio> getListOfValorations(){
-        List<EstrellasValoracio> listaEstrellasVal = new ArrayList<>();
-        for(List<EstrellasValoracio> listEstrellasValoracio: estrellasValoracio.values()){
-            listaEstrellasVal.addAll(listEstrellasValoracio);
+    /**
+     * Reordena las valoraciones en función de la serie, no del Usuario
+     * @return Devuelve un nuevo HasMap con Key el nombre de la serie y Value el listado de valoraciones
+     * por estrellas (enteros)
+     * */
+    private Set<Entry<String, ArrayList<EstrellasValoracio>>> getValoracionsBySerie(){
+        Map<String, ArrayList<EstrellasValoracio>> valoracionsForSerie = new HashMap<>();
+        for(ArrayList<EstrellasValoracio> valoracions: estrellasValoracio.values()){
+            for (EstrellasValoracio val: valoracions){
+                String idSerie = val.getIdSerie();
+                if(!valoracionsForSerie.containsKey(idSerie))
+                    valoracionsForSerie.put(idSerie, new ArrayList<>());
+                valoracionsForSerie.get(idSerie).add(val);
+            }
         }
-        return listaEstrellasVal;
+        return valoracionsForSerie.entrySet();
     }
 
+    /*
     private List<Map.Entry<String, Double>> getTopTenValoracions(){
         Map<String, ArrayList<Integer>> map = new HashMap<>();
         for(ArrayList<EstrellasValoracio> listaEstrellasValoracions: estrellasValoracio.values()){
@@ -396,6 +409,5 @@ public class Registre implements  Subject{
         }
         return ((double)sumaTotal)/sizeLista;
     }
-
-
+    */
 }
