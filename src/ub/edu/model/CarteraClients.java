@@ -105,6 +105,18 @@ public class CarteraClients{
         find(nomClient).addUser(nom, "id" + getIdUser());
     }
 
+
+    /**
+     * Método para validar Cliente: nombre y contraseña.
+     * @param username nombre del Cliente
+     * @param password contraseña del Cliente
+     * @return True si existe el Cliente y su contraseña coincide con la introducida.
+     */
+    public boolean validateLoginClient(String username, String password){
+        if (find(username) != null) return find(username).getPwd().equals(password);
+        return false;
+    }
+
     /**
      * Método para calcular el número del ID de un Usuario
      * @return número del ID
@@ -129,6 +141,18 @@ public class CarteraClients{
             }
         }
         return null;
+    }
+
+    /**
+     * Método para conseguir un IDUsuario a partir del nombre del Cliente y del Usuario.
+     * @param nomClient nombre del Cliente
+     * @param nomUser nombre del Usuario
+     * @return String del ID del Usuario
+     * @throws Exception Si el Cliente no existe
+     */
+    public String getIDUsuariByClientAndUsername(String nomClient, String nomUser) throws Exception {
+        if (find(nomClient) == null) throw new Exception("Client does not exist");
+        return find(nomClient).getIDUsuariByUsername(nomUser);
     }
 
 
@@ -224,4 +248,5 @@ public class CarteraClients{
     public Iterable<String> listUsuaris(String nomClient) {
         return find(nomClient).listUsuaris();
     }
+
 }

@@ -152,7 +152,7 @@ public class Serie {
      * @throws Exception si la Temporada no existe
      */
     public boolean existsEpisodi(int idTemporada, int idEpisodi) throws Exception {
-        if (find(idTemporada) == null) throw new Exception("No se dispone de esta serie");
+        if (find(idTemporada) == null) throw new Exception("No se dispone de esta temporada");
         return find(idTemporada).existsEpisodi(idEpisodi);
     }
 

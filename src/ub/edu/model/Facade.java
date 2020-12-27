@@ -107,7 +107,9 @@ public class Facade{
      * @param password contraseña del Cliente
      * @return True si existe el Cliente y su contraseña coincide con la introducida.
      */
-    public boolean validateLoginClient(String username, String password) { return dataService.getClientByUsuariAndPassword(username, password) != null; }
+    public boolean validateLoginClient(String username, String password) {
+        return facadeClients.validateLoginClient(username, password);
+    }
 
 
 
@@ -286,7 +288,7 @@ public class Facade{
     public Iterable<String> listWatchingList(String idClient, String nameUser) throws Exception {
         if (!isValidNameClient(idClient)) throw new Exception("El client '" + idClient + "' no existeix.");
         if (!existsNameUser(idClient, nameUser)) throw new Exception("L'usuari '" + nameUser + "' del client '"+ idClient + "' no existeix.");
-        String idUser = dataService.getUsuariByIdClientAndUsername(idClient, nameUser).getIdUser();
+        String idUser = facadeClients.getIDUsuariByClientAndUsername(idClient, nameUser);
         return facadeRegistre.listWatchingList(idUser);
     }
 
@@ -300,7 +302,7 @@ public class Facade{
     public Iterable<String> listMyList(String idClient, String nameUser) throws Exception {
         if (!isValidNameClient(idClient)) throw new Exception("El client '" + idClient + "' no existeix.");
         if (!existsNameUser(idClient, nameUser)) throw new Exception("L'usuari '" + nameUser + "' del client '"+ idClient + "' no existeix.");
-        String idUser = dataService.getUsuariByIdClientAndUsername(idClient, nameUser).getIdUser();
+        String idUser = facadeClients.getIDUsuariByClientAndUsername(idClient, nameUser);
         return facadeRegistre.listMyList(idUser);
     }
 
@@ -321,11 +323,9 @@ public class Facade{
      * @throws Exception fallo de DataService
      */
     public boolean addSerieToMyList(int id, String idClient, String nameUser, String titol) throws Exception {
-        if (!isValidNameClient(idClient)) throw new Exception("El client '" + idClient + "' no existeix.");
-        if (!existsNameUser(idClient, nameUser)) throw new Exception("L'usuari '" + nameUser + "' del client '"+ idClient + "' no existeix.");
         if (!existsSerieWithThisTitle(titol)) throw new Exception("La sèrie '" + titol + "' no existeix.");
 
-        String idUser = dataService.getUsuariByIdClientAndUsername(idClient, nameUser).getIdUser();
+        String idUser = facadeClients.getIDUsuariByClientAndUsername(idClient, nameUser);
         if (facadeRegistre.addSerieToMyList(id, idClient, idUser, titol)) {
             dataService.addPreferencia(new Preferencia(id, idClient, idUser, titol));
             return true;
@@ -343,11 +343,9 @@ public class Facade{
      * @throws Exception fallo de DataService
      */
     public boolean removeSerieFromMyList(int id, String idClient, String nameUser, String titol) throws Exception {
-        if (!isValidNameClient(idClient)) throw new Exception("El client '" + idClient + "' no existeix.");
-        if (!existsNameUser(idClient, nameUser)) throw new Exception("L'usuari '" + nameUser + "' del client '"+ idClient + "' no existeix.");
         if (!existsSerie(titol)) throw new Exception("La sèrie '" + titol + "' no existeix.");
 
-        String idUser = dataService.getUsuariByIdClientAndUsername(idClient, nameUser).getIdUser();
+        String idUser = facadeClients.getIDUsuariByClientAndUsername(idClient, nameUser);
         if (facadeRegistre.removeSerieFromMyList(id, idClient, idUser, titol)) {
             dataService.removePreferencia(new Preferencia(id, idClient, idUser, titol));
             return true;
@@ -364,7 +362,9 @@ public class Facade{
      * @return True si existe el Episodio, False si no
      * @throws Exception si no existe la Temporada y/o la Serie
      */
-    private boolean existsEpisodi(String idSerie, int idTemporada, int idEpisodi) throws Exception { return facadeSeries.existsEpisodi(idSerie, idTemporada,  idEpisodi); }
+    private boolean existsEpisodi(String idSerie, int idTemporada, int idEpisodi) throws Exception {
+        return facadeSeries.existsEpisodi(idSerie, idTemporada,  idEpisodi);
+    }
 
     /**
      * Metodo para saber si existe una Serie
@@ -397,10 +397,10 @@ public class Facade{
      * @param data Dataa
      * @param segonsRestants Segundos Restantes
      */
-    public void visualitzarEpisodi(int id, String idClient, String nomUser, String idSerie, int numTemporada, int idEpisodi, String data, int segonsRestants) throws Exception {
+    public int visualitzarEpisodi(int id, String idClient, String nomUser, String idSerie, int numTemporada, int idEpisodi, String data, int segonsRestants) throws Exception {
         String nomSerie = facadeSeries.getNomSerieByID(idSerie);
-        String idUser = dataService.getUsuariByIdClientAndUsername(idClient, nomUser).getIdUser();
-        facadeRegistre.visualitzarEpisodi(id, idClient, idUser, nomSerie, numTemporada, idEpisodi, data, segonsRestants);
+        String idUser = facadeClients.getIDUsuariByClientAndUsername(idClient, nomUser);
+        return facadeRegistre.visualitzarEpisodi(id, idClient, idUser, nomSerie, numTemporada, idEpisodi, data, segonsRestants);
     }
 
     /**
@@ -412,10 +412,9 @@ public class Facade{
      * @param numEpisodi ID del Episodio
      * @return int de segundos visualizados
      */
-    public int getDuracioVisualitzada(String idClient, String nomUsuari, String idSerie, int numTemporada, int numEpisodi) throws Exception {
-        String idUser = dataService.getUsuariByIdClientAndUsername(idClient, nomUsuari).getIdUser();
+    public int getDuracioVisualitzada(String idClient, String nomUsuari, String idSerie, int numTemporada, int numEpisodi, int duracioEpisodi) throws Exception {
+        String idUser = facadeClients.getIDUsuariByClientAndUsername(idClient, nomUsuari);
         String nomSerie = facadeSeries.getNomSerieByID(idSerie);
-        int duracioEpisodi = dataService.getEpisodiByTitolTemporadaIdEpisodi(idSerie, numTemporada, numEpisodi).getDuracio();
         return facadeRegistre.getDuracioVisualitzada(idClient, idUser, nomSerie, numTemporada, numEpisodi, duracioEpisodi);
     }
     /**
@@ -428,7 +427,7 @@ public class Facade{
      * @return true si se ha visualizado, false si no...
      */
     public boolean isEpisodiVisualitzat(String idSerie, int numTemporada, int idEpisodi, String currentClient, String currentUsuari) throws Exception {
-        String idUser = dataService.getUsuariByIdClientAndUsername(currentClient, currentUsuari).getIdUser();
+        String idUser = facadeClients.getIDUsuariByClientAndUsername(currentClient, currentUsuari);
         String nomSerie = facadeSeries.getNomSerieByID(idSerie);
         return facadeRegistre.isEpisodiVisualitzat(nomSerie, numTemporada, idEpisodi, idUser);
     }
@@ -451,10 +450,8 @@ public class Facade{
      * @throws Exception fallo de DataService
      * */
     public int valorarEpisodiEstrellas(int id, String idClient, String nomUsuari, String idSerie, int idTemporada, int idEpisodi, int estrelles, String data) throws Exception {
-        if (!isValidNameClient(idClient)) return 1;
-        if (!existsNameUser(idClient, nomUsuari)) return 2;
-        if (!existsEpisodi(idSerie, idTemporada, idEpisodi)) return 3;
-        String idUser = dataService.getUsuariByIdClientAndUsername(idClient, nomUsuari).getIdUser();
+        if (!existsEpisodi(idSerie, idTemporada, idEpisodi)) throw new Exception("Episodi no existe");
+        String idUser = facadeClients.getIDUsuariByClientAndUsername(idClient, nomUsuari);
         return facadeRegistre.valorarEpisodiEstrellas(id, idClient, idUser, idSerie, idEpisodi, idTemporada, estrelles, data);
     }
 
@@ -474,10 +471,8 @@ public class Facade{
      * @throws Exception fallo de DataService
      * */
     public int valorarEpisodiCor(int id, String idClient, String nomUsuari, String idSerie, int idTemporada, int idEpisodi, String data) throws Exception {
-        if (!isValidNameClient(idClient)) return 1;
-        if (!existsNameUser(idClient, nomUsuari)) return 2;
         if (!existsEpisodi(idSerie, idTemporada, idEpisodi)) return 3;
-        String idUser = dataService.getUsuariByIdClientAndUsername(idClient, nomUsuari).getIdUser();
+        String idUser = facadeClients.getIDUsuariByClientAndUsername(idClient, nomUsuari);
         return facadeRegistre.valorarEpisodiCor(id, idClient, idUser, idSerie, idEpisodi, idTemporada, data);
     }
 

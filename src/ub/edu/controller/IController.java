@@ -29,9 +29,9 @@ public interface IController {
 
     List<Episodi> getEpisodis(String nomSerie, int temporada);
 
-    void visualitzarEpisodi(int id, String idClient, String idUser, String idSerie, int numTemporada, int idEpisodi, String data, int segonsRestants);
+    String visualitzarEpisodi(int id, String idClient, String idUser, String idSerie, int numTemporada, int idEpisodi, String data, int segonsRestants);
 
-    int getDuracioVisualitzada(String idClient, String idUser, String idSerie, int numTemporada, int numEpisodi);
+    int getDuracioVisualitzada(String idClient, String idUser, String idSerie, int numTemporada, int numEpisodi, int duracioEpisodi);
 
     boolean isEpisodiVisualitzat(String idSerie, int numTemporada, int idEpisodi, String currentClient, String currentUsuari);
 

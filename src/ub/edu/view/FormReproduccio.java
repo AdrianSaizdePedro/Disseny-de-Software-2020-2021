@@ -42,7 +42,7 @@ class FormReproduccio extends JDialog {
         this.currentClient = currentClient;
         this.currentUser = currentUser;
         this.duracioVisualitzacio = duracioEpisodi;
-        this.duracioVisualitzada = controller.getDuracioVisualitzada(currentClient, currentUser, idSerie, numTemporada, episodi);
+        this.duracioVisualitzada = controller.getDuracioVisualitzada(currentClient, currentUser, idSerie, numTemporada, episodi, duracioEpisodi);
         this.serie = idSerie;
         this.numTemporada = numTemporada;
         this.episodi = episodi;
@@ -117,10 +117,9 @@ class FormReproduccio extends JDialog {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         LocalDate localDate = LocalDate.now();
 
-        controller.visualitzarEpisodi(1, currentClient, currentUser, serie, numTemporada, idEpisodi, dtf.format(localDate), segundosRestantes);
+        String info = controller.visualitzarEpisodi(1, currentClient, currentUser, serie, numTemporada, idEpisodi, dtf.format(localDate), segundosRestantes);
 
-        String estat = "Episodi visualitzat";
-        JOptionPane.showMessageDialog(jPanel, estat);
+        JOptionPane.showMessageDialog(jPanel, info);
         dispose();
     }
 

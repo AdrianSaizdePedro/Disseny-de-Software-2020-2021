@@ -101,8 +101,8 @@ public class ControladorGUI implements IController{
      * @param password contraseña del Cliente
      * @return True si existe el Cliente con esa contraseña, False si no
      * */
-    public boolean validateClient(String username, String password) {
-        return facana.validateLoginClient(username, password);
+    public boolean validateClient(String username, String password){
+            return facana.validateLoginClient(username, password);
     }
 
     /**
@@ -334,12 +334,17 @@ public class ControladorGUI implements IController{
      * @param data Dataa
      * @param segonsRestants Segundos Restantes
      */
-    public void visualitzarEpisodi(int id, String idClient, String nomUser, String idSerie, int numTemporada,
+    public String visualitzarEpisodi(int id, String idClient, String nomUser, String idSerie, int numTemporada,
                                    int idEpisodi, String data, int segonsRestants) {
         try {
-            facana.visualitzarEpisodi(id, idClient, nomUser, idSerie, numTemporada, idEpisodi, data, segonsRestants);
+            int casosFacade = facana.visualitzarEpisodi(id, idClient, nomUser, idSerie, numTemporada, idEpisodi, data, segonsRestants);
+            switch (casosFacade){
+                case 1: return "Episodio añadido a Continue Watching List";
+                case 2: return "Episodio añadido a Already Watched List";
+                default: return "No se ha podido visualizar el Episodio";
+            }
         } catch (Exception e) {
-            e.printStackTrace();
+            return e.getMessage();
         }
     }
 
@@ -353,9 +358,9 @@ public class ControladorGUI implements IController{
      * @param numEpisodi ID del Episodio
      * @return int de segundos visualizados
      */
-    public int getDuracioVisualitzada(String idClient, String idUser, String idSerie, int numTemporada, int numEpisodi) {
+    public int getDuracioVisualitzada(String idClient, String idUser, String idSerie, int numTemporada, int numEpisodi, int duracioEpisodi) {
         try {
-            return facana.getDuracioVisualitzada(idClient, idUser, idSerie, numTemporada, numEpisodi);
+            return facana.getDuracioVisualitzada(idClient, idUser, idSerie, numTemporada, numEpisodi, duracioEpisodi);
         } catch (Exception e) {
             e.printStackTrace();
             return 0;

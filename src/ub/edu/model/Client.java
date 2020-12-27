@@ -175,6 +175,17 @@ public class Client {
     public void addUser(Usuari u) { usuaris.add(u); }
 
 
+    /**
+     * Devuelve el ID del Usuario en función del Nombre
+     * @param nomUser nombre del Usuario
+     * @return String ID Usuario
+     * @throws Exception Si el usuario no existe
+     */
+    public String getIDUsuariByUsername(String nomUser) throws Exception {
+        if (findUserByName(nomUser) == null) throw new Exception("User does not exist");
+        return findUserByName(nomUser).getIdUser();
+    }
+
 
     //////////////////////////////////////
     /*       METODOS SOBRE PERFIL       */
@@ -242,4 +253,5 @@ public class Client {
         }
         return usuaris;
     }
+
 }
