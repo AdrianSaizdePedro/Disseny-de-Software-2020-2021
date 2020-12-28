@@ -119,8 +119,8 @@ class FormReproduccio extends JDialog {
 
         String info = controller.visualitzarEpisodi(1, currentClient, currentUser, serie, numTemporada, idEpisodi, dtf.format(localDate), segundosRestantes);
         JOptionPane.showMessageDialog(jPanel, info);
-        ((UBFLIXParty)owner).refreshLlistes();
         dispose();
+
     }
 
 

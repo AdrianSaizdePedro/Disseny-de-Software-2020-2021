@@ -60,11 +60,11 @@ public class CatalegSeries {
      * @param nomSerie Nombre de la Serie
      * @return catalogo de temporadas de una serie
      * */
-    public List<Integer> getTemporades(String nomSerie){
+    public List<String> getTemporades(String nomSerie){
         List<Temporada> temporadas = this.findByTitle(nomSerie).getTemporades();
-        List<Integer> listaNomTemp = new ArrayList();
+        List<String> listaNomTemp = new ArrayList();
         for(Temporada t: temporadas)
-            listaNomTemp.add(t.getIdTemporada());
+            listaNomTemp.add("Temporada " + t.getIdTemporada());
         return listaNomTemp;
     }
 

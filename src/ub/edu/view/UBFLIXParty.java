@@ -45,6 +45,7 @@ public class UBFLIXParty extends JFrame implements RegisterObserver{
     private JComboBox<String> comboBoxUsuaris;
     private JButton perfilButton;
 
+    private static final int NUM_MAX_TOPS = 10;
 
     //Afegits manualment
     private HashMap<String, JPopupMenu> popupMenuTemporades;
@@ -349,8 +350,11 @@ public class UBFLIXParty extends JFrame implements RegisterObserver{
         for (int i = numRows - 1; i >= 0; i--)
             tableModelVal.removeRow(i);
 
+        int numIteraciones = 0;
         for (Map.Entry serie: (Iterable<Map.Entry>) topValoracions) {
             tableModelVal.addRow(new String[]{(String) serie.getKey(), String.format("%.2f", serie.getValue())});
+            if(numIteraciones == NUM_MAX_TOPS) break;
+            numIteraciones ++;
         }
     }
 
@@ -364,8 +368,11 @@ public class UBFLIXParty extends JFrame implements RegisterObserver{
         for (int i = numRows - 1; i >= 0; i--)
             tableModelVis.removeRow(i);
 
+        int numIteraciones = 0;
         for (Map.Entry serie: (Iterable<Map.Entry>) topVisualitzacions) {
-            tableModelVis.addRow(new String[]{(String) serie.getKey(), String.format("%s", serie.getValue())});
+            if((int) serie.getValue() != 0) tableModelVis.addRow(new String[]{(String) serie.getKey(), String.format("%s", serie.getValue())});
+            if(numIteraciones == NUM_MAX_TOPS) break;
+            numIteraciones ++;
         }
     }
 

@@ -29,11 +29,9 @@ public interface IController {
 
     List<String> llistarCatalegSeries();
 
-    List<Integer> getTemporades(String nomSerie);
+    List<String> getTemporades(String nomSerie);
 
     List<Episodi> getEpisodis(String nomSerie, int temporada);
-
-    List<String> listWatchingList(String currentClient, String currentUser);
 
     String visualitzarEpisodi(int id, String idClient, String idUser, String idSerie, int numTemporada, int idEpisodi, String data, int segonsRestants);
 

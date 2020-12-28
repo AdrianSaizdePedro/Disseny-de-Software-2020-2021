@@ -267,7 +267,7 @@ public class Facade{
      * @param nomSerie Nombre de la Serie
      * @return catalogo de temporadas de una serie
      * */
-    public List<Integer> getTemporades(String nomSerie){
+    public List<String> getTemporades(String nomSerie){
         return facadeSeries.getTemporades(nomSerie);
     }
 
