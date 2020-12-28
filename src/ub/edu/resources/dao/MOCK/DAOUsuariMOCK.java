@@ -38,6 +38,14 @@ public class DAOUsuariMOCK implements DAOUsuari {
         usuaris_4.add(new Usuari("ana", "Liza", "id13"));
         listUsuaris.put("ana", usuaris_4);
 
+        // Usuaris pel client ""
+        ArrayList<Usuari> usuaris_5 = new ArrayList<>();
+        usuaris_5.add(new Usuari("", "Marc", "id14"));
+        usuaris_5.add(new Usuari("", "Laura", "id15"));
+        usuaris_5.add(new Usuari("", "Marco", "id16"));
+        usuaris_5.add(new Usuari("", "Ignasi", "id17"));
+        listUsuaris.put("", usuaris_5);
+
     }
 
     @Override

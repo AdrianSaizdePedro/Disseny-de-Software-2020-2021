@@ -108,16 +108,8 @@ public class UBFLIXParty extends JFrame implements RegisterObserver{
         });
         listAll.addListSelectionListener(e -> mostrarPopupMenuTemporades(listAll, fieldAll));
         listMyList.addListSelectionListener(e -> mostrarPopupMenuTemporades(listMyList, fieldWatchNext));
-
-        listWatched.addListSelectionListener(e ->{
-            refreshLlistes();
-            mostrarPopupMenuTemporades(listWatched, fieldWatched);
-        });
-
-        listContinueWatching.addListSelectionListener(e -> {
-            refreshLlistes();
-            mostrarPopupMenuTemporades(listContinueWatching, fieldNotStarted);
-        });
+        listWatched.addListSelectionListener(e -> mostrarPopupMenuTemporades(listWatched, fieldWatched));
+        listContinueWatching.addListSelectionListener(e -> mostrarPopupMenuTemporades(listContinueWatching, fieldNotStarted));
 
         comboBoxUsuaris.addActionListener(e -> {
             if (comboBoxUsuaris.getItemCount() > 0) {

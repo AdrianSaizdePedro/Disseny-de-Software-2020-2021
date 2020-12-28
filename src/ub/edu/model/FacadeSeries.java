@@ -58,6 +58,10 @@ public class FacadeSeries {
         return catalegSeries.getEpisodis(nomSerie,temporada);
     }
 
+    public int getTotalEpisodisBySerie(String nomSerie){
+        return catalegSeries.getTotalEpisodisBySerie(nomSerie);
+    }
+
     /**
      * Método para mostrar los detalles de uns Serie
      * @param nomSerie título de la Serie

@@ -3,7 +3,10 @@ package ub.edu.model;
 import ub.edu.resources.service.DataService;
 import ub.edu.view.RegisterObserver;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class Facade{
     // Atributos
@@ -285,11 +288,31 @@ public class Facade{
      * @return Iterable con los títulos de las series de Watching List, ordenados según su fecha de visualización.
      * @throws Exception si Cliente o Usuario no existen
      */
-    public Iterable<String> listWatchingList(String idClient, String nameUser) throws Exception {
+    public Iterable<String> listWatchedList(String idClient, String nameUser) throws Exception {
         if (!isValidNameClient(idClient)) throw new Exception("El client '" + idClient + "' no existeix.");
         if (!existsNameUser(idClient, nameUser)) throw new Exception("L'usuari '" + nameUser + "' del client '"+ idClient + "' no existeix.");
         String idUser = facadeClients.getIDUsuariByClientAndUsername(idClient, nameUser);
-        return facadeRegistre.listWatchedList(idUser);
+
+        List<String> list = new ArrayList<>();
+        List<String> allEpisodisVisualitzats = facadeRegistre.listWatchedList(idUser);
+        for(String serie: allEpisodisVisualitzats){
+            if(Collections.frequency(allEpisodisVisualitzats, serie) == facadeSeries.getTotalEpisodisBySerie(serie) && !list.contains(serie)) list.add(serie);
+        }
+        return list;
+    }
+
+    /**
+     * Método para listar las series de la lista Watching List de un Usuario.
+     * @param client nombre del Cliente
+     * @param user nombre del Usuario
+     * @return Iterable con los títulos de las series de Watching List, ordenados según su fecha de visualización.
+     * @throws Exception si Cliente o Usuario no existen
+     */
+    public Iterable<String> listContinueWatchingList(String client, String user) throws Exception{
+        if (!isValidNameClient(client)) throw new Exception("El client '" + client + "' no existeix.");
+        if (!existsNameUser(client, user)) throw new Exception("L'usuari '" + user + "' del client '"+ client + "' no existeix.");
+        String idUser = facadeClients.getIDUsuariByClientAndUsername(client, user);
+        return facadeRegistre.listContinueWatchingList(idUser);
     }
 
     /**
@@ -422,13 +445,6 @@ public class Facade{
         }
         return false;
 
-    }
-
-    public Iterable<String> listContinueWatchingList(String client, String user) throws Exception{
-        if (!isValidNameClient(client)) throw new Exception("El client '" + client + "' no existeix.");
-        if (!existsNameUser(client, user)) throw new Exception("L'usuari '" + user + "' del client '"+ client + "' no existeix.");
-        String idUser = facadeClients.getIDUsuariByClientAndUsername(client, user);
-        return facadeRegistre.listContinueWatchingList(idUser);
     }
 
 

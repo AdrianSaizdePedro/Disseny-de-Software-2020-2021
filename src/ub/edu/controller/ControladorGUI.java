@@ -196,7 +196,7 @@ public class ControladorGUI implements IController{
      * @return Iterable con los títulos de las series de Watched
      */
     public Iterable<String> listMyWatchedList(String client, String user) {
-        try { return facana.listWatchingList(client, user); }
+        try { return facana.listWatchedList(client, user); }
         catch (Exception exp) {
             ArrayList<String> exception = new ArrayList<>();
             exception.add(exp.getMessage());

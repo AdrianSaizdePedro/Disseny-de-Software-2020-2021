@@ -157,5 +157,13 @@ public class CatalegSeries {
         return llistaEpisodis;
     }
 
+    public int getTotalEpisodisBySerie(String nomSerie) {
+        List<Temporada> temporadas= this.findByTitle(nomSerie).getTemporades();
+        int totalEpisodis = 0;
+        for(Temporada t: temporadas){
+            totalEpisodis += t.getLlistaEpisodis().size();
+        }
+        return totalEpisodis;
+    }
 
 }

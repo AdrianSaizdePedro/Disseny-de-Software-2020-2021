@@ -10,6 +10,7 @@ public class DAOClientMOCK implements DAOClient {
     private final Map<String, Client> listClients = new HashMap<>();
 
     public DAOClientMOCK() {
+        listClients.put("", new Client("", "", "12345678Z", "hakunamatata", false));
         listClients.put("ajaleo", new Client("ajaleo", "ajaleoPassw", "12345678Z", "hakunamatata", false));
         listClients.put("dtomacal", new Client("dtomacal", "qwerty", "12397354D", "paisdenuncajamas", true));
         listClients.put("chachipistachi", new Client("chachipistachi", "HDNjshdf46", "12345678Z", "Vivievidbabadibu", true));

@@ -203,7 +203,7 @@ public class ControllerTESTS{
      * según su fecha de visualización.
      */
     public Iterable<String> listWatchingList(String client, String user) {
-        try { return facana.listWatchingList(client, user); }
+        try { return facana.listWatchedList(client, user); }
         catch (Exception exp) {
             ArrayList<String> exception = new ArrayList<>();
             exception.add(exp.getMessage());

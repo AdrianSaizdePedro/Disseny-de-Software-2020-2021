@@ -33,6 +33,14 @@ public class DAOVisualitzacioMOCK implements DAOVisualitzacio {
         visualitzacio_3.add(new Visualitzacio(8, "chachipistachi", "id7", "Game of Thrones", 1, 1, "22/03/2011", 30));
         visualitzacio_3.add(new Visualitzacio(9, "chachipistachi", "id7", "Breaking Bad", 1, 1, "22/03/2011", 20));
         visualizedSeries.put("id7", visualitzacio_3);
+
+        // Visualizaciones del Usuario 'id14', del Cliente ''
+        ArrayList<Visualitzacio> visualitzacio_4 = new ArrayList<>();
+        visualitzacio_4.add(new Visualitzacio(1, "", "id14","The Mandalorian", 1, 1, "22/03/2011", 0));
+        visualitzacio_4.add(new Visualitzacio(1, "", "id14","The Mandalorian", 1, 2, "22/03/2011", 0));
+        visualitzacio_4.add(new Visualitzacio(1, "", "id14","The Mandalorian", 1, 3, "22/03/2011", 2));
+
+        visualizedSeries.put("id14", visualitzacio_4);
     }
 
     /**

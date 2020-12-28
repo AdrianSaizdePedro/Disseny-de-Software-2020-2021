@@ -124,7 +124,7 @@ public class Registre implements RegisterSubject{
         List<String> titols = new ArrayList<>();
         if (!visualitzacions.containsKey(idUser)) return titols;
         for (ub.edu.model.Visualitzacio repr: visualitzacions.get(idUser)) {
-            if(!titols.contains(repr.getNomSerie()) && repr.getEstat().equals("Watched")) titols.add(repr.getNomSerie());
+            if(repr.getEstat().equals("Watched")) titols.add(repr.getNomSerie());
         }
         return titols;
     }

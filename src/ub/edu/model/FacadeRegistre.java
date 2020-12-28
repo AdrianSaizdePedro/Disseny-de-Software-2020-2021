@@ -5,6 +5,7 @@ import ub.edu.model.Valoracions.EstrellasValoracio;
 import ub.edu.view.RegisterObserver;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class FacadeRegistre {
@@ -46,7 +47,7 @@ public class FacadeRegistre {
      * @param idUser  ID Usuari
      * @return Iterable de títulos de las series de WatchedList del usuario.
      */
-    public Iterable<String> listWatchedList(String idUser) throws Exception {
+    public List<String> listWatchedList(String idUser) throws Exception {
         if (registre.listWatchedList(idUser).isEmpty()) throw new Exception("No hi ha sèries visualitzades.");
         return registre.listWatchedList(idUser);
     }
