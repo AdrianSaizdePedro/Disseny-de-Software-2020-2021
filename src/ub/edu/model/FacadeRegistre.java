@@ -41,7 +41,6 @@ public class FacadeRegistre {
         registre.init(allPreferencias, corValoracions, estrellasValoracions, allVisualitzacions);
     }
 
-
     /**
      * Método para listar la lista WatchedList de un usuario de un cliente.
      * @param idUser  ID Usuari

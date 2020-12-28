@@ -98,9 +98,8 @@ public class UBFLIXParty extends JFrame implements RegisterObserver{
             } else if(llistes.getSelectedIndex() == 2){
                 btnAfegirMyList.setEnabled(false);
                 btnTreureMyList.setEnabled(true);
-            } else if(llistes.getSelectedIndex() == 1){
-
-            } else{
+            }
+            else{
                 btnAfegirMyList.setEnabled(false);
                 btnTreureMyList.setEnabled(false);
             }
@@ -366,7 +365,7 @@ public class UBFLIXParty extends JFrame implements RegisterObserver{
             tableModelVis.removeRow(i);
 
         for (Map.Entry serie: (Iterable<Map.Entry>) topVisualitzacions) {
-            tableModelVis.addRow(new String[]{(String) serie.getKey(), String.format("%.2f", serie.getValue())});
+            tableModelVis.addRow(new String[]{(String) serie.getKey(), String.format("%s", serie.getValue())});
         }
     }
 

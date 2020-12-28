@@ -267,7 +267,7 @@ public class Facade{
      * @param nomSerie Nombre de la Serie
      * @return catalogo de temporadas de una serie
      * */
-    public List<String> getTemporades(String nomSerie){
+    public List<Integer> getTemporades(String nomSerie){
         return facadeSeries.getTemporades(nomSerie);
     }
 
@@ -462,6 +462,7 @@ public class Facade{
         String nomSerie = facadeSeries.getNomSerieByID(idSerie);
         return facadeRegistre.getDuracioVisualitzada(idClient, idUser, nomSerie, numTemporada, numEpisodi, duracioEpisodi);
     }
+
     /**
      * Metodo para saber si un Episodio ha sido o no Visualizado
      * @param idSerie id de la serie

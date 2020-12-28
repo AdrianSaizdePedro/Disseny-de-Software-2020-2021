@@ -1,6 +1,7 @@
 package ub.edu.model;
 
 import ub.edu.model.StrategyTOP.TOPValoracionsStrategy;
+import ub.edu.model.StrategyTOP.TOPVisualitzacionsStrategy;
 import ub.edu.model.Valoracions.CorValoracio;
 import ub.edu.model.Valoracions.EstrellasValoracio;
 import ub.edu.model.Valoracions.ValoracioFactory;
@@ -167,13 +168,12 @@ public class Registre implements RegisterSubject{
     public boolean addVisualitzacio(int id, String idClient, String idUser, String nomSerie, int numTemporada, int idEpisodi, String data, int segonsRestants){
         Visualitzacio visualitzacio = findVisualitzacio(idUser, nomSerie, numTemporada, idEpisodi);
         if (visualitzacio == null){
-            if (!visualitzacions.containsKey(idUser)) {
+            if (!visualitzacions.containsKey(idUser))
                 visualitzacions.put(idUser, new ArrayList<>());
-            }
-            return visualitzacions.get(idUser).add(new Visualitzacio(id, idClient, idUser, nomSerie, numTemporada, idEpisodi, data, segonsRestants));
-        } else{
-            return visualitzacio.updateVisualitzacio(data, segonsRestants);
-        }
+            visualitzacions.get(idUser).add(new Visualitzacio(id, idClient, idUser, nomSerie, numTemporada, idEpisodi, data, segonsRestants));
+        } else visualitzacio.updateVisualitzacio(data, segonsRestants);
+        notifyObservers();
+        return true;
     }
 
 
@@ -221,13 +221,6 @@ public class Registre implements RegisterSubject{
         }
         return false;
     }
-
-
-
-
-    //////////////////////////////////////
-    /*    METODOS SOBRE VALORACIO       */
-    //////////////////////////////////////
 
 
     //////////////////////////////////////
@@ -324,7 +317,6 @@ public class Registre implements RegisterSubject{
             estrellasValoracio.get(idUser).add(new EstrellasValoracio(id, idClient, idUser, idSerie, idTemp, idEpisodi, numEstrelles, data));
         }
         if (findEstrellasValoracio(idUser, idSerie, idTemp, idEpisodi) == null) estrellasValoracio.get(idUser).add(new EstrellasValoracio(id, idClient, idUser, idSerie, idTemp, idEpisodi, numEstrelles, data));
-
         notifyObservers();
     }
 
@@ -361,7 +353,7 @@ public class Registre implements RegisterSubject{
     public void notifyObservers() {
         for (RegisterObserver observer : observers) {
             observer.refreshTopValoracions(new TOPValoracionsStrategy(getValoracionsBySerie()));
-            //observer.refreshTopVisualitzacions(new TOPVisualitzacionsStrategy(getVisualitzacionsBySerie()));
+            observer.refreshTopVisualitzacions(new TOPVisualitzacionsStrategy(getVisualitzacionsBySerie()));
         }
     }
 
@@ -384,6 +376,24 @@ public class Registre implements RegisterSubject{
     }
 
 
+
+    /**
+     * Reordena las visualizaciones en función de la serie, no del Usuario
+     * @return devuelve un nuevo HasMap con Key el nombre de la serie y Value el listado de visualizaciones
+     * de sus episodios.
+     * */
+    private Set<Entry<String, ArrayList<Visualitzacio>>> getVisualitzacionsBySerie() {
+        Map<String, ArrayList<Visualitzacio>> visualitzacionsForSerie = new HashMap<>();
+        for(ArrayList<Visualitzacio> visualitzacions: visualitzacions.values()){
+            for (Visualitzacio repr: visualitzacions){
+                String idSerie = repr.getNomSerie();
+                if(!visualitzacionsForSerie.containsKey(idSerie))
+                    visualitzacionsForSerie.put(idSerie, new ArrayList<>());
+                visualitzacionsForSerie.get(idSerie).add(repr);
+            }
+        }
+        return visualitzacionsForSerie.entrySet();
+    }
 
     /*
     private List<Map.Entry<String, Double>> getTopTenValoracions(){
