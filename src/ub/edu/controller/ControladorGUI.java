@@ -90,9 +90,7 @@ public class ControladorGUI implements IController {
      * @param nomClient id del Cliente
      * @return Iterable de nombres de Usuario
      */
-    public Iterable<String> listUsuaris(String nomClient) {
-        return facana.listUsuaris(nomClient);
-    }
+    public Iterable<String> listUsuaris(String nomClient) { return facana.listUsuaris(nomClient); }
 
 
 

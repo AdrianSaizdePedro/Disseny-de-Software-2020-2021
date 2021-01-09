@@ -159,10 +159,14 @@ public class ControllerTESTS implements IController{
         } catch (Exception exp){ return exp.getMessage(); }
     }
 
-    @Override
-    public Iterable<String> listUsuaris(String nomClient) {
-        return null;
-    }
+
+    /**
+     * Metodo para obtener la lista de Usuarios de un CLiente
+     * @param nomClient id del Cliente
+     * @return Iterable de nombres de Usuario
+     */
+    public Iterable<String> listUsuaris(String nomClient) { return facana.listUsuaris(nomClient); }
+
 
 
     //////////////////////////////////////////
@@ -198,29 +202,84 @@ public class ControllerTESTS implements IController{
         }
     }
 
-    @Override
-    public List<String> getTemporades(String nomSerie) {
-        return null;
+
+    /**
+     * Método para pedir el listado de temporadas de una serie
+     * @param nomSerie Nombre de la Serie
+     * @return catalogo de temporadas de una serie
+     * */
+    public List<String> getTemporades(String nomSerie){
+        return facana.getTemporades(nomSerie);
     }
 
-    @Override
+
+    /**
+     * Método para pedir el listado de episodios de una temporada de una serie
+     * @param nomSerie Nombre de la Serie
+     * @param temporada numero de la temporada
+     * @return listado de episodios
+     * */
     public List<Episodi> getEpisodis(String nomSerie, int temporada) {
-        return null;
+        return facana.getEpisodis(nomSerie,temporada);
     }
 
-    @Override
-    public String visualitzarEpisodi(int id, String idClient, String idUser, String idSerie, int numTemporada, int idEpisodi, String data, int segonsRestants) {
-        return null;
+
+
+    /**
+     * Metodo que permite guardar la visualizacion de un episodio
+     * @param id ID de la Visualizacion
+     * @param idClient ID del Cliente
+     * @param nomUser ID del Usuario
+     * @param idSerie ID de la Serie
+     * @param numTemporada Numero de Temporada
+     * @param idEpisodi ID del Episodio
+     * @param data Fecha de visualizacion
+     * @param segonsRestants Segundos restantes por ver
+     */
+    public String visualitzarEpisodi(int id, String idClient, String nomUser, String idSerie, int numTemporada, int idEpisodi, String data, int segonsRestants) {
+        try {
+            int casosFacana = facana.visualitzarEpisodi(id, idClient, nomUser, idSerie, numTemporada, idEpisodi, data, segonsRestants);
+            switch (casosFacana) {
+                case 0: return "Visualización añadida Correctamente";
+                case 1: return "Modificación de la Visualización realizada Correctamente";
+                default: return "Error: visualización fallida.";
+            }
+        } catch (Exception e) { return e.getMessage(); }
     }
 
-    @Override
+    /**
+     * Metodo para saber el tiempo que ha visualizado un usuario de un episodio en concreto
+     * @param idClient ID del Cliente
+     * @param idUser ID del Usuario
+     * @param idSerie ID de la Serie
+     * @param numTemporada Numero de Temporada
+     * @param numEpisodi ID del Episodio
+     * @return int de segundos visualizados
+     */
     public int getDuracioVisualitzada(String idClient, String idUser, String idSerie, int numTemporada, int numEpisodi, int duracioEpisodi) {
-        return 0;
+        try { return facana.getDuracioVisualitzada(idClient, idUser, idSerie, numTemporada, numEpisodi, duracioEpisodi);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
     }
 
-    @Override
+
+    /**
+     * Metodo para saber si un Episodio ha sido o no Visualizado
+     * @param idSerie id de la serie
+     * @param numTemporada numero de la temporada
+     * @param idEpisodi id del episodio
+     * @param currentClient ID CLiente
+     * @param currentUsuari nomClient
+     * @return true si se ha visualizado, false si no...
+     */
     public boolean isEpisodiVisualitzat(String idSerie, int numTemporada, int idEpisodi, String currentClient, String currentUsuari) {
-        return false;
+        try { return facana.isEpisodiVisualitzat(idSerie, numTemporada, idEpisodi, currentClient, currentUsuari);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     ///////////////////////////////////////
@@ -263,14 +322,35 @@ public class ControllerTESTS implements IController{
         }
     }
 
-    @Override
+    /**
+     * Método para listar las series de la lista Watched de un Usuario.
+     * @param client nombre del Cliente
+     * @param user nombre del Usuario
+     * @return Iterable con los títulos de las series de Watched
+     */
     public Iterable<String> listMyWatchedList(String client, String user) {
-        return null;
+        try { return facana.listWatchedList(client, user);
+        } catch (Exception exp) {
+            ArrayList<String> exception = new ArrayList<>();
+            exception.add(exp.getMessage());
+            return exception;
+        }
     }
 
-    @Override
+
+    /**
+     * Método para listar las series de la lista ContinueWatching de un Usuario.
+     * @param client nombre del Cliente
+     * @param user nombre del Usuario
+     * @return Iterable con los títulos de las series de ContinueWatching
+     */
     public Iterable<String> listMyContinueWatchingList(String client, String user) {
-        return null;
+        try { return facana.listContinueWatchingList(client, user);
+        } catch (Exception exp) {
+            ArrayList<String> exception = new ArrayList<>();
+            exception.add(exp.getMessage());
+            return exception;
+        }
     }
 
 
@@ -382,10 +462,11 @@ public class ControllerTESTS implements IController{
         } catch (Exception e) { return e.getMessage(); }
     }
 
-    @Override
-    public void registerObserver(RegisterObserver observer) {
-
-    }
+    /**
+     * Método para registrar un Observador
+     * @param observer Observador que se quiere subscribir
+     */
+    public void registerObserver(RegisterObserver observer) { facana.registerObserver(observer); }
 
 
     ////////////////////////////////////////
