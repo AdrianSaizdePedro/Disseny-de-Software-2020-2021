@@ -1,0 +1,350 @@
+@startuml
+
+title __VIEW's Class Diagram__\n
+
+  namespace  {
+    namespace b.edu.view {
+      class ub.edu.view.FerPost {
+          - AreaMissatge : JTextArea
+          - cancelButton : JButton
+          - jpanel : JPanel
+          - sendButton : JButton
+          # FerPost()
+          - initComponents()
+          - onCancel()
+          - onPost()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace b.edu.view {
+      class ub.edu.view.FormEpisodi {
+          - currentClient : String
+          - currentUsuari : String
+          - descripcioEpisodi : JLabel
+          - duracioEpisodi : JLabel
+          - jpanel : JPanel
+          - owner : Frame
+          - titolEpisodi : JLabel
+          - tornarAlMenuButton : JButton
+          - valorarButton : JButton
+          - visualitzarButton : JButton
+          # FormEpisodi()
+          - estaVisualitzat()
+          - initComponents()
+          - onVisualitzar()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace b.edu.view {
+      class ub.edu.view.FormPerfilUsuari {
+          - Followers : JPanel
+          - Following : JPanel
+          - PostRebuts : JPanel
+          - Posts : JPanel
+          - btnTancarSessio : JButton
+          - ferPostButton : JButton
+          - jPanel : JPanel
+          - jpanelRoot : JPanel
+          - listFollowers : JList<String>
+          - listFollowing : JList<String>
+          - listPost : JList<String>
+          - listPostRebuts : JList<String>
+          - llistes : JTabbedPane
+          - owner : Frame
+          # FormPerfilUsuari()
+          - formWindowClosing()
+          - formWindowOpened()
+          - initComponents()
+          - onCancel()
+          - onFerPost()
+          - refreshFollowers()
+          - refreshFollowing()
+          - refreshListAll()
+          - refreshPostRebuts()
+          - refreshPosts()
+          - userActionPerformed()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace b.edu.view {
+      class ub.edu.view.FormReproduccio {
+          - currentClient : String
+          - currentUser : String
+          - duracioVisualitzacio : int
+          - duracioVisualitzada : int
+          - episodi : int
+          - jPanel : JPanel
+          - numTemporada : int
+          - owner : Frame
+          - progressBar : JProgressBar
+          - serie : String
+          - tancaButton : JButton
+          - timer : Timer
+          # FormReproduccio()
+          - formWindowClosing()
+          - formWindowOpened()
+          - initComponents()
+          - onPause()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace b.edu.view {
+      class ub.edu.view.FormReproductorVideo {
+          {static} - MAX_TIME_REPRODUCCION : int
+          {static} - MEDIA_URL : String
+          - currentClient : String
+          - currentUser : String
+          - duracioVisualitzacio : int
+          - duracioVisualitzada : int
+          - episodi : int
+          - fxPanel : JFXPanel
+          - mediaPlayer : MediaPlayer
+          - numTemporada : int
+          - owner : Frame
+          - panelReproduccio : JPanel
+          - scene : Scene
+          - segonsRestants : int
+          - serie : String
+          + FormReproductorVideo()
+          - createScene()
+          - formWindowClosing()
+          - formWindowOpened()
+          - initAndShowGUI()
+          - initFX()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace b.edu.view {
+      class ub.edu.view.FormUser {
+          - buttonCancel : JButton
+          - buttonOK : JButton
+          - contentPane : JPanel
+          - owner : Frame
+          - textFieldUsername : JTextField
+          - usernameLabel : JLabel
+          + FormUser()
+          - initComponents()
+          - onCancel()
+          - onRegister()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace b.edu.view {
+      class ub.edu.view.FrmLogIn {
+          - btnLogIn : JButton
+          - btnRegistrar : JButton
+          - buttonCancel : JButton
+          - contentPane : JPanel
+          - labelPassword : JLabel
+          - labelUsername : JLabel
+          - owner : Frame
+          - textPassword : JPasswordField
+          - textUsername : JTextField
+          # FrmLogIn()
+          - initComponents()
+          - onCancel()
+          - onOK()
+          - onRegistrar()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace b.edu.view {
+      class ub.edu.view.FrmRegistre {
+          - buttonCancel : JButton
+          - buttonOK : JButton
+          - contentPane : JPanel
+          - labelAdreca : JLabel
+          - labelDNI : JLabel
+          - labelNomReal : JLabel
+          - labelPassword1 : JLabel
+          - labelPassword2 : JLabel
+          - labelUsername : JLabel
+          - labelUsuari : JLabel
+          - owner : Frame
+          - textAdreca : JTextField
+          - textDNI : JTextField
+          - textNomReal : JTextField
+          - textPassword1 : JPasswordField
+          - textPassword2 : JPasswordField
+          - textUsername : JTextField
+          - textUsuari : JTextField
+          # FrmRegistre()
+          - initComponents()
+          - onCancel()
+          - onOK()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace b.edu.view {
+      class ub.edu.view.FrmValoracio {
+          - barraEmocio : JSlider
+          - btnCor : JButton
+          - btnValorar : JButton
+          - buttonCancel : JButton
+          - contentPane : JPanel
+          - corRatioButton : JRadioButton
+          - emocioRadioButton : JRadioButton
+          - owner : Frame
+          - panelCor : JPanel
+          - panelEmocio : JPanel
+          # FrmValoracio()
+          - groupButton()
+          - inici()
+          - initComponents()
+          - onCancel()
+          - valorarCor()
+          - valorarEstrella()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace b.edu.view {
+      class ub.edu.view.MediaControl {
+          - atEndOfMedia : boolean
+          - duration : Duration
+          - mediaBar : HBox
+          - mediaView : MediaView
+          - mp : MediaPlayer
+          - playTime : Label
+          - repeat : boolean
+          - stopRequested : boolean
+          - timeSlider : Slider
+          - volumeSlider : Slider
+          + MediaControl()
+          # updateValues()
+          {static} - formatTime()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace b.edu.view {
+      interface ub.edu.view.RegisterObserver {
+          {abstract} + refreshTopValoracions()
+          {abstract} + refreshTopVisualitzacions()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace b.edu.view {
+      class ub.edu.view.UBFLIXParty {
+          {static} - NUM_MAX_TOPS : int
+          - btnAfegirMyList : JButton
+          - btnCrearUsuari : JButton
+          - btnTancarSessio : JButton
+          - btnTreureMyList : JButton
+          - comboBoxUsuaris : JComboBox<String>
+          - currentClient : String
+          - currentUser : String
+          - fieldAll : JPanel
+          - fieldNotStarted : JPanel
+          - fieldWatchNext : JPanel
+          - fieldWatched : JPanel
+          - jPanel : JPanel
+          - labelTopValoracions : JLabel
+          - labelTopVisualitzacions : JLabel
+          - listAll : JList<String>
+          - listContinueWatching : JList<String>
+          - listMyList : JList<String>
+          - listWatched : JList<String>
+          - llistes : JTabbedPane
+          - perfilButton : JButton
+          - popupMenuTemporades : HashMap<String, JPopupMenu>
+          - tableModelVal : DefaultTableModel
+          - tableModelVis : DefaultTableModel
+          - tableTopValoracions : JTable
+          - tableTopVisualitzacions : JTable
+          + UBFLIXParty()
+          + getCurrentClient()
+          + getCurrentUser()
+          + init()
+          + refreshTopValoracions()
+          + refreshTopVisualitzacions()
+          + refreshUsersList()
+          + setCurrentClient()
+          + setCurrentUser()
+          - addSerieToMyList()
+          - ferLogIn()
+          - formWindowClosing()
+          - formWindowOpened()
+          - inicialitzarLlistaTopValoracions()
+          - inicialitzarLlistaTopVisualitzacions()
+          - mostrarPerfil()
+          - mostrarPopupMenuTemporades()
+          - mostrarTemporades()
+          - onEpisodi()
+          - refreshContinueWatching()
+          - refreshEpisodis()
+          - refreshListAll()
+          - refreshLlistes()
+          - refreshMyList()
+          - refreshTemporades()
+          - refreshWatched()
+          - removeSerieFromMyList()
+          - userActionPerformed()
+      }
+    }
+  }
+  
+
+  ub.edu.view.FerPost -up-|> javax.swing.JDialog
+  ub.edu.view.FormEpisodi -up-|> javax.swing.JDialog
+  ub.edu.view.FormEpisodi o-- ub.edu.controller.IController : controller
+  ub.edu.view.FormPerfilUsuari -up-|> javax.swing.JFrame
+  ub.edu.view.FormPerfilUsuari o-- ub.edu.controller.IController : controller
+  ub.edu.view.FormReproduccio -up-|> javax.swing.JDialog
+  ub.edu.view.FormReproduccio o-- ub.edu.controller.IController : controller
+  ub.edu.view.FormReproductorVideo -up-|> javax.swing.JDialog
+  ub.edu.view.FormReproductorVideo o-- ub.edu.controller.IController : controller
+  ub.edu.view.FormReproductorVideo o-- ub.edu.view.MediaControl : mediaControl
+  ub.edu.view.FormUser -up-|> javax.swing.JDialog
+  ub.edu.view.FormUser o-- ub.edu.controller.IController : controller
+  ub.edu.view.FrmLogIn -up-|> javax.swing.JDialog
+  ub.edu.view.FrmLogIn o-- ub.edu.controller.IController : controller
+  ub.edu.view.FrmRegistre -up-|> javax.swing.JDialog
+  ub.edu.view.FrmRegistre o-- ub.edu.controller.IController : controller
+  ub.edu.view.FrmValoracio -up-|> javax.swing.JDialog
+  ub.edu.view.FrmValoracio o-- ub.edu.controller.IController : controller
+  ub.edu.view.MediaControl -up-|> javafx.scene.layout.BorderPane
+  ub.edu.view.UBFLIXParty .up.|> ub.edu.view.RegisterObserver
+  ub.edu.view.UBFLIXParty -up-|> javax.swing.JFrame
+  ub.edu.view.UBFLIXParty o-- ub.edu.controller.IController : controller
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

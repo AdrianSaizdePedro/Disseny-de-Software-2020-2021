@@ -1,0 +1,448 @@
+@startuml
+
+title __MODEL's Class Diagram__\n
+
+  namespace  {
+    namespace b.edu.model {
+      class ub.edu.model.Artista {
+          - nom_actor : String
+          - nom_personatje : String
+          - serieId : String
+          + Artista()
+          + getNom_actor()
+          + getNom_personatje()
+          + getSerieId()
+          + setNom_actor()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace b.edu.model {
+      class ub.edu.model.CarteraClients {
+          - llistaClientes : List<Client>
+          + CarteraClients()
+          + addClient()
+          + addUser()
+          + canAddUserToClient()
+          + existNameUser()
+          + ferFollow()
+          + ferUnfollow()
+          + find()
+          + getIDUsuariByClientAndUsername()
+          + getUserById()
+          + init()
+          + listFollowers()
+          + listFollowings()
+          + listUsuaris()
+          + modificarPerfil()
+          + validateLoginClient()
+          + veurePerfil()
+          - getIdUser()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace b.edu.model {
+      class ub.edu.model.CatalegSeries {
+          - llistaSeries : List<Serie>
+          + CatalegSeries()
+          + existsEpisodi()
+          + existsSerieWithThisTitle()
+          + find()
+          + findByTitle()
+          + getEpisodis()
+          + getNomSerieByID()
+          + getTemporades()
+          + getTotalEpisodisBySerie()
+          + init()
+          + llistarCatalegSeries()
+          + mostrarDetallsSerie()
+          + notExistsSerie()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace b.edu.model {
+      class ub.edu.model.Client {
+          - adress : String
+          - dni : String
+          - nom : String
+          - pwd : String
+          - usuaris : List<Usuari>
+          - vip : boolean
+          + Client()
+          + addUser()
+          + addUser()
+          + canAddUser()
+          + existNameUser()
+          + findUserByName()
+          + getAdress()
+          + getDni()
+          + getIDUsuariByUsername()
+          + getName()
+          + getPwd()
+          + getUsuaris()
+          + listFollowers()
+          + listFollowings()
+          + listUsuaris()
+          + modificarPerfil()
+          + setAdress()
+          + setDni()
+          + setName()
+          + setPwd()
+          + veurePerfil()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace b.edu.model {
+      class ub.edu.model.Episodi {
+          - data : String
+          - descripcio : String
+          - duracio : int
+          - idSerie : String
+          - idTemporada : int
+          - idioma : String
+          - nomSerie : String
+          - numEpisodi : int
+          - titol : String
+          + Episodi()
+          + getData()
+          + getDescripcio()
+          + getDuracio()
+          + getIdSerie()
+          + getIdTemporada()
+          + getNumEpisodi()
+          + getTitol()
+          + setData()
+          + setIdSerie()
+          + setIdTemporada()
+          + setTitol()
+          - calcularDuracio()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace b.edu.model {
+      class ub.edu.model.Facade {
+          {static} - uniqueInstance : Facade
+          + addClient()
+          + addFollowerToUser()
+          + addSerieToMyList()
+          + addUser()
+          + canAddUserToClient()
+          + existsNameUser()
+          + getDuracioVisualitzada()
+          + getEpisodis()
+          {static} + getInstance()
+          + getTemporades()
+          + init()
+          + isEpisodiVisualitzat()
+          + isValidNameClient()
+          + listContinueWatchingList()
+          + listMyList()
+          + listUsuaris()
+          + listWatchedList()
+          + llistarCatalegSeries()
+          + llistarFollowers()
+          + llistarFollowings()
+          + modificarPerfil()
+          + mostrarDetallsSerie()
+          + registerObserver()
+          + removeFollowerFromUser()
+          + removeSerieFromMyList()
+          + validarDNI()
+          + validateLoginClient()
+          + validatePassword()
+          + valorarEpisodiCor()
+          + valorarEpisodiEstrellas()
+          + veurePerfil()
+          + visualitzarEpisodi()
+          - Facade()
+          - existsSerie()
+          - existsSerieWithThisTitle()
+          - notExistsEpisodi()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace b.edu.model {
+      class ub.edu.model.FacadeClients {
+          {static} - uniqueInstance : FacadeClients
+          + addClient()
+          + addUser()
+          + canAddUserToClient()
+          + existNameUser()
+          + ferFollow()
+          + ferUnfollow()
+          + findClient()
+          + getIDUsuariByClientAndUsername()
+          {static} + getInstance()
+          + init()
+          + isValidNameClient()
+          + listFollowers()
+          + listFollowings()
+          + listUsuaris()
+          + modificarPerfil()
+          + validarDNI()
+          + validateLoginClient()
+          + validatePassword()
+          + veurePerfil()
+          - FacadeClients()
+          - validateDNILetter()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace b.edu.model {
+      class ub.edu.model.FacadeRegistre {
+          {static} - uniqueInstance : FacadeRegistre
+          + addSerieToMyList()
+          + getDuracioVisualitzada()
+          {static} + getInstance()
+          + init()
+          + isEpisodiVisualitzat()
+          + listContinueWatchingList()
+          + listMyList()
+          + listWatchedList()
+          + registerObserver()
+          + removeSerieFromMyList()
+          + valorarEpisodiCor()
+          + valorarEpisodiEstrellas()
+          + visualitzarEpisodi()
+          - FacadeRegistre()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace b.edu.model {
+      class ub.edu.model.FacadeSeries {
+          {static} - uniqueInstance : FacadeSeries
+          + existsEpisodi()
+          + existsSerie()
+          + existsSerieWithThisTitle()
+          + getEpisodis()
+          {static} + getInstance()
+          + getNomSerieByID()
+          + getTemporades()
+          + getTotalEpisodisBySerie()
+          + init()
+          + llistarCatalegSeries()
+          + mostrarDetallsSerie()
+          - FacadeSeries()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace b.edu.model {
+      class ub.edu.model.Preferencia {
+          - idClient : String
+          - idPreferencia : int
+          - idSerie : String
+          - nameUser : String
+          + Preferencia()
+          + equals()
+          + getIdClient()
+          + getIdSerie()
+          + setIdClient()
+          + setIdSerie()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace b.edu.model {
+      interface ub.edu.model.RegisterSubject {
+          {abstract} + notifyObservers()
+          {abstract} + registerObserver()
+          {abstract} + removeObserver()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace b.edu.model {
+      class ub.edu.model.Registre {
+          - corsValoracio : Map<String, ArrayList<CorValoracio>>
+          - estrellasValoracio : Map<String, ArrayList<EstrellasValoracio>>
+          - observers : List<RegisterObserver>
+          - preferencias : Map<String, ArrayList<Preferencia>>
+          - visualitzacions : Map<String, ArrayList<Visualitzacio>>
+          + Registre()
+          + addCorValoracio()
+          + addEstrellaValoracio()
+          + addPreferencia()
+          + addVisualitzacio()
+          + findCorValoracio()
+          + findEstrellasValoracio()
+          + findPreferencia()
+          + findVisualitzacio()
+          + init()
+          + listPreferenciasById()
+          + listVisualitzacions()
+          + notifyObservers()
+          + registerObserver()
+          + removeCorValoracio()
+          + removeEstrellaValoracio()
+          + removeObserver()
+          + removePreferencia()
+          + updateEstrellaValoracio()
+          + updateVisualitzacio()
+          - getValoracionsBySerie()
+          - getVisualitzacionsBySerie()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace b.edu.model {
+      class ub.edu.model.Serie {
+          - artistas : List<Artista>
+          - descripcio : String
+          - idProductora : int
+          - idSerie : String
+          - temporades : List<Temporada>
+          - titol : String
+          + Serie()
+          + existsEpisodi()
+          + find()
+          + getIdSerie()
+          + getTemporades()
+          + getTitol()
+          + setDescripcio()
+          + setIdSerie()
+          + setTemporades()
+          + setTitol()
+          + toString()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace b.edu.model {
+      class ub.edu.model.Temporada {
+          - idSerie : String
+          - idTemporada : int
+          - llistaEpisodis : List<Episodi>
+          - numEpisodis : int
+          + Temporada()
+          + existsEpisodi()
+          + find()
+          + getIdSerie()
+          + getIdTemporada()
+          + getLlistaEpisodis()
+          + setIdSerie()
+          + setIdTemporada()
+          + setLlistaEpisodis()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace b.edu.model {
+      class ub.edu.model.Usuari {
+          - followers : List<Usuari>
+          - followings : List<Usuari>
+          - idUser : String
+          - nom : String
+          - nomClient : String
+          + Usuari()
+          + addFollower()
+          + addFollowing()
+          + getFollowers()
+          + getFollowings()
+          + getIdUser()
+          + getName()
+          + getNomClient()
+          + listFollowers()
+          + listFollowings()
+          + removeFollower()
+          + removeFollowing()
+          + setFollowers()
+          + setFollowings()
+          + setIdUser()
+          + setName()
+          + setNomClient()
+          + toString()
+      }
+    }
+  }
+  
+
+  namespace  {
+    namespace b.edu.model {
+      class ub.edu.model.Visualitzacio {
+          - data : String
+          - estat : String
+          - idClient : String
+          - idEpisodi : int
+          - idUser : String
+          - idVisualitzacio : int
+          - nomSerie : String
+          - numTemporada : int
+          - segonsRestants : int
+          + Visualitzacio()
+          + equals()
+          + getData()
+          + getEstat()
+          + getIdClient()
+          + getIdEpisodi()
+          + getIdUser()
+          + getNomSerie()
+          + getNumTemporada()
+          + getSegonsRestants()
+          + setData()
+          + setEstat()
+          + setIdClient()
+          + setIdEpisodi()
+          + setIdUser()
+          + setNomSerie()
+          + setNumTemporada()
+          + setSegonsRestants()
+          + updateVisualitzacio()
+      }
+    }
+  }
+  
+
+  ub.edu.model.Facade o-- ub.edu.resources.service.DataService : dataService
+  ub.edu.model.Facade o-- ub.edu.model.FacadeClients : facadeClients
+  ub.edu.model.Facade o-- ub.edu.model.FacadeRegistre : facadeRegistre
+  ub.edu.model.Facade o-- ub.edu.model.FacadeSeries : facadeSeries
+  ub.edu.model.FacadeClients o-- ub.edu.model.CarteraClients : carteraClients
+  ub.edu.model.FacadeRegistre o-- ub.edu.model.Registre : registre
+  ub.edu.model.FacadeSeries o-- ub.edu.model.CatalegSeries : catalegSeries
+  ub.edu.model.Registre .up.|> ub.edu.model.RegisterSubject
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

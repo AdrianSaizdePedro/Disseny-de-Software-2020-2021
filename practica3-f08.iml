@@ -20,5 +20,6 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="org.concordion:concordion:3.0.1" level="project" />
+    <orderEntry type="library" name="net.sourceforge.plantuml-depend:plantuml-dependency-cli:1.4.0" level="project" />
   </component>
 </module>
