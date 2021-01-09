@@ -21,7 +21,7 @@ import javafx.scene.media.MediaView;
 import javafx.util.Duration;
 
 public class MediaControl extends BorderPane {
-
+    // Atributos
     private MediaPlayer mp;
     private MediaView mediaView;
     private final boolean repeat = false;

@@ -5,10 +5,7 @@ import ub.edu.model.Valoracions.CorValoracio;
 import ub.edu.model.Valoracions.EstrellasValoracio;
 import ub.edu.resources.dao.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public class DataService {
     // Atributos
@@ -315,7 +312,9 @@ public class DataService {
      * Metodo para devolver el mapeo del DAO de Visualitzacio
      * @return mapeo del DAO de Visualitzacio
      */
-    public Map<String, ArrayList<Visualitzacio>> getAllVisualitzacions() { return visualitzacioDAO.getMap(); }
+    public Map<String, ArrayList<Visualitzacio>> getAllVisualitzacions() {
+        return visualitzacioDAO.getMap();
+    }
 
 
     /**

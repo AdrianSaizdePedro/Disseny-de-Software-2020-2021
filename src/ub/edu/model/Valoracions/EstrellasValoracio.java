@@ -63,6 +63,6 @@ public class EstrellasValoracio extends Valoracio {
      * Metodo para imprimir los atributos de una Valoracion con Estrellas
      * @return string con los atributos
      */
-    public String toString(){ return "Cliente: " + this.getIdClient() + "\nUsuario: " + this.getIdUsuari() + "\nSerie: " + this.getIdSerie() + "\nTemporada: " + this.getIdTemporada() + "\nEpisodio: " + this.getIdEpisodi(); }
+    public String toString(){ return "Cliente: " + this.getIdClient() + "\nUsuario: " + this.getIdUsuari() + "\nSerie: " + this.getNomSerie() + "\nTemporada: " + this.getIdTemporada() + "\nEpisodio: " + this.getIdEpisodi(); }
 
 }

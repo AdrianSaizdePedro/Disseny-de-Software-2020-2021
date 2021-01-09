@@ -4,9 +4,7 @@ import ub.edu.controller.IController;
 
 import javax.swing.*;
 import java.awt.*;
-/*import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-*/
+
 
 /**
  * Formulari amb el detall d'un episodi, permet visualitzar, subscriure's i valorar un episodi. Aquesta classe hereta de JDialog
@@ -19,7 +17,6 @@ class FormEpisodi extends JDialog{
     private JButton tornarAlMenuButton;
     private JPanel jpanel;
     private JLabel duracioEpisodi;
-
     private final String currentClient;
     private final String currentUsuari;
     private final IController controller;
@@ -33,8 +30,7 @@ class FormEpisodi extends JDialog{
      * @param duracio duració de l'episodi seleccionat
      * @param descripcio descripció de l'episodi seleccionat
      */
-    protected FormEpisodi(Frame owner, IController controller, String idSerie, int numTemporada, int idEpisodi, String episodi, int duracio,
-                          String descripcio, String currentClient, String currentUsuari) {
+    protected FormEpisodi(Frame owner, IController controller, String idSerie, int numTemporada, int idEpisodi, String episodi, int duracio, String descripcio, String currentClient, String currentUsuari) {
         this.owner = owner;
         this.controller = controller;
         this.currentClient = currentClient;
@@ -54,7 +50,6 @@ class FormEpisodi extends JDialog{
      * @param descripcio descripció de l'episodi seleccionat
      */
     private void initComponents(String idSerie, int numTemporada, int idEpisodi, String titol, int duracio, String descripcio) {
-
         add(jpanel);
         setModal(true);
         setSize(500, 400);
@@ -70,7 +65,7 @@ class FormEpisodi extends JDialog{
         visualitzarButton.addActionListener(e -> onVisualitzar(idSerie, numTemporada, idEpisodi, duracio));
 
         valorarButton.addActionListener(e -> {
-                FrmValoracio dialog = new FrmValoracio(owner, controller, idSerie, numTemporada, idEpisodi, titol);
+                FrmValoracio dialog = new FrmValoracio(owner, controller, idSerie, numTemporada, idEpisodi);
                 dialog.pack();
                 dialog.setVisible(true);
         });
@@ -84,15 +79,12 @@ class FormEpisodi extends JDialog{
      * @param duracio duració de l'episodi seleccionat
      */
     private void onVisualitzar(String idSerie, int numTemporada, int idEpisodi, int duracio) {
-        //if(duracio == duracioVisualitzada) duracioVisualitzada = 0;
         FormReproduccio fr = new FormReproduccio(owner, controller, idSerie, numTemporada, idEpisodi, duracio, currentClient, currentUsuari);
         //FormReproductorVideo fr = new FormReproductorVideo(owner, controller, idSerie, numTemporada, idEpisodi, duracio, currentClient, currentUsuari);
         fr.pack();
         fr.setVisible(true);
 
         valorarButton.setEnabled(estaVisualitzat(idSerie, numTemporada, idEpisodi));
-
-
     }
 
     /**

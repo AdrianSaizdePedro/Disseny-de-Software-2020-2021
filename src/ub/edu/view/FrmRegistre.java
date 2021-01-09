@@ -45,8 +45,6 @@ class FrmRegistre extends JDialog {
         setResizable(false);
         setTitle("REGISTRE D'UN NOU USUARI");
         initComponents();
-
-
     }
 
     /**
@@ -54,7 +52,6 @@ class FrmRegistre extends JDialog {
      */
     private void initComponents() {
         buttonOK.addActionListener(e -> onOK());
-
         buttonCancel.addActionListener(e -> onCancel());
 
         // call onCancel() when cross is clicked
@@ -75,23 +72,20 @@ class FrmRegistre extends JDialog {
      * En cas que salti una excepció es mostra per pantalla el missatge d'error corresponent.
      */
     private void onOK() {
-        // add your code here
         try {
             String contrassenya1 = new String(textPassword1.getPassword());
             if (!contrassenya1.equals(new String(textPassword2.getPassword()))) {
                 JOptionPane.showMessageDialog(this, "Les contrassenyes no coincideixen!\nTorna a introduir les contrassenyes.", "ERROR AL REGISTRAR", JOptionPane.ERROR_MESSAGE);
                 textPassword1.setText("");
                 textPassword2.setText("");
-            }
-            else{
+            } else {
                 String info = controller.addClient(textUsername.getText(), String.valueOf(textPassword1.getPassword()), textDNI.getText(), textAdreca.getText(), true);
                 JOptionPane.showMessageDialog(this, info, "INFORMACIÓ REGISTRE CLIENT", JOptionPane.INFORMATION_MESSAGE);
                 if (info.equals("Client created")) {
                     String info2 = controller.addUser(textUsername.getText(), textUsuari.getText());
                     if(!info2.equals("User created")) JOptionPane.showMessageDialog(this, info2, "INFORMACIÓ REGISTRE USUARI", JOptionPane.INFORMATION_MESSAGE);
                     this.dispose();
-                }
-                else {
+                } else {
                     textNomReal.setText("");
                     textUsername.setText("");
                     textUsuari.setText("");
@@ -99,21 +93,16 @@ class FrmRegistre extends JDialog {
                     textPassword2.setText("");
                 }
             }
-        } catch (HeadlessException e) {
-            JOptionPane.showMessageDialog(this, e.getMessage(), "ERROR AL REGISTRAR", JOptionPane.ERROR_MESSAGE);
-        }
+        } catch (HeadlessException e) { JOptionPane.showMessageDialog(this, e.getMessage(), "ERROR AL REGISTRAR", JOptionPane.ERROR_MESSAGE); }
     }
 
     /**
      * Acció que es realitza quan es prem sobre el botó 'Cancel' per tancar la finestra i tornar al formulari de LogIn, mostra un missatge de confirmació.
      */
     private void onCancel() {
-        // add your code here if necessary
         if (JOptionPane.showConfirmDialog(this, "VOLS CANCELAR EL REGISTRE? ", "SORTIR REGISTRE", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0)
             this.dispose();
     }
 
-    private void createUIComponents() {
-        // TODO: place custom component creation code here
-    }
+
 }

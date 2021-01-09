@@ -6,8 +6,7 @@ import ub.edu.controller.IController;
 
 import javax.swing.*;
 import java.awt.*;
-/*import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;*/
+
 
 /**
  * Formulari del Perfil d'usuari. Aquesta classe permet veure el perfil de l'usuari, el seus Followings i els seus

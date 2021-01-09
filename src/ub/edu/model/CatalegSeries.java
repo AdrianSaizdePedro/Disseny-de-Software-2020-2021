@@ -62,7 +62,7 @@ public class CatalegSeries {
      * */
     public List<String> getTemporades(String nomSerie){
         List<Temporada> temporadas = this.findByTitle(nomSerie).getTemporades();
-        List<String> listaNomTemp = new ArrayList();
+        List<String> listaNomTemp = new ArrayList<>();
         for(Temporada t: temporadas)
             listaNomTemp.add("Temporada " + t.getIdTemporada());
         return listaNomTemp;
@@ -85,7 +85,7 @@ public class CatalegSeries {
      * @throws Exception si no se dispone de la Serie
      */
     public String getNomSerieByID(String idSerie) throws Exception {
-        if (!existsSerie(idSerie)) throw new Exception("No se dispone de esta serie");
+        if (notExistsSerie(idSerie)) throw new Exception("No se dispone de esta serie");
         return find(idSerie).getTitol();
     }
 
@@ -97,9 +97,9 @@ public class CatalegSeries {
      * @return True si existe el Episodio, False si no
      * @throws Exception si no existe la Temporada y/o la Serie
      */
-    public boolean existsEpisodi(String idSerie, int idTemporada, int idEpisodi) throws Exception {
-        if (!existsSerie(idSerie)) throw new Exception("No se dispone de esta serie");
-        return find(idSerie).existsEpisodi(idTemporada,  idEpisodi);
+    public boolean existsEpisodi (String idSerie, int idTemporada, int idEpisodi) throws Exception {
+        if (notExistsSerie(idSerie)) throw new Exception("No se dispone de esta serie");
+        return find(idSerie).existsEpisodi(idTemporada, idEpisodi);
 
     }
 
@@ -108,25 +108,21 @@ public class CatalegSeries {
      * @param idSerie ID de la Serie
      * @return True si existe, False si no
      */
-    public boolean existsSerie(String idSerie) {
-        return find(idSerie) != null;
-    }
+    public boolean notExistsSerie(String idSerie) { return find(idSerie) == null; }
 
     /**
      * Metodo para saber si existe una Serie copn este titulo
      * @param titolSerie titulo de la Serie
      * @return True si existe, False si no
      */
-    public boolean existsSerieWithThisTitle(String titolSerie) {
-        return findByTitle(titolSerie) != null;
-    }
+    public boolean existsSerieWithThisTitle (String titolSerie) { return findByTitle(titolSerie) != null; }
 
     /**
      * Método para encontrar Series por su ID
      * @param idSerie ID de la Serie
      * @return Serie si la encuentra, null sino
      * */
-    public Serie find(String idSerie) {
+    public Serie find (String idSerie) {
         for (Serie s: llistaSeries) {
             if (s.getIdSerie().equals(idSerie)) return s;
         }
@@ -137,29 +133,37 @@ public class CatalegSeries {
      * @param titolSerie titulo de la Serie
      * @return Serie si la encuentra, null sino
      * */
-    public Serie findByTitle(String titolSerie) {
+    public Serie findByTitle (String titolSerie) {
         for (Serie s: llistaSeries) {
             if (s.getTitol().equals(titolSerie)) return s;
         }
         return null;
     }
 
-
-    public List<Episodi> getEpisodis(String nomSerie, int temporada) {
+    /**
+     * Métpodo para conseguir todos los Episodios de una Temporadas de una Serie
+     * @param nomSerie Titulo de la Serie
+     * @param temporada Numero de la Temporada
+     * @return lista de los Episodios
+     */
+    public List<Episodi> getEpisodis (String nomSerie, int temporada) {
         List<Temporada> temporadas= this.findByTitle(nomSerie).getTemporades();
         List<Episodi> llistaEpisodis = new ArrayList<>();
-        for(Temporada t: temporadas){
-            if(temporada == t.getIdTemporada()) {
-                llistaEpisodis.addAll(t.getLlistaEpisodis());
-            }
+        for (Temporada t: temporadas) {
+            if (temporada == t.getIdTemporada()) llistaEpisodis.addAll(t.getLlistaEpisodis());
         }
         return llistaEpisodis;
     }
 
-    public int getTotalEpisodisBySerie(String nomSerie) {
+    /**
+     * Métpodo para conseguir el número total de Episodios de una Serie
+     * @param nomSerie Titulo de la Serie
+     * @return lista de los Episodios
+     */
+    public int getTotalEpisodisBySerie (String nomSerie) {
         List<Temporada> temporadas= this.findByTitle(nomSerie).getTemporades();
         int totalEpisodis = 0;
-        for(Temporada t: temporadas){
+        for (Temporada t: temporadas) {
             totalEpisodis += t.getLlistaEpisodis().size();
         }
         return totalEpisodis;

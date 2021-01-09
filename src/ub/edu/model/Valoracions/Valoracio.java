@@ -7,7 +7,7 @@ public abstract class Valoracio {
     private int idEpisodi;
     private String idClient;
     private String idUsuari;
-    private String idSerie;
+    private String nomSerie;
     protected String data;
 
     /**
@@ -15,16 +15,16 @@ public abstract class Valoracio {
      * @param id ID de la Valoracion
      * @param idClient ID del Cliente
      * @param idUsuari ID del Usuario
-     * @param idSerie ID de la Serie
+     * @param nomSerie ID de la Serie
      * @param idTemporada numero de la Temporada
      * @param idEpisodi numero del Episodi
      * @param data fecha de la valoracion
      */
-    public Valoracio(int id, String idClient, String idUsuari, String idSerie, int idTemporada, int idEpisodi, String data) {
+    public Valoracio(int id, String idClient, String idUsuari, String nomSerie, int idTemporada, int idEpisodi, String data) {
         this.idVal = id;
         this.idClient = idClient;
         this.idUsuari = idUsuari;
-        this.idSerie = idSerie;
+        this.nomSerie = nomSerie;
         this.idTemporada = idTemporada;
         this.idEpisodi = idEpisodi;
         this.data = data;
@@ -85,19 +85,19 @@ public abstract class Valoracio {
     }
 
     /**
-     * Método para devolver el Id de una Serie
-     * @return Id de la Serie
+     * Método para devolver el Nombre de una Serie
+     * @return Nombre de la Serie
      * */
-    public String getIdSerie() {
-        return idSerie;
+    public String getNomSerie() {
+        return nomSerie;
     }
 
     /**
-     * Método para establecer el Id de una Serie
-     * @param idSerie Id de la Serie
+     * Método para establecer el Nombre de una Serie
+     * @param nomSerie Nombre de la Serie
      * */
-    public void setIdSerie(String idSerie) {
-        this.idSerie = idSerie;
+    public void setNomSerie(String nomSerie) {
+        this.nomSerie = nomSerie;
     }
 
     /**
@@ -159,7 +159,7 @@ public abstract class Valoracio {
      * @param v Valoracion
      * @return True si es la misma, False sino
      */
-    public boolean isSameValoration(Valoracio v) { return idClient.equals(v.getIdClient()) && idUsuari.equals(v.getIdUsuari()) && idSerie.equals(v.getIdSerie())
+    public boolean isSameValoration(Valoracio v) { return idClient.equals(v.getIdClient()) && idUsuari.equals(v.getIdUsuari()) && nomSerie.equals(v.getNomSerie())
             && idTemporada == v.getIdTemporada() && idEpisodi == v.getIdEpisodi(); }
 
 

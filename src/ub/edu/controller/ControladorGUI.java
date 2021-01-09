@@ -9,66 +9,51 @@ import ub.edu.view.UBFLIXParty;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ControladorGUI implements IController{
+public class ControladorGUI implements IController {
+    // Atributos
     private volatile static ControladorGUI uniqueInstance;
-
     private final Facade facana;
-
     private final UBFLIXParty view;
 
+    /**
+     * Método constructor del ControladorGUI aplicando el patrón Singleton
+     */
     private ControladorGUI() {
         DataService dataService = DataService.getInstance(new FactoryMOCK());
         facana = Facade.getInstance(dataService);
         view = new UBFLIXParty(this);
     }
 
-    public static ControladorGUI getInstance(){
+    public static ControladorGUI getInstance() {
         if (uniqueInstance == null) {
             synchronized (ControladorGUI.class) {
-                if (uniqueInstance == null) {
-                    uniqueInstance = new ControladorGUI();
-                }
+                if (uniqueInstance == null) uniqueInstance = new ControladorGUI();
             }
         }
         return uniqueInstance;
     }
 
+
+
+    //////////////////////////////////////////
+    /*       METODOS PARA INICIALIZAR       */
+    //////////////////////////////////////////
+
+    /**
+     * Métod para inicializar la facana
+     * @throws Exception Si hay un error fatal
+     */
     public void init() throws Exception {
         facana.init();
         view.init();
     }
 
+
+
     //////////////////////////////////////
-    /*      Métodos Test AltaClient     */
+    /*      Métodos sobre Clientes      */
     //////////////////////////////////////
-/*
 
-    /**
-     * Método para pedir la validación de la contraseña de un Cliente
-     * @param password contraseña del Cliente
-     * @return True si se valida correctamente, False sino
-     * */
-    /*
-    public boolean validatePassword(String password) {
-        return facana.validatePassword(password);
-    }
-
-    /**
-     * Método para pedir la validación del nombre de un Cliente
-     * @param username nombre del Cliente
-     * @return True si existe ya el cliente, False si no está cogido
-     * */
-    /*
-    public boolean isTakenUsername(String username) { return facana.isValidNameClient(username); }
-
-    /**
-     * Método para pedir la validación del DNI de un Cliente
-     * @param dni DNI del Cliente
-     * @return True si el DNI es correcto, False sino
-     * */
-    /*
-    public boolean validateDNI(String dni) { return facana.validarDNI(dni); }
-*/
     /**
      * Método para añadir un Cliente a la cartera de Clientes y a la base de datos
      * @param idClient nombre  del Cliente
@@ -91,9 +76,6 @@ public class ControladorGUI implements IController{
 
     }
 
-    //////////////////////////////////////////
-    /*      Métodos Test Login (Cliente)    */
-    //////////////////////////////////////////
 
     /**
      * Método para validar Login de un Cliente con su nombre y contraseña
@@ -101,9 +83,7 @@ public class ControladorGUI implements IController{
      * @param password contraseña del Cliente
      * @return True si existe el Cliente con esa contraseña, False si no
      * */
-    public boolean validateClient(String username, String password){
-            return facana.validateLoginClient(username, password);
-    }
+    public boolean validateClient(String username, String password){ return facana.validateLoginClient(username, password); }
 
     /**
      * Metodo para obtener la lista de Usuarios de un CLiente
@@ -113,33 +93,15 @@ public class ControladorGUI implements IController{
     public Iterable<String> listUsuaris(String nomClient) {
         return facana.listUsuaris(nomClient);
     }
-/*
-    /**
-     * Método para validar la existencia del nombre de un Cliente en CarteraClients
-     * @param username nombre del Cliente
-     * @return frase conforme se ha validado o no el nombre del Cliente
-     *
-    public String isValidNameClient(String username) {
-        if (facana.isValidNameClient(username)) return "Valid Client";
-        else return "Client Unknown";
-    }*/
+
+
 
 
 
     //////////////////////////////////////////
-    /*        Metodos Test AltaUsuari       */
+    /*        Metodos sobre Usuarios        */
     //////////////////////////////////////////
-/*
-    /**
-     * Método para comprobar que no se repitan nombres de Usuario en un Cliente
-     * @param nomClient nombre del Cliente
-     * @param nomUsuari nombre del Usuario
-     * @return True si existe el nombre de usuario, False sino
-     * *//*
-    public boolean existsNameUser(String nomClient, String nomUsuari) {
-        try { return facana.existsNameUser(nomClient, nomUsuari); }
-        catch (Exception e) { return false; }
-    }*/
+
 
     /**
      * Método para comprobar si se puede añadir un nuevo usuario a un Cliente
@@ -166,105 +128,31 @@ public class ControladorGUI implements IController{
                 case 3: return "User alredy created";
                 default: return "User created";
             }
-
         } catch (Exception exp){ return exp.getMessage(); }
     }
 
-    ///////////////////////////////////////
-    /*     Métodos Test llistaMyList     */
-    ///////////////////////////////////////
 
-    /**
-     * Método para listar las series de la lista MyList de un Usuario.
-     * @param client nombre del Cliente
-     * @param user nombre del Usuario
-     * @return Iterable con los títulos de las series de MyList, ordenados según su fecha de adición.
-     */
-    public Iterable<String> listMyList(String client, String user) {
-        try { return facana.listMyList(client, user); }
-        catch (Exception exp) {
-            ArrayList<String> exception = new ArrayList<>();
-            exception.add(exp.getMessage());
-            return exception;
-        }
-    }
-
-    /**
-     * Método para listar las series de la lista Watched de un Usuario.
-     * @param client nombre del Cliente
-     * @param user nombre del Usuario
-     * @return Iterable con los títulos de las series de Watched
-     */
-    public Iterable<String> listMyWatchedList(String client, String user) {
-        try { return facana.listWatchedList(client, user); }
-        catch (Exception exp) {
-            ArrayList<String> exception = new ArrayList<>();
-            exception.add(exp.getMessage());
-            return exception;
-        }
-
-    }
-
-    public Iterable<String> listMyContinueWatchingList(String client, String user) {
-        try { return facana.listContinueWatchingList(client, user); }
-        catch (Exception exp) {
-            ArrayList<String> exception = new ArrayList<>();
-            exception.add(exp.getMessage());
-            return exception;
-        }
-    }
-
-
-    ////////////////////////////////////////
-    /*   Métodos Test marcarSerieMyList   */
-    ////////////////////////////////////////
-
-    /**
-     * Método para añadir una serie a la lista MyList de un Usuario.
-     * @param id id de la preferencia
-     * @param client nombre del Cliente
-     * @param user nombre del Usuario
-     * @param serie títol de la Serie
-     * @return Mensaje conforme si se ha añadido correctamente o no se ha completado la operación.
-     * */
-    public String addSerieToMyList(int id, String client, String user, String serie) {
-        try {
-            if (facana.addSerieToMyList(id, client, user, serie)) return "Sèrie '" + serie + "' correctament afegida a MyList.";
-            return "Sèrie '" + serie + "' ja afegida a MyList.";
-        } catch(Exception exp) { return exp.getMessage(); }
-    }
-
-    /**
-     * Método para eliminar una serie a la lista MyList de un Usuario.
-     * @param id de la valoracio
-     * @param client nombre del Cliente
-     * @param user nombre del Usuario
-     * @param serie títol de la Serie
-     * @return Mensaje conforme si se ha eliminado, o no se ha completado la operación.
-     * */
-    public String removeSerieFromMyList(int id, String client, String user, String serie) {
-        try {
-            if (facana.removeSerieFromMyList(id, client, user, serie))
-                return "Sèrie '" + serie + "' correctament eliminada de MyList.";
-            return "Sèrie '" + serie + "' no consta en MyList.";
-        } catch(Exception exp) { return exp.getMessage(); }
-    }
 
     ///////////////////////////////////////
-    /*      Métodos Test llistaSeries    */
+    /*        Métodos sobre Series       */
     ///////////////////////////////////////
+
     /**
      * Método para pedir el listado de Series del Catalogo de Series
      * @return catalogo de series listado
      * */
     public List<String> llistarCatalegSeries() {
-        try { return facana.llistarCatalegSeries(); }
-        catch (Exception exp) {
+        try { return facana.llistarCatalegSeries();
+        } catch (Exception exp) {
             ArrayList<String> exception = new ArrayList<>();
             exception.add(exp.getMessage());
             return exception;
         }
     }
+
+    ///////////////////////////////////////
+    /*     Métodos sobre Temporadas      */
+    ///////////////////////////////////////
 
     /**
      * Método para pedir el listado de temporadas de una serie
@@ -275,6 +163,11 @@ public class ControladorGUI implements IController{
         return facana.getTemporades(nomSerie);
     }
 
+
+
+    ///////////////////////////////////////
+    /*       Métodos sobre Episodios     */
+    ///////////////////////////////////////
     /**
      * Método para pedir el listado de episodios de una temporada de una serie
      * @param nomSerie Nombre de la Serie
@@ -287,116 +180,122 @@ public class ControladorGUI implements IController{
 
 
 
-    //////////////////////////////////////
-    /*   Métodos Test ferValoracioCor   */
-    //////////////////////////////////////
+    ///////////////////////////////////////
+    /*       Métodos sobre My List       */
+    ///////////////////////////////////////
+
     /**
-     * Método para valorar una serie del catalogo con un Corazon
-     * @param id ID de la Valoracion
-     * @param idClient ID del Cliente
-     * @param nomUsuari nombre del Usuario
-     * @param idSerie ID de la Serie
-     * @param idTemporada ID de la Temporada
-     * @param idEpisodi ID del Episodi
-     * @param data fecha del Episodio
-     * @return mensaje conforme se ha valorado o no correctamente
+     * Método para listar las series de la lista MyList de un Usuario.
+     * @param client nombre del Cliente
+     * @param user nombre del Usuario
+     * @return Iterable con los títulos de las series de MyList, ordenados según su fecha de adición.
+     */
+    public Iterable<String> listMyList(String client, String user) {
+        try { return facana.listMyList(client, user);
+        } catch (Exception exp) {
+            ArrayList<String> exception = new ArrayList<>();
+            exception.add(exp.getMessage());
+            return exception;
+        }
+    }
+
+    /**
+     * Método para añadir una serie a la lista MyList de un Usuario.
+     * @param id id de la preferencia
+     * @param client nombre del Cliente
+     * @param user nombre del Usuario
+     * @param serie títol de la Serie
+     * @return Mensaje conforme si se ha añadido correctamente o no se ha completado la operación.
      * */
-    public String valorarEpisodiCor(int id, String idClient, String nomUsuari, String idSerie, int idTemporada, int idEpisodi, String data) {
+    public String addSerieToMyList(int id, String client, String user, String serie) {
         try {
-            int casosFacana = facana.valorarEpisodiCor(id, idClient, nomUsuari, idSerie, idTemporada, idEpisodi, data);
-            switch (casosFacana) {
-                case 1: return "El Cliente no existe";
-                case 2: return "El Usuario no Existe";
-                case 3: return "El Episodio no existe";
-                case 4: return "Valoracion Eliminada";
-                default: return "Valoracion añadida Correctamente";
-            }
-        } catch (Exception e) { return e.getMessage(); }
+            facana.addSerieToMyList(id, client, user, serie);
+            return "Sèrie '" + serie + "' correctament afegida a MyList.";
+        } catch (Exception exp) { return exp.getMessage(); }
+    }
+
+    /**
+     * Método para eliminar una serie a la lista MyList de un Usuario.
+     * @param id de la valoracio
+     * @param client nombre del Cliente
+     * @param user nombre del Usuario
+     * @param serie títol de la Serie
+     * @return Mensaje conforme si se ha eliminado, o no se ha completado la operación.
+     * */
+    public String removeSerieFromMyList(int id, String client, String user, String serie) {
+        try {
+            facana.removeSerieFromMyList(id, client, user, serie);
+            return "Sèrie '" + serie + "' correctament eliminada de MyList.";
+        } catch (Exception exp) { return exp.getMessage(); }
     }
 
 
+
     ///////////////////////////////////////
-    /* Métodos Test ferValoracioEstrella */
+    /*    Métodos sobre Watched List     */
     ///////////////////////////////////////
+
     /**
-     * Método para valorar una serie del catalogo con Estrellas
-     * @param id ID de la Valoracion
-     * @param idClient ID del Cliente
-     * @param nomUsuari nombre del Usuario
-     * @param idSerie ID de la Serie
-     * @param idTemporada ID de la Temporada
-     * @param idEpisodi ID del Episodi
-     * @param estrelles puntuacion en estrellas
-     * @param data fecha del Episodio
-     * @return mensaje conforme se ha valorado o no correctamente
-     * */
-    public String valorarEpisodiEstrellas(int id, String idClient, String nomUsuari, String idSerie, int idTemporada, int idEpisodi, int estrelles, String data) {
-        try {
-            int casosFacana = facana.valorarEpisodiEstrellas(id, idClient, nomUsuari, idSerie, idTemporada, idEpisodi, estrelles, data);
-            switch (casosFacana) {
-                case 1: return "El Cliente no existe";
-                case 2: return "El Usuario no Existe";
-                case 3: return "El Episodio no existe";
-                case 4: return "Debe introducir una valoración entre 0 y 5 estrellas";
-                case 5: return "Modificación de la Valoración realizada Correctamente";
-                case 6: return "Valoracion Eliminada";
-                default: return "Valoracion añadida Correctamente";
-            }
-        } catch (Exception e) { return e.getMessage(); }
+     * Método para listar las series de la lista Watched de un Usuario.
+     * @param client nombre del Cliente
+     * @param user nombre del Usuario
+     * @return Iterable con los títulos de las series de Watched
+     */
+    public Iterable<String> listMyWatchedList(String client, String user) {
+        try { return facana.listWatchedList(client, user);
+        } catch (Exception exp) {
+            ArrayList<String> exception = new ArrayList<>();
+            exception.add(exp.getMessage());
+            return exception;
+        }
     }
 
-    /////////////////////////////////
-    /* Métodos Visualitzar Episodi */
-    /////////////////////////////////
+
+
+    //////////////////////////////////////////
+    /*  Métodos sobre ContinueWatching List */
+    //////////////////////////////////////////
 
     /**
-     * Permite guardar la visualizacion de un episodio
+     * Método para listar las series de la lista ContinueWatching de un Usuario.
+     * @param client nombre del Cliente
+     * @param user nombre del Usuario
+     * @return Iterable con los títulos de las series de ContinueWatching
+     */
+    public Iterable<String> listMyContinueWatchingList(String client, String user) {
+        try { return facana.listContinueWatchingList(client, user);
+        } catch (Exception exp) {
+            ArrayList<String> exception = new ArrayList<>();
+            exception.add(exp.getMessage());
+            return exception;
+        }
+    }
+
+    //////////////////////////////////
+    /*   Métodos sobre Visualizar   */
+    //////////////////////////////////
+
+    /**
+     * Metodo que permite guardar la visualizacion de un episodio
      * @param id ID de la Visualizacion
      * @param idClient ID del Cliente
      * @param nomUser ID del Usuario
      * @param idSerie ID de la Serie
      * @param numTemporada Numero de Temporada
      * @param idEpisodi ID del Episodio
-     * @param data Dataa
-     * @param segonsRestants Segundos Restantes
+     * @param data Fecha de visualizacion
+     * @param segonsRestants Segundos restantes por ver
      */
-    public String visualitzarEpisodi(int id, String idClient, String nomUser, String idSerie, int numTemporada,
-                                     int idEpisodi, String data, int segonsRestants) {
+    public String visualitzarEpisodi(int id, String idClient, String nomUser, String idSerie, int numTemporada, int idEpisodi, String data, int segonsRestants) {
         try {
-            if(facana.visualitzarEpisodi(id, idClient, nomUser, idSerie, numTemporada, idEpisodi, data, segonsRestants)){
-                if(segonsRestants == 0) {
-                    addSerieToWatchingList(id, idClient, nomUser, idSerie, numTemporada, idEpisodi, data, segonsRestants);
-                    return "Episodio añadido a Already Watched List";
-
-                } else return "Episodio añadido a Continue Watching List";
+            int casosFacana = facana.visualitzarEpisodi(id, idClient, nomUser, idSerie, numTemporada, idEpisodi, data, segonsRestants);
+            switch (casosFacana) {
+                case 0: return "Visualización añadida Correctamente";
+                case 1: return "Modificación de la Visualización realizada Correctamente";
+                default: return "Error: visualización fallida.";
             }
-            else return "Visualización no guardada correctamente";
-        } catch (Exception e) {
-            return e.getMessage();
-        }
+        } catch (Exception e) { return e.getMessage(); }
     }
-
-    /**
-     * Método para añadir una serie a la lista Watched de un Usuario.
-     * @param id id de la preferencia
-     * @param idClient nombre del Cliente
-     * @param idUser nombre del Usuario
-     * @param nomSerie títol de la Serie
-     * @param numTemporada numero de la Temporada
-     * @param idEpisodi numero del Episodio
-     * @param data fecha de visualizacion
-     * @param segonsRestants Segundos restantes de la visualizacion
-     * @return Mensaje conforme si se ha añadido correctamente o no se ha completado la operación.
-     * */
-    public String addSerieToWatchingList(int id, String idClient, String idUser, String nomSerie, int numTemporada, int idEpisodi, String data, int segonsRestants) {
-        try {
-            if (facana.addSerieToWatchingList(id, idClient, idUser, nomSerie, numTemporada, idEpisodi, data, segonsRestants)) return "Sèrie '" + nomSerie + "' correctament afegida a Watched List.";
-            return "Sèrie '" + nomSerie + "' ja afegida a la llista Watched.";
-        } catch(Exception exp) { return exp.getMessage(); }
-    }
-
-
-
 
     /**
      * Metodo para saber el tiempo que ha visualizado un usuario de un episodio en concreto
@@ -408,8 +307,7 @@ public class ControladorGUI implements IController{
      * @return int de segundos visualizados
      */
     public int getDuracioVisualitzada(String idClient, String idUser, String idSerie, int numTemporada, int numEpisodi, int duracioEpisodi) {
-        try {
-            return facana.getDuracioVisualitzada(idClient, idUser, idSerie, numTemporada, numEpisodi, duracioEpisodi);
+        try { return facana.getDuracioVisualitzada(idClient, idUser, idSerie, numTemporada, numEpisodi, duracioEpisodi);
         } catch (Exception e) {
             e.printStackTrace();
             return 0;
@@ -426,16 +324,79 @@ public class ControladorGUI implements IController{
      * @return true si se ha visualizado, false si no...
      */
     public boolean isEpisodiVisualitzat(String idSerie, int numTemporada, int idEpisodi, String currentClient, String currentUsuari) {
-        try {
-            return facana.isEpisodiVisualitzat(idSerie, numTemporada, idEpisodi, currentClient, currentUsuari);
+        try { return facana.isEpisodiVisualitzat(idSerie, numTemporada, idEpisodi, currentClient, currentUsuari);
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
     }
 
-    public void registerObserver(RegisterObserver observer) {
-        facana.registerObserver(observer);
+
+
+    ////////////////////////////////////////
+    /*  Métodos sobre Valorar con Corazon */
+    ////////////////////////////////////////
+
+    /**
+     * Método para valorar una serie del catalogo con un Corazon
+     * @param id ID de la Valoracion
+     * @param idClient ID del Cliente
+     * @param nomUsuari nombre del Usuario
+     * @param idSerie ID de la Serie
+     * @param idTemporada ID de la Temporada
+     * @param idEpisodi ID del Episodi
+     * @param data fecha del Episodio
+     * @return mensaje conforme se ha valorado o no correctamente
+     * */
+    public String valorarEpisodiCor(int id, String idClient, String nomUsuari, String idSerie, int idTemporada, int idEpisodi, String data) {
+        try {
+            int casosFacana = facana.valorarEpisodiCor(id, idClient, nomUsuari, idSerie, idTemporada, idEpisodi, data);
+            switch (casosFacana) {
+                case 0: return "Valoracion añadida Correctamente";
+                case 1: return "Valoracion Eliminada";
+                default: return "Error: valoración fallida";
+            }
+        } catch (Exception e) { return e.getMessage(); }
     }
+
+
+    //////////////////////////////////////////
+    /*  Métodos sobre Valorar con Estrellas */
+    //////////////////////////////////////////
+    /**
+     * Método para valorar una serie del catalogo con Estrellas
+     * @param id ID de la Valoracion
+     * @param idClient ID del Cliente
+     * @param nomUsuari nombre del Usuario
+     * @param idSerie ID de la Serie
+     * @param idTemporada ID de la Temporada
+     * @param idEpisodi ID del Episodi
+     * @param estrelles puntuacion en estrellas
+     * @param data fecha del Episodio
+     * @return mensaje conforme se ha valorado o no correctamente
+     * */
+    public String valorarEpisodiEstrellas(int id, String idClient, String nomUsuari, String idSerie, int idTemporada, int idEpisodi, int estrelles, String data) {
+        try {
+            int casosFacana = facana.valorarEpisodiEstrellas(id, idClient, nomUsuari, idSerie, idTemporada, idEpisodi, estrelles, data);
+            switch (casosFacana) {
+                case 1: return "Debe introducir una valoración entre 0 y 5 estrellas";
+                case 2: return "Modificación de la Valoración realizada Correctamente";
+                case 3: return "Valoracion Eliminada";
+                default: return "Valoracion añadida Correctamente";
+            }
+        } catch (Exception e) { return e.getMessage(); }
+    }
+
+
+
+    ///////////////////////////////////
+    /*    Métodos sobre Observers    */
+    ///////////////////////////////////
+
+    /**
+     * Método para registrar un Observador
+     * @param observer Observador que se quiere subscribir
+     */
+    public void registerObserver(RegisterObserver observer) { facana.registerObserver(observer); }
 
 }

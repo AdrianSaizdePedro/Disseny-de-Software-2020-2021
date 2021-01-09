@@ -9,14 +9,12 @@ import java.util.regex.Pattern;
 public class FacadeClients {
     // Atributos
     private volatile static FacadeClients uniqueInstance;
-
     private final CarteraClients carteraClients;
 
     /**
-     * Metodo constructor de FacadeClients
-     * Patrón Singleton
+     * Metodo constructor de FacadeClients aplicando el patrón Singleton
      */
-   private FacadeClients() { this.carteraClients = new CarteraClients(); }
+    private FacadeClients() { this.carteraClients = new CarteraClients(); }
 
     public static FacadeClients getInstance() {
         if (uniqueInstance == null) {
@@ -28,6 +26,11 @@ public class FacadeClients {
         }
         return uniqueInstance;
     }
+
+
+    //////////////////////////////////////////
+    /*       METODOS PARA INICIALIZAR       */
+    //////////////////////////////////////////
 
     /**
      * Metodo para inicializar la Cartera de Clientes
@@ -81,6 +84,16 @@ public class FacadeClients {
     public boolean isValidNameClient(String clientName) { return (carteraClients.find(clientName) != null); }
 
     /**
+     * Método para validar Cliente: nombre y contraseña.
+     * @param username nombre del Cliente
+     * @param password contraseña del Cliente
+     * @return True si existe el Cliente y su contraseña coincide con la introducida.
+     */
+    public boolean validateLoginClient(String username, String password) {
+        return carteraClients.validateLoginClient(username, password);
+    }
+
+    /**
      * Método par añadir un Cliente nuevo a la Cartera de Clientes
      * @param idClient nombre del Cliente
      * @param psw contraseña del Cliente
@@ -90,15 +103,6 @@ public class FacadeClients {
      */
     public void addClient(String idClient, String psw, String dni, String adress, boolean vip) { carteraClients.addClient(idClient, psw, dni, adress, vip); }
 
-    /**
-     * Método para validar Cliente: nombre y contraseña.
-     * @param username nombre del Cliente
-     * @param password contraseña del Cliente
-     * @return True si existe el Cliente y su contraseña coincide con la introducida.
-     */
-    public boolean validateLoginClient(String username, String password) {
-        return carteraClients.validateLoginClient(username, password);
-    }
 
     /**
      * Metodo para encontrar un cliente por su nombre
@@ -144,36 +148,19 @@ public class FacadeClients {
     }
 
     /**
+     * Metodo para obtener la lista de Usuarios de un CLiente
+     * @param nomClient id del Cliente
+     * @return Iterable de nombres de Usuario
+     */
+    public Iterable<String> listUsuaris(String nomClient) { return carteraClients.listUsuaris(nomClient); }
+
+    /**
      * Método para conseguir un IDUsuario a partir del nombre del Cliente y del Usuario.
      * @param nomClient nombre del Cliente
      * @param nomUser nombre del Usuario
      * @return String del ID del Usuario
      */
-    public String getIDUsuariByClientAndUsername(String nomClient, String nomUser) throws Exception {
-        return carteraClients.getIDUsuariByClientAndUsername(nomClient,  nomUser);
-    }
-
-
-    //////////////////////////////////////
-    /*       METODOS SOBRE PERFIL       */
-    //////////////////////////////////////
-
-    /**
-     * Método para cambiar el nombre del Usuario seleccionado
-     * @param nomClient Nombre del Cliente
-     * @param nomUsuariAntic Nombre del Usuario Antiguo
-     * @param nomUsuariNou Nombre del Usuario Nuevo
-     * @throws Exception si el Cliente o el Usuario no existen
-     * */
-    public void modificarPerfil(String nomClient, String nomUsuariAntic, String nomUsuariNou) throws Exception { carteraClients.modificarPerfil(nomClient, nomUsuariAntic, nomUsuariNou); }
-
-    /**
-     * Método para pedir ver los datos del Usuario
-     * @param nomClient Nombre del Cliente
-     * @param nomUsuari Nombre del Usuario
-     * @return String de los datos del Usuario
-     * */
-    public String veurePerfil(String nomClient, String nomUsuari) throws Exception { return carteraClients.veurePerfil(nomClient, nomUsuari); }
+    public String getIDUsuariByClientAndUsername(String nomClient, String nomUser) throws Exception { return carteraClients.getIDUsuariByClientAndUsername(nomClient, nomUser); }
 
 
 
@@ -215,14 +202,28 @@ public class FacadeClients {
      */
     public boolean ferUnfollow(String userUnfollowed, String userUnfollower) throws Exception { return carteraClients.ferUnfollow(userUnfollowed, userUnfollower); }
 
+
+    //////////////////////////////////////
+    /*       METODOS SOBRE PERFIL       */
+    //////////////////////////////////////
+
     /**
-     * Metodo para obtener la lista de Usuarios de un CLiente
-     * @param nomClient id del Cliente
-     * @return Iterable de nombres de Usuario
-     */
-    public Iterable<String> listUsuaris(String nomClient) {
-        return carteraClients.listUsuaris(nomClient);
-    }
+     * Método para cambiar el nombre del Usuario seleccionado
+     * @param nomClient Nombre del Cliente
+     * @param nomUsuariAntic Nombre del Usuario Antiguo
+     * @param nomUsuariNou Nombre del Usuario Nuevo
+     * @throws Exception si el Cliente o el Usuario no existen
+     * */
+    public void modificarPerfil(String nomClient, String nomUsuariAntic, String nomUsuariNou) throws Exception { carteraClients.modificarPerfil(nomClient, nomUsuariAntic, nomUsuariNou); }
+
+    /**
+     * Método para pedir ver los datos del Usuario
+     * @param nomClient Nombre del Cliente
+     * @param nomUsuari Nombre del Usuario
+     * @return String de los datos del Usuario
+     * */
+    public String veurePerfil(String nomClient, String nomUsuari) throws Exception { return carteraClients.veurePerfil(nomClient, nomUsuari); }
+
 
 
 }

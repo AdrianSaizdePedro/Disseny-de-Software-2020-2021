@@ -3,12 +3,13 @@ package ub.edu.model;
 public class Episodi {
     // Atributos
     private String idSerie;
+    private final String nomSerie;
     private int idTemporada;
-    private int numEpisodi;
+    private final int numEpisodi;
     private String titol;
-    private int duracio;
-    private String idioma;
-    private String descripcio;
+    private final int duracio;
+    private final String idioma;
+    private final String descripcio;
     private String data;
 
     /**
@@ -24,6 +25,7 @@ public class Episodi {
      */
     public Episodi( String idSerie, String nomSerie, int idTemporada, int numEpisodi, String titol, String duracio, String idioma, String descripcio, String data) {
         this.idSerie = idSerie;
+        this.nomSerie = nomSerie;
         this.idTemporada = idTemporada;
         this.numEpisodi = numEpisodi;
         this.titol = titol;
@@ -31,19 +33,6 @@ public class Episodi {
         this.idioma = idioma;
         this.descripcio = descripcio;
         this.data = data;
-    }
-
-    private int calcularDuracio(String duracio) {
-
-        try{
-            String[] tiempo = duracio.split(":");
-            String horas = tiempo[0];
-            String minutos = tiempo[1];
-            String segundos = tiempo[2];
-            return Integer.parseInt(horas)*3600 + Integer.parseInt(minutos)*60 + Integer.parseInt(segundos);
-        } catch (NumberFormatException excepcion) {
-            return 0;
-        }
     }
 
 
@@ -91,13 +80,6 @@ public class Episodi {
         return numEpisodi;
     }
 
-    /**
-     * Método para establecer el número del Episodio
-     * @param numEpisodi número del Episodio dentro de una Temporada
-     */
-    public void setNumEpisodi(int numEpisodi) {
-        this.numEpisodi = numEpisodi;
-    }
 
     /**
      *  Método para coger el nombre de la Serie a la que pertenece el Episodio
@@ -123,29 +105,6 @@ public class Episodi {
         return duracio;
     }
 
-    /**
-     * Método para establecer la duración Episodio
-     * @param duracio duración del Episodio
-     */
-    public void setDuracio(int duracio) {
-        this.duracio = duracio;
-    }
-
-    /**
-     *  Método para coger el idioma del Episodio
-     * @return idioma del episodio
-     */
-    public String getIdioma() {
-        return idioma;
-    }
-
-    /**
-     * Método para establecer el idioma del Episodio
-     * @param idioma idioma del Episodio
-     */
-    public void setIdioma(String idioma) {
-        this.idioma = idioma;
-    }
 
     /**
      *  Método para coger la descripción del Episodio
@@ -153,14 +112,6 @@ public class Episodi {
      */
     public String getDescripcio() {
         return descripcio;
-    }
-
-    /**
-     * Método para establecer la descripción del Episodio
-     * @param descripcio descripción del Episodio
-     */
-    public void setDescripcio(String descripcio) {
-        this.descripcio = descripcio;
     }
 
     /**
@@ -179,5 +130,21 @@ public class Episodi {
         this.data = data;
     }
 
+
+    //////////////////////////////////
+    /*   Métodos sobre Episodios    */
+    //////////////////////////////////
+
+    /**
+     * Método para calcular la Duración de un Episodio
+     * @param duracio duracion en hh:mm:ss
+     * @return segundos totales
+     */
+    private int calcularDuracio (String duracio) {
+        try {
+            String[] tiempo = duracio.split(":");
+            return Integer.parseInt(tiempo[0]) * 3600 + Integer.parseInt(tiempo[1]) * 60 + Integer.parseInt(tiempo[2]);
+        } catch (NumberFormatException excepcion) { return 0; }
+    }
 
 }

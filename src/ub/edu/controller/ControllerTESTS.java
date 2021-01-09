@@ -1,13 +1,16 @@
 package ub.edu.controller;
 
+import ub.edu.model.Episodi;
 import ub.edu.model.Facade;
 import ub.edu.resources.service.AbstractFactoryData;
 import ub.edu.resources.service.DataService;
 import ub.edu.resources.service.FactoryMOCK;
+import ub.edu.view.RegisterObserver;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class ControllerTESTS{
+public class ControllerTESTS implements IController{
     // Atributos
     private Facade facana;
 
@@ -156,6 +159,10 @@ public class ControllerTESTS{
         } catch (Exception exp){ return exp.getMessage(); }
     }
 
+    @Override
+    public Iterable<String> listUsuaris(String nomClient) {
+        return null;
+    }
 
 
     //////////////////////////////////////////
@@ -182,13 +189,38 @@ public class ControllerTESTS{
      * Método para pedir el listado de Series del Catalogo de Series
      * @return catalogo de series listado
      * */
-    public Iterable<String> llistarCatalegSeries() {
+    public List<String> llistarCatalegSeries() {
         try { return facana.llistarCatalegSeries(); }
         catch (Exception exp) {
             ArrayList<String> exception = new ArrayList<>();
             exception.add(exp.getMessage());
             return exception;
         }
+    }
+
+    @Override
+    public List<String> getTemporades(String nomSerie) {
+        return null;
+    }
+
+    @Override
+    public List<Episodi> getEpisodis(String nomSerie, int temporada) {
+        return null;
+    }
+
+    @Override
+    public String visualitzarEpisodi(int id, String idClient, String idUser, String idSerie, int numTemporada, int idEpisodi, String data, int segonsRestants) {
+        return null;
+    }
+
+    @Override
+    public int getDuracioVisualitzada(String idClient, String idUser, String idSerie, int numTemporada, int numEpisodi, int duracioEpisodi) {
+        return 0;
+    }
+
+    @Override
+    public boolean isEpisodiVisualitzat(String idSerie, int numTemporada, int idEpisodi, String currentClient, String currentUsuari) {
+        return false;
     }
 
     ///////////////////////////////////////
@@ -231,6 +263,15 @@ public class ControllerTESTS{
         }
     }
 
+    @Override
+    public Iterable<String> listMyWatchedList(String client, String user) {
+        return null;
+    }
+
+    @Override
+    public Iterable<String> listMyContinueWatchingList(String client, String user) {
+        return null;
+    }
 
 
     ////////////////////////////////////////
@@ -262,8 +303,8 @@ public class ControllerTESTS{
      * */
     public String addSerieToMyList(int id, String client, String user, String serie) {
         try {
-            if (facana.addSerieToMyList(id, client, user, serie)) return "Sèrie '" + serie + "' correctament afegida a MyList.";
-            return "Sèrie '" + serie + "' ja afegida a MyList.";
+            facana.addSerieToMyList(id, client, user, serie);
+            return "Sèrie '" + serie + "' correctament afegida a MyList.";
         } catch(Exception exp) { return exp.getMessage(); }
     }
 
@@ -277,9 +318,8 @@ public class ControllerTESTS{
      * */
     public String removeSerieFromMyList(int id, String client, String user, String serie) {
         try {
-            if (facana.removeSerieFromMyList(id, client, user, serie))
-                return "Sèrie '" + serie + "' correctament eliminada de MyList.";
-            return "Sèrie '" + serie + "' no consta en MyList.";
+            facana.removeSerieFromMyList(id, client, user, serie);
+            return "Sèrie '" + serie + "' correctament eliminada de MyList.";
         } catch(Exception exp) { return exp.getMessage(); }
     }
 
@@ -342,6 +382,10 @@ public class ControllerTESTS{
         } catch (Exception e) { return e.getMessage(); }
     }
 
+    @Override
+    public void registerObserver(RegisterObserver observer) {
+
+    }
 
 
     ////////////////////////////////////////

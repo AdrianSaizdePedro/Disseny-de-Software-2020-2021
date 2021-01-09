@@ -12,32 +12,32 @@ public class DAOValoracioEstrellaMOCK implements DAOValoracioEstrellas {
 
         // Valoraciones con Estrellas del Usuario 'id1', del Cliente 'ajaleo'
         ArrayList<EstrellasValoracio> valoracio_1 = new ArrayList<>();
-        valoracio_1.add(new EstrellasValoracio(1, "ajaleo", "id1", "bbad", 1, 1, 5,"13.11.2017"));
-        valoracio_1.add(new EstrellasValoracio(2, "ajaleo", "id1", "bbad", 1, 2, 3,"13.11.2017"));
-        valoracio_1.add(new EstrellasValoracio(3, "ajaleo", "id1", "gofthrones", 1, 1, 5,"17.12.2019"));
-        valoracio_1.add(new EstrellasValoracio(4, "ajaleo", "id1", "gofthrones", 2, 1, 5,"20.02.2020"));
+        valoracio_1.add(new EstrellasValoracio(1, "ajaleo", "id1", "Breaking Bad", 1, 1, 5,"13.11.2017"));
+        valoracio_1.add(new EstrellasValoracio(2, "ajaleo", "id1", "Breaking Bad", 1, 2, 3,"13.11.2017"));
+        valoracio_1.add(new EstrellasValoracio(3, "ajaleo", "id1", "Game of Thrones", 1, 1, 5,"17.12.2019"));
+        valoracio_1.add(new EstrellasValoracio(4, "ajaleo", "id1", "Game of Thrones", 2, 1, 5,"20.02.2020"));
         listValoracions.put("id1", valoracio_1);
 
         // Valoraciones con Estrellas del Usuario 'id2', del Cliente 'ajaleo'
         ArrayList<EstrellasValoracio> valoracio_2 = new ArrayList<>();
-        valoracio_2.add(new EstrellasValoracio(1, "ajaleo", "id2", "bbad", 1, 1, 1,"20.11.2017"));
-        valoracio_2.add(new EstrellasValoracio(2, "ajaleo", "id2", "bbad", 1, 2, 2,"20.11.2017"));
-        valoracio_2.add(new EstrellasValoracio(3, "ajaleo", "id2", "gofthrones", 1, 1, 3,"20.12.2019"));
-        valoracio_2.add(new EstrellasValoracio(4, "ajaleo", "id2", "gofthrones", 2, 1, 3,"20.02.2020"));
+        valoracio_2.add(new EstrellasValoracio(1, "ajaleo", "id2", "Breaking Bad", 1, 1, 1,"20.11.2017"));
+        valoracio_2.add(new EstrellasValoracio(2, "ajaleo", "id2", "Breaking Bad", 1, 2, 2,"20.11.2017"));
+        valoracio_2.add(new EstrellasValoracio(3, "ajaleo", "id2", "Game of Thrones", 1, 1, 3,"20.12.2019"));
+        valoracio_2.add(new EstrellasValoracio(4, "ajaleo", "id2", "Game of Thrones", 2, 1, 3,"20.02.2020"));
         listValoracions.put("id2", valoracio_2);
 
         // Valoraciones con Estrellas del Usuario 'id4', del Cliente 'dtomacal'
         ArrayList<EstrellasValoracio> valoracio_3 = new ArrayList<>();
-        valoracio_3.add(new EstrellasValoracio(1, "dtomacal", "id4", "bbad", 1, 1, 1,"11.04.2222"));
-        valoracio_3.add(new EstrellasValoracio(2, "dtomacal", "id4", "gofthrones", 1, 1, 3,"11.04.2222"));
-        valoracio_3.add(new EstrellasValoracio(3, "dtomacal", "id4", "gofthrones", 2, 1, 3,"11.04.2222"));
+        valoracio_3.add(new EstrellasValoracio(1, "dtomacal", "id4", "Breaking Bad", 1, 1, 1,"11.04.2222"));
+        valoracio_3.add(new EstrellasValoracio(2, "dtomacal", "id4", "Game of Thrones", 1, 1, 3,"11.04.2222"));
+        valoracio_3.add(new EstrellasValoracio(3, "dtomacal", "id4", "Game of Thrones", 2, 1, 3,"11.04.2222"));
         listValoracions.put("id4", valoracio_3);
 
         // Valoraciones con Estrellas del Usuario 'id7', del Cliente 'chachipistachi'
         ArrayList<EstrellasValoracio> valoracio_4 = new ArrayList<>();
-        valoracio_4.add(new EstrellasValoracio(1, "chachipistachi", "id7", "bbad", 1, 1, 1,"17.04.2002"));
-        valoracio_4.add(new EstrellasValoracio(2, "chachipistachi", "id7", "gofthrones", 1, 1, 3,"17.04.2002"));
-        valoracio_4.add(new EstrellasValoracio(3, "chachipistachi", "id7", "gofthrones", 2, 1, 3,"17.04.2002"));
+        valoracio_4.add(new EstrellasValoracio(1, "chachipistachi", "id7", "Breaking Bad", 1, 1, 1,"17.04.2002"));
+        valoracio_4.add(new EstrellasValoracio(2, "chachipistachi", "id7", "Game of Thrones", 1, 1, 3,"17.04.2002"));
+        valoracio_4.add(new EstrellasValoracio(3, "chachipistachi", "id7", "Game of Thrones", 2, 1, 3,"17.04.2002"));
         listValoracions.put("id7", valoracio_4);
 
     }
@@ -99,7 +99,7 @@ public class DAOValoracioEstrellaMOCK implements DAOValoracioEstrellas {
         if (listValoracions.containsKey(idUsuari)) {
             ArrayList<EstrellasValoracio> llista = listValoracions.get(idUsuari);
             for (EstrellasValoracio v : llista) {
-                if (v.getIdClient().equals(idClient) && v.getIdUsuari().equals(idUsuari) && v.getIdSerie().equals(idSerie)
+                if (v.getIdClient().equals(idClient) && v.getIdUsuari().equals(idUsuari) && v.getNomSerie().equals(idSerie)
                     && v.getIdTemporada() == idTemporada && v.getIdEpisodi() == idEpisodi) return v;
             }
         }
@@ -111,7 +111,7 @@ public class DAOValoracioEstrellaMOCK implements DAOValoracioEstrellas {
         if (listValoracions.containsKey(idUsuari)){
             ArrayList<EstrellasValoracio> llista = listValoracions.get(idUsuari);
             for (EstrellasValoracio v : llista) {
-                if (v.getIdClient().equals(idClient) && v.getIdUsuari().equals(idUsuari) && v.getIdSerie().equals(idSerie) && v.getIdTemporada() == idTemporada
+                if (v.getIdClient().equals(idClient) && v.getIdUsuari().equals(idUsuari) && v.getNomSerie().equals(idSerie) && v.getIdTemporada() == idTemporada
                     && v.getIdEpisodi() == idEpisodi) v.updateRating(estrellasValoracio.getEstrellas(), estrellasValoracio.getData());
                 else add(estrellasValoracio);
             }

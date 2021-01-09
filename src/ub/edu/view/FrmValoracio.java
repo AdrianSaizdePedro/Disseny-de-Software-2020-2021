@@ -1,8 +1,6 @@
 package ub.edu.view;
 
-
 import ub.edu.controller.IController;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -13,6 +11,7 @@ import java.time.format.DateTimeFormatter;
  * Formulari de valorar un episodi, es pot valorar segons emoció, marcar el dispositiu i/o escollir el personatge favorit. Aquesta classe hereta de JDialog
  */
 class FrmValoracio extends JDialog {
+    // Atributos
     private JPanel contentPane;
     private JButton btnValorar;
     private JButton buttonCancel;
@@ -23,7 +22,6 @@ class FrmValoracio extends JDialog {
     private JPanel panelCor;
     private JButton btnCor;
 
-    //Afegit manualment
     private final IController controller;
     private final Frame owner;
 
@@ -31,12 +29,11 @@ class FrmValoracio extends JDialog {
      * Constructor de la classe FrmValoracio
      * @param idSerie identificador de la sèrie de l'episodi
      * @param numTemporada número de temporada de l'episodi
-     * @param episodi títol de l'episodi seleccionat
      */
-    protected FrmValoracio(Frame owner, IController controller, String idSerie, int numTemporada, int idEpisodi, String episodi) {
+    protected FrmValoracio(Frame owner, IController controller, String idSerie, int numTemporada, int idEpisodi) {
         this.owner = owner;
         this.controller = controller;
-        initComponents(idSerie, numTemporada, idEpisodi, episodi);
+        initComponents(idSerie, numTemporada, idEpisodi);
         setResizable(false);
         setTitle("Valoració de l'episodi");
     }
@@ -45,17 +42,15 @@ class FrmValoracio extends JDialog {
      * Mètode que inicialitza tots els components de la GUI de FrmValoracio i s'afegeixen els listeners dels events per quan es fa l'acció sobre els diferents components de Java.
      * @param idSerie identificador de la sèrie de l'episodi
      * @param numTemporada número de temporada de l'episodi
-     * @param episodi títol de l'episodi seleccionat
      */
-    private void initComponents(String idSerie, int numTemporada, int idEpisodi, String episodi) {
+    private void initComponents(String idSerie, int numTemporada, int idEpisodi) {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(btnValorar);
         groupButton();
         inici();
 
-        btnValorar.addActionListener(e -> valorarEstrella(idSerie, numTemporada, idEpisodi, episodi));
-
+        btnValorar.addActionListener(e -> valorarEstrella(idSerie, numTemporada, idEpisodi));
         buttonCancel.addActionListener(e -> onCancel());
 
         // call onCancel() when cross is clicked
@@ -77,11 +72,11 @@ class FrmValoracio extends JDialog {
             panelEmocio.setVisible(true);
         });
 
-        btnCor.addActionListener(e -> valorarCor(idSerie, numTemporada, idEpisodi, episodi));
+        btnCor.addActionListener(e -> valorarCor(idSerie, numTemporada, idEpisodi));
     }
 
     /**
-     * Condicions inicials a l'entrar al formulari de valoració, per defecte es mostra valorar per Emoció
+     * Condiciones iniciales para entrar al formulario de valoración, por defecto se muestra valorar per Emoció
      */
     private void inici(){
         emocioRadioButton.setSelected(true);
@@ -93,38 +88,28 @@ class FrmValoracio extends JDialog {
      * Mètode que crea un grup de radioButtons per fer que només un es pugui seleccionar alhora
      */
     private void groupButton() {
-
         ButtonGroup buttonGroup = new ButtonGroup();
-
         buttonGroup.add(corRatioButton);
         buttonGroup.add(emocioRadioButton);
-
     }
 
     /**
      * Mètode que es crida quan es prem el botó Cancel que tanca la finestra
      */
-    private void onCancel() {
-        // add your code here if necessary
-        dispose();
-    }
+    private void onCancel() { dispose(); }
 
     /**
      * Mètode que serveix per guardar la Valoració per Emoció un cop s'ha valorat
      * @param idSerie identificador de la sèrie de l'episodi
      * @param numTemporada número de temporada de l'episodi
-     * @param episodi títol de l'episodi seleccionat
      */
-    private void valorarEstrella(String idSerie, int numTemporada, int idEpisodi, String episodi) {
-
+    private void valorarEstrella(String idSerie, int numTemporada, int idEpisodi) {
         int estrelles = barraEmocio.getValue();
 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         LocalDate localDate = LocalDate.now();
 
-        String info = controller.valorarEpisodiEstrellas(1, ((UBFLIXParty) owner).getCurrentClient(),
-                ((UBFLIXParty) owner).getCurrentUser(), idSerie, numTemporada, idEpisodi, estrelles, dtf.format(localDate));
-
+        String info = controller.valorarEpisodiEstrellas(1, ((UBFLIXParty) owner).getCurrentClient(), ((UBFLIXParty) owner).getCurrentUser(), idSerie, numTemporada, idEpisodi, estrelles, dtf.format(localDate));
         JOptionPane.showMessageDialog(contentPane, info);
         dispose();
     }
@@ -133,27 +118,14 @@ class FrmValoracio extends JDialog {
      * Mètode que serveix per guardar la Valoració per Emoció un cop s'ha valorat
      * @param idSerie identificador de la sèrie de l'episodi
      * @param numTemporada número de temporada de l'episodi
-     * @param episodi títol de l'episodi seleccionat
      */
-    private void valorarCor(String idSerie, int numTemporada, int idEpisodi, String episodi) {
-
+    private void valorarCor(String idSerie, int numTemporada, int idEpisodi) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         LocalDate localDate = LocalDate.now();
 
-        String info = controller.valorarEpisodiCor(1, ((UBFLIXParty) owner).getCurrentClient(),
-                ((UBFLIXParty) owner).getCurrentUser(), idSerie, numTemporada, idEpisodi, dtf.format(localDate));
-
+        String info = controller.valorarEpisodiCor(1, ((UBFLIXParty) owner).getCurrentClient(), ((UBFLIXParty) owner).getCurrentUser(), idSerie, numTemporada, idEpisodi, dtf.format(localDate));
         JOptionPane.showMessageDialog(contentPane, info);
         dispose();
     }
 
-    /**
-     * Mètode que serveix per preguntar al client si està segur de voler acabar la valoració o vol continuar valorant.
-     * @param estat resultat de la valoració feta
-     */
-    private void confirmacioContinuarValoracio(String estat) {
-        JOptionPane.showMessageDialog(contentPane, estat);
-        if (JOptionPane.showConfirmDialog(contentPane, "Vols acabar la valoració?") == 0)
-            dispose();
-    }
 }

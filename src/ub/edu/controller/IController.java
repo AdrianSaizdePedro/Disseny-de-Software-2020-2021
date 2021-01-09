@@ -35,8 +35,6 @@ public interface IController {
 
     String visualitzarEpisodi(int id, String idClient, String idUser, String idSerie, int numTemporada, int idEpisodi, String data, int segonsRestants);
 
-    String addSerieToWatchingList(int id, String idClient, String idUser, String nomSerie, int numTemporada, int idEpisodi, String data, int segonsRestants);
-
     int getDuracioVisualitzada(String idClient, String idUser, String idSerie, int numTemporada, int numEpisodi, int duracioEpisodi);
 
     boolean isEpisodiVisualitzat(String idSerie, int numTemporada, int idEpisodi, String currentClient, String currentUsuari);

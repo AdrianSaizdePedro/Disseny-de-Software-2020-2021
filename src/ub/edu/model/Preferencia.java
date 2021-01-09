@@ -2,7 +2,7 @@ package ub.edu.model;
 
 public class Preferencia {
     // Atributos
-    private int idPreferencia;
+    private final int idPreferencia;
     private String idClient;
     private String nameUser;
     private String idSerie;
@@ -27,17 +27,6 @@ public class Preferencia {
     /*         SETTERS Y GETTERS        */
     //////////////////////////////////////
 
-    /**
-     * Método para devolver la ID de la Preferencia
-     * @return ID de Preferencia
-     */
-    public int getIdPreferir() { return idPreferencia; }
-
-    /**
-     * Metodo para establecer la ID de la Preferencia
-     * @param idPreferir ID de la Preferencia
-     */
-    public void setIdPreferir(int idPreferir) { this.idPreferencia = idPreferir; }
 
     /**
      * Método para devolver la ID del Cliente
@@ -50,18 +39,6 @@ public class Preferencia {
      * @param idClient ID del Cliente
      */
     public void setIdClient(String idClient) { this.idClient = idClient; }
-
-    /**
-     * Metodo para devolver el nombre del Usuario
-     * @return nombre del Usuario
-     */
-    public String getNameUser() { return nameUser; }
-
-    /**
-     * Metodo para establecer el nombre del Usuario
-     * @param nameUser nombre del Usuario
-     */
-    public void setNameUser(String nameUser) { this.nameUser = nameUser; }
 
     /**
      * Metodo para devolver el ID de la Serie
@@ -87,8 +64,6 @@ public class Preferencia {
      * @return True si obj del tipo Preferencia y mismo identificador idPreferir.
      */
     @Override
-    public boolean equals(Object obj) {
-        return ((obj instanceof Preferencia) && this.idPreferencia == ((Preferencia)obj).idPreferencia);
-    }
+    public boolean equals(Object obj) { return ((obj instanceof Preferencia) && this.idPreferencia == ((Preferencia)obj).idPreferencia); }
 
 }

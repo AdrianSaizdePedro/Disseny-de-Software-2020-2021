@@ -7,7 +7,7 @@ public class Temporada {
     // Atributos
     private String idSerie;
     private int idTemporada;
-    private int numEpisodis;
+    private final int numEpisodis;
     private List<Episodi> llistaEpisodis;
 
     /**
@@ -54,18 +54,6 @@ public class Temporada {
      */
     public void setIdTemporada(int numSeason) { this.idTemporada = numSeason; }
 
-
-    /**
-     * Método para devolver el número de Episodios de una Temporada de una serie
-     * @return numEpisodis número de Episodios
-     */
-    public int getNumEpisodis() { return numEpisodis; }
-
-    /**
-     * Método para establecer el número de Episodios de una Temporada de una serie
-     * @param numEpisodis número de Episodios
-     */
-    public void setNumEpisodis(int numEpisodis) { this.numEpisodis = numEpisodis; }
 
     /**
      * Metodo para devolver la Lista de Episodios de uan Temporada

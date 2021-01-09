@@ -7,16 +7,12 @@ import ub.edu.model.Episodi;
 import ub.edu.model.StrategyTOP.IterableStrategy;
 
 import javax.swing.*;
-/*import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;*/
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.*;
 import java.util.*;
 import java.util.List;
+
 
 /**
  * GUI bàsica de l'app UBFLIX on es mostraran les diferents llistes corresponent a cada client que hagi realitzat el Log In.
@@ -51,10 +47,6 @@ public class UBFLIXParty extends JFrame implements RegisterObserver{
     private HashMap<String, JPopupMenu> popupMenuTemporades;
     private DefaultTableModel tableModelVis;
     private DefaultTableModel tableModelVal;
-
-    //private List<Map.Entry<String, Double>> listaTopTenValoracions;
-    //private List<Map.Entry<String, Double>> listaTopTenVisualitzacions;
-
     private final IController controller;
     private String currentClient;
     private String currentUser;
@@ -93,14 +85,13 @@ public class UBFLIXParty extends JFrame implements RegisterObserver{
         btnCrearUsuari.addActionListener(e -> userActionPerformed());
         perfilButton.addActionListener(e -> mostrarPerfil());
         llistes.addChangeListener(e -> {
-            if(llistes.getSelectedIndex() == 0){
+            if(llistes.getSelectedIndex() == 0) {
                 btnAfegirMyList.setEnabled(true);
                 btnTreureMyList.setEnabled(false);
-            } else if(llistes.getSelectedIndex() == 2){
+            } else if (llistes.getSelectedIndex() == 2) {
                 btnAfegirMyList.setEnabled(false);
                 btnTreureMyList.setEnabled(true);
-            }
-            else{
+            } else {
                 btnAfegirMyList.setEnabled(false);
                 btnTreureMyList.setEnabled(false);
             }
@@ -201,7 +192,7 @@ public class UBFLIXParty extends JFrame implements RegisterObserver{
     }
 
     /**
-     * Mètode que fa visible el formulari de LogIn
+     * Mètode que hace visible el formulario de Log In
      */
     private void ferLogIn() {
         jPanel.setVisible(false);
@@ -213,8 +204,8 @@ public class UBFLIXParty extends JFrame implements RegisterObserver{
     }
 
     /**
-     * Mètode que es crida quan s'obre la finestra i crida a ferLogIn()
-     * @param evt event que es dóna a l'obrir l'aplicació
+     * Mètodo que se llama cuandso se abre la ventana y abre el Log In
+     * @param evt evento que sucede al abrir la APP
      */
     private void formWindowOpened(java.awt.event.WindowEvent evt) {
         refreshListAll();
@@ -222,8 +213,9 @@ public class UBFLIXParty extends JFrame implements RegisterObserver{
     }
 
     /**
-     * Mètode que es crida quan es tanca la finestra, fet click sobre la 'x' amb missatge de confirmació de sortida.
-     * @param evt event que es dóna al tancar la finestra
+     * Mètode que  se llama cuandso se cierra la ventana , haciendo click
+     * sobre la 'x' con el mensaje de confirmación de salida.
+     * @param evt evento que sucede al cerra la ventana
      */
     private void formWindowClosing(java.awt.event.WindowEvent evt) {
         if (JOptionPane.showConfirmDialog(this, "VOLS SORTIR? ", "SORTIR APP", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == 0)
@@ -231,7 +223,7 @@ public class UBFLIXParty extends JFrame implements RegisterObserver{
     }
 
     /**
-     * Mètode que actualitza les sèries del catàleg
+     * Mètodo que actualiza las Series del catálogo
      */
     private void refreshListAll() {
         List<String> series = controller.llistarCatalegSeries();
@@ -240,8 +232,8 @@ public class UBFLIXParty extends JFrame implements RegisterObserver{
     }
 
     /**
-     * Mètode que serveix per actualitzar les temporades de les sèries passades per paràmetres
-     * @param series sèries de les quals s'han d'actualitzar les temporades
+     * Mètodo para actualizar las Temporadas de las Series
+     * @param series Series da actualizar
      */
     private void refreshTemporades(List<String> series) {
         popupMenuTemporades.clear();
@@ -258,28 +250,22 @@ public class UBFLIXParty extends JFrame implements RegisterObserver{
     }
 
     /**
-     * Mètode que serveix per actualitzar els episodis de la temporada de la sèrie indicats per paràmetres
-     * @param serie sèrie de la qual s'ha d'actualitzar els episodis
-     * @param temporada temporadad de la qual s'ha d'actualitzar els episodis
-     * @param jm JMenu de l'episodi
+     * Mètodo para actualizar los Episodios de una Temporada de una Serie
+     * @param serie Serie de la cual se actualizaran los Episodios
+     * @param temporada Temporada de la cual se actualizaran los Episodios
+     * @param jm JMenu del Episodio
      */
     private void refreshEpisodis(String serie, String temporada, JMenu jm) {
-
         List<Episodi> episodis = controller.getEpisodis(serie, Integer.parseInt(temporada.split(" ")[1]));
 
         for (Episodi episodi: episodis) {
-
-
-
             JMenuItem ep = new JMenuItem(episodi.getTitol());
             ep.addActionListener(e -> {
                 String idSerie = episodi.getIdSerie();
 
                 int numTemporada = Integer.parseInt(temporada.split(" ")[1]);
                 int duracio = episodi.getDuracio();
-                //int duracioVisualitzada = controller.getDuracioVisualitzada(currentClient, currentUser, idSerie, numTemporada, episodi.getNumEpisodi());
                 String descripcio = episodi.getDescripcio();
-
                 onEpisodi(idSerie, numTemporada, episodi.getNumEpisodi(), episodi.getTitol(), duracio, descripcio);
             });
             jm.add(ep);
@@ -287,19 +273,16 @@ public class UBFLIXParty extends JFrame implements RegisterObserver{
     }
 
     /**
-     * Mètode que serveix per actualitzar totes les llistes de la vista
+     * Mètodo para actualitzar casi todas las listas de View
      */
     private void refreshLlistes() {
         refreshWatched();
         refreshMyList();
         refreshContinueWatching();
-        //refreshTopValoracions();
-        //refreshTopVisualitzacions();
     }
 
-
     /**
-     * Método que añade una serie a mi MyList
+     * Método que añade una serie a MyList
      */
     private void addSerieToMyList() {
         String info = controller.addSerieToMyList(1, currentClient, currentUser, listAll.getSelectedValue());
@@ -308,7 +291,7 @@ public class UBFLIXParty extends JFrame implements RegisterObserver{
     }
 
     /**
-     * Método que elimina una serie a mi MyList
+     * Método que elimina una serie de MyList
      */
     private void removeSerieFromMyList() {
         String info = controller.removeSerieFromMyList(1, currentClient, currentUser, listMyList.getSelectedValue());
@@ -317,7 +300,7 @@ public class UBFLIXParty extends JFrame implements RegisterObserver{
     }
 
     /**
-     * Mètode que actualitza les sèries de la llista MyList
+     * Metodo que actualiza las Series de MyList
      */
     private void refreshMyList() {
         List<String> series = (List<String>) controller.listMyList(currentClient, currentUser);
@@ -325,7 +308,7 @@ public class UBFLIXParty extends JFrame implements RegisterObserver{
     }
 
     /**
-     * Mètode que actualitza les sèries de la llista Watched
+     * Metodo que actualiza las Series de la lista Watched
      */
     private void refreshWatched() {
         List<String> series = (List<String>) controller.listMyWatchedList(currentClient, currentUser);
@@ -333,7 +316,7 @@ public class UBFLIXParty extends JFrame implements RegisterObserver{
     }
 
     /**
-     * Mètode que actualitza les sèries de la llista ContinueWatching
+     * Metodo que actualiza las Series de la lista ContinueWatching
      */
     private void refreshContinueWatching() {
         List<String> series = (List<String>) controller.listMyContinueWatchingList(currentClient, currentUser);
@@ -341,29 +324,27 @@ public class UBFLIXParty extends JFrame implements RegisterObserver{
     }
 
     /**
-     * Mètode que actualitza les sèries del top10 de sèries més ben valorades
+     * Metodo que actualiza las Series del top10 de Series mejor valoradas
      */
     @Override
     public void refreshTopValoracions(IterableStrategy topValoracions) {
-        //Fem el clear de la llista del top 10 de valoracions
         int numRows = tableModelVal.getRowCount();
         for (int i = numRows - 1; i >= 0; i--)
             tableModelVal.removeRow(i);
 
         int numIteraciones = 0;
         for (Map.Entry serie: (Iterable<Map.Entry>) topValoracions) {
-            tableModelVal.addRow(new String[]{(String) serie.getKey(), String.format("%.2f", serie.getValue())});
+            tableModelVal.addRow(new String[]{(String) serie.getKey(), String.format("%s", serie.getValue())});
             if(numIteraciones == NUM_MAX_TOPS) break;
             numIteraciones ++;
         }
     }
 
     /**
-     * Mètode que actualitza les sèries del top10 de sèries més visualitzades
+     * Metodo que actualiza las Series del top10 de Series más visualizadas
      */
     @Override
     public void refreshTopVisualitzacions(IterableStrategy topVisualitzacions) {
-        //Fem el clear de la llista del top 10 de visualitzacions
         int numRows = tableModelVis.getRowCount();
         for (int i = numRows - 1; i >= 0; i--)
             tableModelVis.removeRow(i);
@@ -377,26 +358,25 @@ public class UBFLIXParty extends JFrame implements RegisterObserver{
     }
 
     /**
-     * Refresca la llista d'Usuaris del client actual
+     * Método que refresca la lista de Usuarios del Cliente actual
      */
     public void refreshUsersList() {
         comboBoxUsuaris.removeAllItems();
         List<String> l = (List<String>) controller.listUsuaris(currentClient);
-        for (String userName : l) {
+        for (String userName : l)
             comboBoxUsuaris.addItem(userName);
-        }
+
         comboBoxUsuaris.setSelectedIndex(0);
         setCurrentUser((String)comboBoxUsuaris.getSelectedItem());
     }
 
     /**
-     * Mètode que serveix per obrir la finestra amb tota la informació i opcions disponibles d'un episodi seleccionat
-     * @param idSerie identificador de la sèrie de l'episodi
-     * @param temporada número de temporada de l'episodi
-     * @param nomEpisodi títol de l'episodi seleccionat
-     * @param duracio duració de l'episodi seleccionat
-     *
-     * @param descripcio descripció de l'episodi seleccionat
+     * Mètodo para abrir la ventana con toda la informacion y opciones disponibles de un Episodio
+     * @param idSerie identificador de la Serie
+     * @param temporada número de Temporada
+     * @param nomEpisodi título del Episodio seleccionado
+     * @param duracio duración del Episodio seleccionado
+     * @param descripcio descripción del Episodio seleccionado
      */
     private void onEpisodi(String idSerie, int temporada, int idEpisodi, String nomEpisodi, int duracio, String descripcio) {
         FormEpisodi dialog = new FormEpisodi(this, controller, idSerie, temporada, idEpisodi, nomEpisodi, duracio, descripcio, currentClient, currentUser);
@@ -404,19 +384,28 @@ public class UBFLIXParty extends JFrame implements RegisterObserver{
         dialog.setVisible(true);
     }
 
-    public String getCurrentClient() {
-        return currentClient;
-    }
+    /**
+     * Método que devuelve el Cliente actual que está usando la APP
+     * @return Cliente actual
+     */
+    public String getCurrentClient() { return currentClient; }
 
-    public void setCurrentClient(String currentClient) {
-        this.currentClient = currentClient;
-    }
+    /**
+     * Método para establecer un Cliente como el actual que usa la APP
+     * @param currentClient Nuevo Cliente actual
+     */
+    public void setCurrentClient(String currentClient) { this.currentClient = currentClient; }
 
-    public String getCurrentUser() {
-        return currentUser;
-    }
+    /**
+     * Método que devuelve el Usuario actual que está usando la APP
+     * @return Usuario actual
+     */
+    public String getCurrentUser() { return currentUser; }
 
-    public void setCurrentUser(String currentUser) {
-        this.currentUser = currentUser;
-    }
+    /**
+     * Método para establecer un Usuario como el actual que usa la APP
+     * @param currentUser Nuevo Usuario actual
+     */
+    public void setCurrentUser(String currentUser) { this.currentUser = currentUser; }
+
 }

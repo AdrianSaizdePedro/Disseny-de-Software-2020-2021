@@ -2,7 +2,7 @@ package ub.edu.model;
 
 public class Visualitzacio {
     // Atributos
-    private int idVisualitzacio;
+    private final int idVisualitzacio;
     private String idClient;
     private String idUser;
     private String nomSerie;
@@ -11,8 +11,6 @@ public class Visualitzacio {
     private String estat;
     private String data;
     private int segonsRestants;
-
-
 
     /**
      * Metodo constructor de Visualitzacio
@@ -41,17 +39,6 @@ public class Visualitzacio {
     /*         SETTERS Y GETTERS        */
     //////////////////////////////////////
 
-    /**
-     * Metodo para devolver el ID de la Visualizacion
-     * @return ID de la Visualizacion
-     */
-    public int getIdVisualitzacio() { return idVisualitzacio; }
-
-    /**
-     * Metodo para establecer el ID de la Visualizacion
-     * @param idVisualitzacio ID de la Visualizacion
-     */
-    public void setIdVisualitzacio(int idVisualitzacio) { this.idVisualitzacio = idVisualitzacio; }
 
     /**
      * Metodo para devolver el ID del Cliente
@@ -182,12 +169,14 @@ public class Visualitzacio {
     @Override
     public boolean equals(Object obj) { return ((obj instanceof Visualitzacio) && this.idVisualitzacio == ((Visualitzacio)obj).idVisualitzacio); }
 
-
-    public boolean updateVisualitzacio(String data, int segonsRestants) {
+    /**
+     * Método para actualizar una Visualizacion de un Episodio
+      * @param data Nueva fecha de visualizacion
+     *  @param segonsRestants Segundos restante spor ver
+     */
+    public void updateVisualitzacio(String data, int segonsRestants) {
         this.setData(data);
         this.setSegonsRestants(segonsRestants);
-        if(segonsRestants == 0) setEstat("Watched");
-
-        return true;
+        if (segonsRestants == 0) setEstat("Watched");
     }
 }

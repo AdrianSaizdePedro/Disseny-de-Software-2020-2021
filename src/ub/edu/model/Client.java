@@ -9,8 +9,8 @@ public class Client {
     private String pwd;
     private String dni;
     private String adress;
-    private boolean vip;
-    private List<Usuari> usuaris;
+    private final boolean vip;
+    private final List<Usuari> usuaris;
 
 
     /**
@@ -53,12 +53,6 @@ public class Client {
     public List<Usuari> getUsuaris() {
         return usuaris;
     }
-
-    /**
-     * Método para actualizar la Lista de Usuarios del Cliente
-     * @param llistaUsuaris  todos los usuarios del Cliente
-     * */
-    public void setUsuaris(List<Usuari> llistaUsuaris) { usuaris = llistaUsuaris; }
 
     /**
      * Método para devolver la contraseña del Cliente
@@ -122,22 +116,6 @@ public class Client {
      * */
     public void setAdress(String adress) {
         this.adress = adress;
-    }
-
-    /**
-     * Método para saber si el Cliente es vip o no
-     * @return True, False
-     * */
-    public boolean isVip() {
-        return vip;
-    }
-
-    /**
-     * Método para establecer el Cliente como VIP o no VIP
-     * @param vip si es VIP o no el Cliente
-     * */
-    public void setVip(boolean vip) {
-        this.vip = vip;
     }
 
 

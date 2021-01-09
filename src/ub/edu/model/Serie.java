@@ -9,8 +9,8 @@ public class Serie {
     private String titol;
     private String descripcio;
     private List<Temporada> temporades;
-    private int idProductora;
-    private List<Artista> artistas;
+    private final int idProductora;
+    private final List<Artista> artistas;
 
     /**
      * Método contructor de una Serie
@@ -64,14 +64,6 @@ public class Serie {
     }
 
     /**
-     * Método para devolver la descripcion de una Serie
-     * @return descripcion
-     * */
-    public String getDescripcio() {
-        return descripcio;
-    }
-
-    /**
      * Método para establecer la descripcion de una Serie
      * @param descripcio descripcion de la Serie
      * */
@@ -90,38 +82,6 @@ public class Serie {
      * @param temporades lista de temporadas de la Serie
      * */
     public void setTemporades(List<Temporada> temporades) { this.temporades = temporades; }
-
-    /**
-     * Método para devolver el Id de una productora de una Serie
-     * @return Id de la Productora de la Serie
-     * */
-    public int getIdProductora() {
-        return idProductora;
-    }
-
-    /**
-     * Método para establecer el Id de una productora de una Serie
-     * @param idProductora Id de la productora de la Serie
-     * */
-    public void setIdProductora(int idProductora) {
-        this.idProductora = idProductora;
-    }
-
-    /**
-     * Método para devolver la lista de Artistas de una Serie
-     * @return lista de Artistas
-     * */
-    public List<Artista> getArtistas() {
-        return artistas;
-    }
-
-    /**
-     * Método para establecer la lista de Artistas de una Serie
-     * @param artistas lista de Artistas de la Serie
-     * */
-    public void setArtistas(List<Artista> artistas) {
-        this.artistas = artistas;
-    }
 
 
 
