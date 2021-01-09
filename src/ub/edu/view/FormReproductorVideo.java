@@ -40,7 +40,7 @@ public class FormReproductorVideo extends JDialog {
     private static final int MAX_TIME_REPRODUCCION = 125;
     private static final String MEDIA_URL = "assets/sample-mp4-file.mp4";
 
-    private void initAndShowGUI() {
+    private void initComponents() {
         // This method is invoked on the EDT thread
         this.setLocation(20, 20);
         panelReproduccio.setSize(530, 375);
@@ -56,11 +56,8 @@ public class FormReproductorVideo extends JDialog {
     /**
      * Mètode que es crida quan es tanca la finestra de reproducció
      * @param evt event del mètode
-     * @param serie identificador de la sèrie de l'episodi a reproduir
-     * @param numTemporada número de temporada de l'episodi a reproduir
-     * @param idEpisodi títol de l'episodi a reproduir
      */
-    private void formWindowClosing(WindowEvent evt, String serie, int numTemporada, int idEpisodi) {
+    private void formWindowClosing(WindowEvent evt) {
         if (mediaPlayer!=null) {
 
             int tempsVisualitzacio = (int) ((mediaPlayer.getCurrentTime().toMillis()) / 1000.0);
@@ -69,7 +66,7 @@ public class FormReproductorVideo extends JDialog {
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
             LocalDate localDate = LocalDate.now();
 
-            String info = controller.visualitzarEpisodi(1, currentClient, currentUser, serie, numTemporada, idEpisodi, dtf.format(localDate), segundosRestantes);
+            String info = controller.visualitzarEpisodi(1, currentClient, currentUser, serie, numTemporada, episodi, dtf.format(localDate), segundosRestantes);
 
 
             JOptionPane.showMessageDialog(panelReproduccio, info);
@@ -142,18 +139,18 @@ public class FormReproductorVideo extends JDialog {
 
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(WindowEvent evt) {
-                formWindowOpened(evt, idSerie, numTemporada, episodi);
+                formWindowOpened(evt);
             }
-            public void windowClosing(WindowEvent evt) { formWindowClosing(evt, idSerie, numTemporada, episodi);
+            public void windowClosing(WindowEvent evt) { formWindowClosing(evt);
             }
         });
         setDefaultCloseOperation(HIDE_ON_CLOSE);
     }
 
-    private void formWindowOpened(WindowEvent evt, String serie, int numTemporada, int episodi) {
+    private void formWindowOpened(WindowEvent evt) {
         if(duracioVisualitzada == duracioVisualitzacio) duracioVisualitzada = 0;
         if (scene == null || !scene.getWindow().isShowing()) {
-                SwingUtilities.invokeLater(this::initAndShowGUI);
+                SwingUtilities.invokeLater(this::initComponents);
             }
     }
 }

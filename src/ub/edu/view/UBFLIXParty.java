@@ -18,7 +18,7 @@ import java.util.List;
  * GUI bàsica de l'app UBFLIX on es mostraran les diferents llistes corresponent a cada client que hagi realitzat el Log In.
  * Aquesta classe hereta de JFrame i és la vista principal de l'aplicació.
  */
-public class UBFLIXParty extends JFrame implements RegisterObserver{
+public class UBFLIXParty extends JFrame implements RegisterObserver, Component{
 
     private JPanel jPanel;
     private JTabbedPane llistes;
@@ -51,6 +51,9 @@ public class UBFLIXParty extends JFrame implements RegisterObserver{
     private String currentClient;
     private String currentUser;
 
+    //Patró Composite
+    private ArrayList<Component> components;
+
 
     /**
      * Constructor de la classe UBFLIX que crida initComponents()
@@ -58,15 +61,16 @@ public class UBFLIXParty extends JFrame implements RegisterObserver{
     public UBFLIXParty(IController controller) {
         super("UBFLIXParty");
         this.controller = controller;
+        this.components = new ArrayList<>();
         this.setLocation(30, 30);
         setVisible(true);
     }
 
     /**
-     * Mètode que inicialitza tots els components de la GUI de l'APP UBFLIXParty i s'afegeixen els listeners dels events
+     * Mètod e que inicialitza tots els components de la GUI de l'APP UBFLIXParty i s'afegeixen els listeners dels events
      * per quan es fa l'acció sobre els diferents components de Java.
      */
-    public void init(){
+    public void initComponents(){
         add(jPanel);
         setSize(800,700);
         setMinimumSize(new Dimension(800,700));
@@ -407,5 +411,21 @@ public class UBFLIXParty extends JFrame implements RegisterObserver{
      * @param currentUser Nuevo Usuario actual
      */
     public void setCurrentUser(String currentUser) { this.currentUser = currentUser; }
+
+    /**
+     * Metodo para añadir un Component a la lista
+     * @param component Un Component
+     */
+    public void add(Component component) {
+        components.add(component);
+    }
+
+    /**
+     * Metodo para eliminar un Component de la lista
+     * @param component Un Component
+     */
+    public void remove(Component component) {
+        components.remove(component);
+    }
 
 }

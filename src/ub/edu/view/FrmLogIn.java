@@ -11,7 +11,7 @@ import java.awt.event.*;
 /**
  * Formulari d'inici de sessió de la APP, es demana l'usuari i la contrassenya. Aquesta classe hereta de JDialog
  */
-class FrmLogIn extends JDialog {
+class FrmLogIn extends JDialog{
     private JPanel contentPane;
     private JButton btnLogIn;
     private JButton buttonCancel;
@@ -37,12 +37,13 @@ class FrmLogIn extends JDialog {
         setResizable(false);
         this.setLocation(50, 50);
         setTitle("LOG IN");
+
     }
 
     /**
      * Mètode que inicialitza tots els components de la GUI del LogIn i s'afegeixen els listeners dels events per quan es fa la acció sobre els botons.
      */
-    private void initComponents() {
+    public void initComponents() {
         btnLogIn.addActionListener(e -> onOK());
 
         buttonCancel.addActionListener(e -> onCancel());

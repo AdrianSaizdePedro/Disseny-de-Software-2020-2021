@@ -22,8 +22,12 @@ class FrmValoracio extends JDialog {
     private JPanel panelCor;
     private JButton btnCor;
 
-    private final IController controller;
     private final Frame owner;
+    private final IController controller;
+
+    private final String idSerie;
+    private final int numTemporada;
+    private final int idEpisodi;
 
     /**
      * Constructor de la classe FrmValoracio
@@ -33,17 +37,18 @@ class FrmValoracio extends JDialog {
     protected FrmValoracio(Frame owner, IController controller, String idSerie, int numTemporada, int idEpisodi) {
         this.owner = owner;
         this.controller = controller;
-        initComponents(idSerie, numTemporada, idEpisodi);
+        this.idSerie = idSerie;
+        this.numTemporada = numTemporada;
+        this.idEpisodi = idEpisodi;
+        initComponents();
         setResizable(false);
         setTitle("Valoració de l'episodi");
     }
 
     /**
      * Mètode que inicialitza tots els components de la GUI de FrmValoracio i s'afegeixen els listeners dels events per quan es fa l'acció sobre els diferents components de Java.
-     * @param idSerie identificador de la sèrie de l'episodi
-     * @param numTemporada número de temporada de l'episodi
      */
-    private void initComponents(String idSerie, int numTemporada, int idEpisodi) {
+    private void initComponents() {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(btnValorar);

@@ -4,6 +4,8 @@ import ub.edu.controller.IController;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 
 /**
@@ -19,37 +21,46 @@ class FormEpisodi extends JDialog{
     private JLabel duracioEpisodi;
     private final String currentClient;
     private final String currentUsuari;
-    private final IController controller;
+
     private final Frame owner;
+    private final IController controller;
+
+    private final String idSerie;
+    private final int numTemporada;
+    private final int idEpisodi;
+    private final String titol;
+    private final int duracio;
+    private final String descripcio;
 
     /**
      * Constructor de la classe FormEpisodi que crida initComponents()
-     * @param idSerie identificador de la sèrie de l'episodi
-     * @param numTemporada número de temporada de l'episodi
-     * @param episodi títol de l'episodi seleccionat
-     * @param duracio duració de l'episodi seleccionat
-     * @param descripcio descripció de l'episodi seleccionat
-     */
-    protected FormEpisodi(Frame owner, IController controller, String idSerie, int numTemporada, int idEpisodi, String episodi, int duracio, String descripcio, String currentClient, String currentUsuari) {
-        this.owner = owner;
-        this.controller = controller;
-        this.currentClient = currentClient;
-        this.currentUsuari = currentUsuari;
-
-        initComponents(idSerie, numTemporada, idEpisodi, episodi, duracio, descripcio);
-        setResizable(false);
-        setTitle("Detall de l'episodi");
-    }
-
-    /**
-     * Mètode que inicialitza tots els components de la GUI de FormEpisodi i s'afegeixen els listeners dels events per quan es fa l'acció sobre els diferents components de Java.
      * @param idSerie identificador de la sèrie de l'episodi
      * @param numTemporada número de temporada de l'episodi
      * @param titol títol de l'episodi seleccionat
      * @param duracio duració de l'episodi seleccionat
      * @param descripcio descripció de l'episodi seleccionat
      */
-    private void initComponents(String idSerie, int numTemporada, int idEpisodi, String titol, int duracio, String descripcio) {
+    protected FormEpisodi(Frame owner, IController controller, String idSerie, int numTemporada, int idEpisodi, String titol, int duracio, String descripcio, String currentClient, String currentUsuari) {
+        this.owner = owner;
+        this.controller = controller;
+        this.idSerie = idSerie;
+        this.numTemporada = numTemporada;
+        this.idEpisodi = idEpisodi;
+        this.titol = titol;
+        this.duracio = duracio;
+        this.descripcio = descripcio;
+        this.currentClient = currentClient;
+        this.currentUsuari = currentUsuari;
+
+        initComponents();
+        setResizable(false);
+        setTitle("Detall de l'episodi");
+    }
+
+    /**
+     * Mètode que inicialitza tots els components de la GUI de FormEpisodi i s'afegeixen els listeners dels events per quan es fa l'acció sobre els diferents components de Java.
+     */
+    private void initComponents() {
         add(jpanel);
         setModal(true);
         setSize(500, 400);
@@ -60,7 +71,13 @@ class FormEpisodi extends JDialog{
         duracioEpisodi.setText("<html><u> Duració:</u> " + duracio + " segons");
         descripcioEpisodi.setText("<html><body style=' width: 300 px'>"+"<html><u> Descripció:</u> " + descripcio);
         valorarButton.setEnabled(estaVisualitzat(idSerie, numTemporada, idEpisodi));
-        tornarAlMenuButton.addActionListener(e -> dispose());
+        tornarAlMenuButton.addActionListener(e -> onCancel());
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                onCancel();
+            }
+        });
 
         visualitzarButton.addActionListener(e -> onVisualitzar(idSerie, numTemporada, idEpisodi, duracio));
 
@@ -98,5 +115,9 @@ class FormEpisodi extends JDialog{
         return controller.isEpisodiVisualitzat(idSerie, numTemporada, idEpisodi, this.currentClient, this.currentUsuari);
     }
 
+    /**
+     * Método que se llama cuando cerramos una ventana usando la "x"
+     */
+    private void onCancel() { dispose(); }
 
 }

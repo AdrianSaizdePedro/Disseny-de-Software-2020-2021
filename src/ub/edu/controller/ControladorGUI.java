@@ -3,6 +3,7 @@ package ub.edu.controller;
 import ub.edu.model.*;
 import ub.edu.resources.service.DataService;
 import ub.edu.resources.service.FactoryMOCK;
+import ub.edu.view.Component;
 import ub.edu.view.RegisterObserver;
 import ub.edu.view.UBFLIXParty;
 
@@ -13,7 +14,7 @@ public class ControladorGUI implements IController {
     // Atributos
     private volatile static ControladorGUI uniqueInstance;
     private final Facade facana;
-    private final UBFLIXParty view;
+    private final Component view;
 
     /**
      * Método constructor del ControladorGUI aplicando el patrón Singleton
@@ -23,6 +24,7 @@ public class ControladorGUI implements IController {
         facana = Facade.getInstance(dataService);
         view = new UBFLIXParty(this);
     }
+
 
     public static ControladorGUI getInstance() {
         if (uniqueInstance == null) {
@@ -45,7 +47,7 @@ public class ControladorGUI implements IController {
      */
     public void init() throws Exception {
         facana.init();
-        view.init();
+        view.initComponents();
     }
 
 
