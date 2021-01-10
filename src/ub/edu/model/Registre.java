@@ -79,7 +79,7 @@ public class Registre implements RegisterSubject {
             preferencias.put(idUser, new ArrayList<>());
             preferencias.get(idUser).add(new Preferencia(id, idClient, idUser, idSerie));
         }
-        preferencias.get(idUser).add(new Preferencia(id, idClient, idUser, idSerie));
+        else preferencias.get(idUser).add(new Preferencia(id, idClient, idUser, idSerie));
     }
 
     /**
@@ -142,7 +142,7 @@ public class Registre implements RegisterSubject {
             visualitzacions.put(idUser, new ArrayList<>());
             visualitzacions.get(idUser).add(new Visualitzacio(id, idClient, idUser, nomSerie, numTemporada, idEpisodi, data, segonsRestants));
         }
-        visualitzacions.get(idUser).add(new Visualitzacio(id, idClient, idUser, nomSerie, numTemporada, idEpisodi, data, segonsRestants));
+        else visualitzacions.get(idUser).add(new Visualitzacio(id, idClient, idUser, nomSerie, numTemporada, idEpisodi, data, segonsRestants));
         notifyObservers();
     }
 
@@ -234,7 +234,7 @@ public class Registre implements RegisterSubject {
             corsValoracio.put(idUser, new ArrayList<>());
             corsValoracio.get(idUser).add(new CorValoracio(id, idClient, idUser, nomSerie, idTemp, idEpisodi, data));
         }
-        corsValoracio.get(idUser).add(new CorValoracio(id, idClient, idUser, nomSerie, idTemp, idEpisodi, data));
+        else corsValoracio.get(idUser).add(new CorValoracio(id, idClient, idUser, nomSerie, idTemp, idEpisodi, data));
     }
 
     /**
@@ -285,7 +285,7 @@ public class Registre implements RegisterSubject {
             estrellasValoracio.put(idUser, new ArrayList<>());
             estrellasValoracio.get(idUser).add(new EstrellasValoracio(id, idClient, idUser, nomSerie, idTemp, idEpisodi, numEstrelles, data));
         }
-        estrellasValoracio.get(idUser).add(new EstrellasValoracio(id, idClient, idUser, nomSerie, idTemp, idEpisodi, numEstrelles, data));
+        else estrellasValoracio.get(idUser).add(new EstrellasValoracio(id, idClient, idUser, nomSerie, idTemp, idEpisodi, numEstrelles, data));
         notifyObservers();
     }
 

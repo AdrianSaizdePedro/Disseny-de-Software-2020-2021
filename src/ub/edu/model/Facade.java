@@ -361,7 +361,7 @@ public class Facade{
 
         String idUser = facadeClients.getIDUsuariByClientAndUsername(idClient, nameUser);
         facadeRegistre.addSerieToMyList(id, idClient, idUser, titol);
-        dataService.addPreferencia(new Preferencia(id, idClient, idUser, titol));
+        //dataService.addPreferencia(new Preferencia(id, idClient, idUser, titol));
     }
 
 
