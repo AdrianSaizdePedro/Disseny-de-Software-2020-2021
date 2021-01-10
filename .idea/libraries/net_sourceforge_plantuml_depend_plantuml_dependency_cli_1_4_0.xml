@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="net.sourceforge.plantuml-depend:plantuml-dependency-cli:1.4.0" type="repository">
+    <properties maven-id="net.sourceforge.plantuml-depend:plantuml-dependency-cli:1.4.0" />
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/net/sourceforge/plantuml-depend/plantuml-dependency-cli/1.4.0/plantuml-dependency-cli-1.4.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/ant/ant/1.8.4/ant-1.8.4.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/ant/ant-launcher/1.8.4/ant-launcher-1.8.4.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/net/sourceforge/plantuml-depend/plantuml-dependency-common-cli/1.4.0/plantuml-dependency-common-cli-1.4.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/net/sourceforge/plantuml-depend/plantuml-dependency-common/1.4.0/plantuml-dependency-common-1.4.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

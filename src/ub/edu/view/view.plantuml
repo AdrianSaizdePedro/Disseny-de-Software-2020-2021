@@ -1,0 +1,256 @@
+@startuml
+
+title __VIEW's Class Diagram__\n
+
+
+    namespace ub.edu.view {
+      class ub.edu.view.FerPost {
+          - controller : IController
+          - cancelButton : JButton
+          - sendButton : JButton
+          # FerPost()
+          - initComponents()
+      }
+    }
+
+  
+
+
+    namespace ub.edu.view {
+      class ub.edu.view.FormEpisodi {
+          - controller : IController
+          - currentClient : String
+          - currentUsuari : String
+          - descripcioEpisodi : JLabel
+          - duracioEpisodi : JLabel
+          - owner : Frame
+          - tornarAlMenuButton : JButton
+          - valorarButton : JButton
+          - visualitzarButton : JButton
+          # FormEpisodi()
+          - estaVisualitzat()
+          - initComponents()
+          - onVisualitzar()
+      }
+    }
+
+  
+
+    namespace ub.edu.view {
+      class ub.edu.view.FormPerfilUsuari {
+          - controller : IController
+          - ferPostButton : JButton
+          - listFollowers : JList<String>
+          - listFollowing : JList<String>
+          - listPost : JList<String>
+          - listPostRebuts : JList<String>
+          - owner : Frame
+          # FormPerfilUsuari()
+          - initComponents()
+          - onFerPost()
+          - refreshFollowers()
+          - refreshFollowing()
+          - refreshListAll()
+          - refreshPostRebuts()
+          - refreshPosts()
+      }
+    }
+
+  
+
+
+    namespace ub.edu.view {
+      class ub.edu.view.FormReproduccio {
+          - controller : IController
+          - currentClient : String
+          - currentUser : String
+          - duracioVisualitzacio : int
+          - duracioVisualitzada : int
+          - episodi : int
+          - numTemporada : int
+          - owner : Frame
+          - progressBar : JProgressBar
+          - serie : String
+          - tancaButton : JButton
+          - timer : Timer
+          # FormReproduccio()
+          - formWindowClosing()
+          - formWindowOpened()
+          - initComponents()
+          - onPause()
+      }
+    }
+
+  
+
+
+    namespace ub.edu.view {
+      class ub.edu.view.FormReproductorVideo {
+          {static} - MAX_TIME_REPRODUCCION : int
+          {static} - MEDIA_URL : String
+          - controller : IController
+          - currentClient : String
+          - currentUser : String
+          - duracioVisualitzacio : int
+          - duracioVisualitzada : int
+          - episodi : int
+          - fxPanel : JFXPanel
+          - mediaPlayer : MediaPlayer
+          - numTemporada : int
+          - owner : Frame
+          - segonsRestants : int
+          - serie : String
+          + FormReproductorVideo()
+      }
+    }
+
+  
+
+
+    namespace ub.edu.view {
+      class ub.edu.view.FormUser {
+          - controller : IController
+          - owner : Frame
+          + FormUser()
+          - initComponents()
+          - onRegister()
+      }
+    }
+
+  
+
+
+    namespace ub.edu.view {
+      class ub.edu.view.FrmLogIn {
+          - controller : IController
+          - btnLogIn : JButton
+          - btnRegistrar : JButton
+          - labelPassword : JLabel
+          - labelUsername : JLabel
+          - owner : Frame
+          - textPassword : JPasswordField
+          - textUsername : JTextField
+          # FrmLogIn()
+          - initComponents()
+          - onRegistrar()
+      }
+    }
+
+  
+
+
+    namespace ub.edu.view {
+      class ub.edu.view.FrmRegistre {
+          - controller : IController
+          - owner : Frame
+          - textAdreca : JTextField
+          - textDNI : JTextField
+          - textNomReal : JTextField
+          - textPassword1 : JPasswordField
+          - textPassword2 : JPasswordField
+          - textUsername : JTextField
+          - textUsuari : JTextField
+          # FrmRegistre()
+          - initComponents()
+      }
+    }
+
+  
+
+
+    namespace ub.edu.view {
+      class ub.edu.view.FrmValoracio {
+          - controller : IController
+          - barraEmocio : JSlider
+          - btnCor : JButton
+          - btnValorar : JButton
+          - owner : Frame
+          - panelCor : JPanel
+          - panelEmocio : JPanel
+          # FrmValoracio()
+          - initComponents()
+          - valorarCor()
+          - valorarEstrella()
+      }
+    }
+
+  
+
+    namespace ub.edu.controller{
+      interface ub.edu.controller.IController{}
+    }
+
+    namespace ub.edu.view {
+      interface ub.edu.view.RegisterObserver {
+          {abstract} + refreshTopValoracions()
+          {abstract} + refreshTopVisualitzacions()
+      }
+    }
+
+  
+
+
+    namespace ub.edu.view {
+      class ub.edu.view.UBFLIXParty {
+          {static} - NUM_MAX_TOPS : int
+          - controller : IController
+          - btnAfegirMyList : JButton
+          - btnCrearUsuari : JButton
+          - btnTreureMyList : JButton
+          - comboBoxUsuaris : JComboBox<String>
+          - currentClient : String
+          - currentUser : String
+          - labelTopValoracions : JLabel
+          - labelTopVisualitzacions : JLabel
+          - listAll : JList<String>
+          - listContinueWatching : JList<String>
+          - listMyList : JList<String>
+          - listWatched : JList<String>
+          - perfilButton : JButton
+          - tableTopValoracions : JTable
+          - tableTopVisualitzacions : JTable
+          + UBFLIXParty()
+          + init()
+          + refreshTopValoracions()
+          + refreshTopVisualitzacions()
+          + refreshUsersList()
+          - addSerieToMyList()
+          - ferLogIn()
+          - inicialitzarLlistaTopValoracions()
+          - inicialitzarLlistaTopVisualitzacions()
+          - onEpisodi()
+          - refreshContinueWatching()
+          - refreshEpisodis()
+          - refreshLlistes()
+          - refreshMyList()
+          - refreshTemporades()
+          - refreshWatched()
+          - removeSerieFromMyList()
+          - userActionPerformed()
+      }
+    }
+
+  ub.edu.view.UBFLIXParty .up.|> ub.edu.view.RegisterObserver
+  ub.edu.view.UBFLIXParty o-left- ub.edu.controller.IController : controller
+
+  ub.edu.view.UBFLIXParty ..>  ub.edu.view.FrmLogIn : create
+  ub.edu.view.UBFLIXParty ..>  ub.edu.view.FormPerfilUsuari : create
+  ub.edu.view.UBFLIXParty ..>  ub.edu.view.FormUser : create
+  ub.edu.view.UBFLIXParty ..>  ub.edu.view.FormEpisodi : create
+
+  ub.edu.view.FrmLogIn ..>  ub.edu.view.FrmRegistre : create
+
+  ub.edu.view.FormEpisodi ..>  ub.edu.view.FrmValoracio : create
+  ub.edu.view.FormEpisodi ..>  ub.edu.view.FormReproduccio : create
+  ub.edu.view.FormEpisodi ..>  ub.edu.view.FormReproductorVideo : create
+
+  ub.edu.view.FormPerfilUsuari ..>  ub.edu.view.FerPost : create
+
+
+
+
+
+
+
+
+@enduml

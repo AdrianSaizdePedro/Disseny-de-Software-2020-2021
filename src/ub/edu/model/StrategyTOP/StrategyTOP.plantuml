@@ -1,0 +1,46 @@
+@startuml
+
+title __STRATEGYTOP's Class Diagram__\n
+
+    namespace ub.edu.model {
+      namespace StrategyTOP {
+        abstract class ub.edu.model.StrategyTOP.IterableStrategy {
+            - heap : List<V>
+            + iterator()
+            # IterableStrategy()
+            {abstract} # transform()
+        }
+      }
+
+
+  
+
+
+      namespace StrategyTOP {
+        class ub.edu.model.StrategyTOP.TOPValoracionsStrategy {
+            + TOPValoracionsStrategy()
+            # transform()
+        }
+      }
+
+
+  
+
+
+
+      namespace StrategyTOP {
+        class ub.edu.model.StrategyTOP.TOPVisualitzacionsStrategy {
+            + TOPVisualitzacionsStrategy()
+            # transform()
+        }
+      }
+    }
+
+  
+
+  ub.edu.model.StrategyTOP.IterableStrategy .up.|> java.lang.Iterable
+  ub.edu.model.StrategyTOP.TOPValoracionsStrategy -up-|> ub.edu.model.StrategyTOP.IterableStrategy
+  ub.edu.model.StrategyTOP.TOPVisualitzacionsStrategy -up-|> ub.edu.model.StrategyTOP.IterableStrategy
+
+
+@enduml

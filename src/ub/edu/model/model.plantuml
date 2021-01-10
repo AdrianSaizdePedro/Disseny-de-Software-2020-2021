@@ -1,0 +1,172 @@
+@startuml
+title __Diagrama de Clases Simplificado__ \n
+
+
+
+
+namespace ub.edu.model{
+ namespace ub.edu.model.FacadeClient{
+  class ub.edu.model.FacadeClient.CarteraClients {
+   - llistaClientes : List<Client>
+  }
+
+  class ub.edu.model.FacadeClient.FacadeClients {
+   {static} - uniqueInstance : FacadeClients
+   - carteraClients : CarteraClients
+  }
+
+  class ub.edu.model.FacadeClient.Client {
+    - adress : String
+    - dni : String
+    - nom : String
+    - pwd : String
+    - usuaris : List<Usuari>
+    - vip : boolean
+  }
+
+  class ub.edu.model.FacadeClient.Usuari {
+          - followers : List<Usuari>
+          - followings : List<Usuari>
+          - idUser : String
+          - nom : String
+          - nomClient : String
+  }
+
+ }
+
+ namespace ub.edu.model.FacadeSeries{
+  class ub.edu.model.FacadeSeries.FacadeSerie {
+          {static} - uniqueInstance : FacadeSeries
+          catalegSeries : CatalegSeries
+  }
+
+  class ub.edu.model.FacadeSeries.CatalegSeries {
+          - llistaSeries : List<Serie>
+  }
+
+  class ub.edu.model.FacadeSeries.Serie {
+          - artistas : List<Artista>
+          - descripcio : String
+          - idProductora : int
+          - idSerie : String
+          - temporades : List<Temporada>
+          - titol : String
+  }
+
+  class ub.edu.model.FacadeSeries.Temporada {
+          - idSerie : String
+          - idTemporada : int
+          - llistaEpisodis : List<Episodi>
+          - numEpisodis : int
+  }
+
+  class ub.edu.model.FacadeSeries.Episodi {
+          - data : String
+          - descripcio : String
+          - duracio : int
+          - idSerie : String
+          - idTemporada : int
+          - idioma : String
+          - nomSerie : String
+          - numEpisodi : int
+          - titol : String
+  }
+
+  class ub.edu.model.FacadeSeries.Artista {
+          - nom_actor : String
+          - nom_personatje : String
+          - serieId : String
+  }
+
+ }
+
+ namespace ub.edu.model.FacadeRegistre{
+  class ub.edu.model.FacadeRegistre.FacadeRegistre {
+          {static} - uniqueInstance : FacadeRegistre
+          registre : Registre
+  }
+
+
+  interface ub.edu.model.FacadeRegistre.RegisterSubject {
+          {abstract} + notifyObservers()
+          {abstract} + registerObserver()
+          {abstract} + removeObserver()
+  }
+
+  class ub.edu.model.FacadeRegistre.Registre {
+          - corsValoracio : Map<String, ArrayList<CorValoracio>>
+          - estrellasValoracio : Map<String, ArrayList<EstrellasValoracio>>
+          - observers : List<RegisterObserver>
+          - preferencias : Map<String, ArrayList<Preferencia>>
+          - visualitzacions : Map<String, ArrayList<Visualitzacio>>
+
+  }
+
+  class ub.edu.model.FacadeRegistre.Preferencia {
+          - idClient : String
+          - idPreferencia : int
+          - idSerie : String
+          - nameUser : String
+  }
+
+  class ub.edu.model.FacadeRegistre.Visualitzacio {
+          - data : String
+          - estat : String
+          - idClient : String
+          - idEpisodi : int
+          - idUser : String
+          - idVisualitzacio : int
+          - nomSerie : String
+          - numTemporada : int
+          - segonsRestants : int
+  }
+
+  abstract class ub.edu.model.FacadeRegistre.Valoracio {
+            # data : String
+            - idClient : String
+            - idEpisodi : int
+            - idTemporada : int
+            - idUsuari : String
+            - idVal : int
+            - nomSerie : String
+  }
+
+  class ub.edu.model.FacadeRegistre.EstrellasValoracio {
+            - estrellas : int
+  }
+
+  class ub.edu.model.FacadeRegistre.CorValoracio {}
+
+ }
+
+
+ class ub.edu.model.Facade{
+  {static} - uniqueInstance : Facade
+ }
+}
+
+
+
+ub.edu.model.Facade *-right-> ub.edu.model.FacadeClient.FacadeClients
+ub.edu.model.Facade *-up-> ub.edu.model.FacadeSeries.FacadeSerie
+ub.edu.model.Facade *-down-> ub.edu.model.FacadeRegistre.FacadeRegistre
+
+ub.edu.model.FacadeClient.FacadeClients *--> ub.edu.model.FacadeClient.CarteraClients : carteraClients
+ub.edu.model.FacadeClient.CarteraClients *--> ub.edu.model.FacadeClient.Client : Client
+ub.edu.model.FacadeClient.Usuari <--* ub.edu.model.FacadeClient.Client : Usuari
+
+ub.edu.model.FacadeSeries.FacadeSerie -down-> ub.edu.model.FacadeSeries.CatalegSeries : catalegSeries
+ub.edu.model.FacadeSeries.Serie<-left- ub.edu.model.FacadeSeries.CatalegSeries : serie
+ub.edu.model.FacadeSeries.Serie -up-> ub.edu.model.FacadeSeries.Artista: artistas
+ub.edu.model.FacadeSeries.Serie -right-> ub.edu.model.FacadeSeries.Temporada: temporada
+ub.edu.model.FacadeSeries.Temporada -up-> ub.edu.model.FacadeSeries.Episodi: episodi
+
+ub.edu.model.FacadeRegistre.CorValoracio -up-|> ub.edu.model.FacadeRegistre.Valoracio
+ub.edu.model.FacadeRegistre.EstrellasValoracio -up-|> ub.edu.model.FacadeRegistre.Valoracio
+ub.edu.model.FacadeRegistre.FacadeRegistre -down-> ub.edu.model.FacadeRegistre.Registre : registre
+ub.edu.model.FacadeRegistre.Registre -up-> ub.edu.model.FacadeRegistre.Preferencia: preferencia
+ub.edu.model.FacadeRegistre.Registre -up-> ub.edu.model.FacadeRegistre.Visualitzacio: visualitzacio
+ub.edu.model.FacadeRegistre.Registre -right-> ub.edu.model.FacadeRegistre.EstrellasValoracio: estrellasValoracio
+ub.edu.model.FacadeRegistre.Registre -right-> ub.edu.model.FacadeRegistre.CorValoracio: corValoracio
+ub.edu.model.FacadeRegistre.Registre .up.|> ub.edu.model.FacadeRegistre.RegisterSubject : registerSubject
+@enduml
