@@ -402,6 +402,7 @@ public class Facade{
         for (String serie: allEpisodisVisualitzats) {
             if ((Collections.frequency(allEpisodisVisualitzats, serie) == facadeSeries.getTotalEpisodisBySerie(serie)) && !list.contains(serie)) list.add(serie);
         }
+        if (list.isEmpty()) throw new Exception("No hi ha sèries completament visualitzades.");
         return list;
 
     }

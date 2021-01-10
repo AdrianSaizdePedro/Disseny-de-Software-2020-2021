@@ -100,7 +100,6 @@ public class FacadeRegistre {
             if(repr.getEstat().equals("Watched")) titols.add(repr.getNomSerie());
 
         }
-        if (titols.isEmpty()) throw new Exception("No hi ha sèries completament visualitzades.");
         return titols;
     }
 
