@@ -117,7 +117,7 @@ public class Registre implements RegisterSubject {
     public List<Visualitzacio> listVisualitzacions(String idUser) {
         List<Visualitzacio> visual = new ArrayList<>();
         if (!this.visualitzacions.containsKey(idUser)) return visual;
-        visual.addAll(this.visualitzacions.get(idUser));
+        for (Visualitzacio v: visualitzacions.get(idUser)) visual.add(v);
         return visual;
     }
 
@@ -182,7 +182,6 @@ public class Registre implements RegisterSubject {
      * @return HasMap con:
      *          - Key: nombre de la serie
      *          - Value: listado de visualizaciones de sus episodios.
-     *
      */
     private Set<Entry<String, ArrayList<Visualitzacio>>> getVisualitzacionsBySerie() {
         Map<String, ArrayList<Visualitzacio>> visualitzacionsForSerie = new HashMap<>();
