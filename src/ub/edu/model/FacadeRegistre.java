@@ -120,7 +120,7 @@ public class FacadeRegistre {
         for (Visualitzacio repr: visualitzacions) {
             if(repr.getEstat().equals("Watching") && !titols.contains(repr.getNomSerie())) titols.add(repr.getNomSerie());
         }
-        if (titols.isEmpty()) throw new Exception("No hi ha cap sèrie començada.");
+        //if (titols.isEmpty()) throw new Exception("No hi ha cap sèrie començada.");
         return titols;
     }
 

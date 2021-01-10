@@ -423,12 +423,14 @@ public class Facade{
         if (!existsNameUser(client, user)) throw new Exception("L'usuari '" + user + "' del client '"+ client + "' no existeix.");
         String idUser = facadeClients.getIDUsuariByClientAndUsername(client, user);
 
-        List<String> list = facadeRegistre.listContinueWatchingList(idUser);
-        List<String> allEpisodisVisualitzats = facadeRegistre.listContinueWatchingList(idUser);
+        List<String> listWatching = new ArrayList();
+        listWatching.addAll(facadeRegistre.listContinueWatchingList(idUser));
+        List<String> allEpisodisVisualitzats = facadeRegistre.listWatchedList(idUser);
         for (String serie: allEpisodisVisualitzats) {
-            if (Collections.frequency(allEpisodisVisualitzats, serie) == facadeSeries.getTotalEpisodisBySerie(serie) && !list.contains(serie)) list.add(serie);
+            if (Collections.frequency(allEpisodisVisualitzats, serie) != facadeSeries.getTotalEpisodisBySerie(serie) && !listWatching.contains(serie)) listWatching.add(serie);
         }
-        return list;
+        if (listWatching.isEmpty()) throw new Exception("No hi ha cap sèrie començada.");
+        return listWatching;
     }
 
 
