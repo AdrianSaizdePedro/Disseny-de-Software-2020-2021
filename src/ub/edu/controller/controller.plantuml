@@ -2,8 +2,7 @@
 
 title __CONTROLLER's Class Diagram__\n
 
-  namespace  {
-    namespace b.edu.controller {
+    namespace ub.edu.controller {
       class ub.edu.controller.ControladorGUI {
           {static} - uniqueInstance : ControladorGUI
           + addClient()
@@ -30,11 +29,11 @@ title __CONTROLLER's Class Diagram__\n
           - ControladorGUI()
       }
     }
-  }
+
   
 
-  namespace  {
-    namespace b.edu.controller {
+
+    namespace ub.edu.controller {
       class ub.edu.controller.ControllerTESTS {
           + ControllerTESTS()
           + addClient()
@@ -73,11 +72,10 @@ title __CONTROLLER's Class Diagram__\n
           + visualitzarEpisodi()
       }
     }
-  }
+
   
 
-  namespace  {
-    namespace b.edu.controller {
+    namespace ub.edu.controller {
       interface ub.edu.controller.IController {
           {abstract} + addClient()
           {abstract} + addSerieToMyList()
@@ -100,7 +98,7 @@ title __CONTROLLER's Class Diagram__\n
           {abstract} + visualitzarEpisodi()
       }
     }
-  }
+
   
 
   ub.edu.controller.ControladorGUI .up.|> ub.edu.controller.IController
