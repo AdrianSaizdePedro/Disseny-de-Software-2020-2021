@@ -400,9 +400,10 @@ public class Facade{
         List<String> list = new ArrayList<>();
         List<String> allEpisodisVisualitzats = facadeRegistre.listWatchedList(idUser);
         for (String serie: allEpisodisVisualitzats) {
-            if (Collections.frequency(allEpisodisVisualitzats, serie) == facadeSeries.getTotalEpisodisBySerie(serie) && !list.contains(serie)) list.add(serie);
+            if ((Collections.frequency(allEpisodisVisualitzats, serie) == facadeSeries.getTotalEpisodisBySerie(serie)) && !list.contains(serie)) list.add(serie);
         }
         return list;
+
     }
 
 
@@ -423,7 +424,7 @@ public class Facade{
         String idUser = facadeClients.getIDUsuariByClientAndUsername(client, user);
 
         List<String> list = facadeRegistre.listContinueWatchingList(idUser);
-        List<String> allEpisodisVisualitzats = facadeRegistre.listWatchedList(idUser);
+        List<String> allEpisodisVisualitzats = facadeRegistre.listContinueWatchingList(idUser);
         for (String serie: allEpisodisVisualitzats) {
             if (Collections.frequency(allEpisodisVisualitzats, serie) == facadeSeries.getTotalEpisodisBySerie(serie) && !list.contains(serie)) list.add(serie);
         }
@@ -453,7 +454,7 @@ public class Facade{
         String nomSerie = facadeSeries.getNomSerieByID(idSerie);
         String idUser = facadeClients.getIDUsuariByClientAndUsername(idClient, nomUser);
         int result = facadeRegistre.visualitzarEpisodi(id, idClient, idUser, nomSerie, numTemporada, idEpisodi, data, segonsRestants);
-        if(result == 0) dataService.addVisualitzacio(new Visualitzacio(id, idClient, idUser, nomSerie, numTemporada, idEpisodi, data, segonsRestants));
+        //if(result == 0) dataService.addVisualitzacio(new Visualitzacio(id, idClient, idUser, nomSerie, numTemporada, idEpisodi, data, segonsRestants));
         return result;
     }
 

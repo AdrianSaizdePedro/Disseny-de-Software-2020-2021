@@ -98,8 +98,9 @@ public class FacadeRegistre {
         List<String> titols = new ArrayList<>();
         for (Visualitzacio repr: visualitzacions) {
             if(repr.getEstat().equals("Watched")) titols.add(repr.getNomSerie());
+
         }
-        if (titols.isEmpty()) throw new Exception("No hi ha sèries visualitzades.");
+        if (titols.isEmpty()) throw new Exception("No hi ha sèries completament visualitzades.");
         return titols;
     }
 
@@ -117,7 +118,7 @@ public class FacadeRegistre {
         List<Visualitzacio> visualitzacions = registre.listVisualitzacions(idUser);
         List<String> titols = new ArrayList<>();
         for (Visualitzacio repr: visualitzacions) {
-            if(repr.getEstat().equals("Watching")) titols.add(repr.getNomSerie());
+            if(repr.getEstat().equals("Watching") && !titols.contains(repr.getNomSerie())) titols.add(repr.getNomSerie());
         }
         if (titols.isEmpty()) throw new Exception("No hi ha cap sèrie començada.");
         return titols;
